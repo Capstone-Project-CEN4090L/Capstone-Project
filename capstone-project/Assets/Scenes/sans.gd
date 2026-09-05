@@ -8,6 +8,7 @@ var health: int
 @export var attack_range: float = 60.0
 @export var attack_damage: int = 20
 @export var attack_cooldown: float = 1.0
+@export var vertical_detection_range: float = 80.0
 
 var can_attack: bool = true
 var attacking: bool = false
@@ -27,38 +28,49 @@ func _physics_process(delta):
 	if player == null:
 		return
 	
-	var distance_to_player = global_position.distance_to(player.global_position)
+	var horizontal_distance = abs(player.global_position.x - global_position.x)
+	var vertical_distance = abs(player.global_position.y - global_position.y)
 	
-	#for body in attack_area.get_overlapping_bodies():
-		#print("AttackArea sees: ", body.name)
+	# Player is too far above or below Sans
+	if vertical_distance > vertical_detection_range:
+		velocity.x = 0
+		
+		if !attacking:
+			sprite.play("idle")
+		
+		move_and_slide()
+		return
 	
-	# Enemy attacks when player is close
-	if distance_to_player <= attack_range:
+	# Enemy attacks when player is close horizontally
+	if horizontal_distance <= attack_range:
 		velocity.x = 0
 		
 		if can_attack and !attacking:
 			attack()
 	
-	
 	# Enemy walks toward player
-	elif distance_to_player <= detection_range and !attacking:
+	elif horizontal_distance <= detection_range and !attacking:
 		var direction = sign(player.global_position.x - global_position.x)
 		
-		velocity.x = direction * move_speed
-		
-		if direction < 0:
-			sprite.flip_h = true
-			attack_area.position.x = -abs(attack_area.position.x)
+		if direction != 0:
+			velocity.x = direction * move_speed
+			
+			if direction < 0:
+				sprite.flip_h = true
+				attack_area.position.x = -abs(attack_area.position.x)
+			else:
+				sprite.flip_h = false
+				attack_area.position.x = abs(attack_area.position.x)
+			
+			sprite.play("walk")
 		else:
-			sprite.flip_h = false
-			attack_area.position.x = abs(attack_area.position.x)
-		
-		#sprite.play("walk")
+			velocity.x = 0
+			sprite.play("idle")
 	
 	# Enemy stands still if player is too far away
 	elif !attacking:
 		velocity.x = 0
-		#sprite.play("idle")
+		sprite.play("idle")
 	
 	move_and_slide()
 
