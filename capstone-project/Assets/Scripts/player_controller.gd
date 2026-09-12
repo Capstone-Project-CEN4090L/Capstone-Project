@@ -28,6 +28,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var tag: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
 @onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
+@onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
 
 func _ready() -> void:
 	$bgmusic.stream = bgmusic
@@ -116,10 +117,12 @@ func _physics_process(delta: float) -> void:
 			tag.flip_h = false
 			muzzle.position.x = 18.0
 			muzzle.rotation_degrees = 0
+			sword.scale.x = 1
 		elif direction < 0:
 			tag.flip_h = true
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
+			sword.scale.x = -1
 		if is_on_floor():
 			if is_attacking:
 				pass
