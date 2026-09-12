@@ -11,8 +11,9 @@ const SPEED = 350.0
 const JUMP_VELOCITY = -450.0
 @export var max_health: int = 100
 var health: int
-@export var shoot_cooldown: float = 0.4
-var can_shoot: bool = true
+var is_attacking = false
+#@export var shoot_cooldown: float = 0.4
+#var can_shoot: bool = true
 
 var bullet = preload("res://Assets/Scenes/bullet.tscn")
 var shootsfx = preload("res://Assets/Sounds/shoot.mp3")
@@ -25,6 +26,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 
 # Player character is temporarily named "tag"
 @onready var tag: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
+@onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 
 func _ready() -> void:
@@ -51,16 +53,14 @@ func _physics_process(delta: float) -> void:
 		return
 	else:
 		if Input.is_action_just_pressed("ui_left"):
-			if tag.animation != "newdj_1" and tag.animation != "newdj_2":
-				muzzle.rotation_degrees = 180
+			muzzle.rotation_degrees = 180
 		elif Input.is_action_just_pressed("ui_right"):
-			if tag.animation != "newdj_1" and tag.animation != "newdj_2":
-				muzzle.rotation_degrees = 0
-		if Input.is_action_just_pressed("shoot"):
-			if tag.animation != "fall" and tag.animation != "newdj_2":
-				shoot()
-			else:
-				pass
+			muzzle.rotation_degrees = 0
+		if Input.is_action_just_pressed("attack") and is_attacking == false:
+			is_attacking = true
+			tag_sword.play("attack")
+			$sfx.stream = shootsfx
+			$sfx.play()
 		#while is_on_floor() and Input.is_action_pressed("run"):
 			#if tag.flip_h:
 				#velocity.x = SPEED * -1
@@ -121,14 +121,18 @@ func _physics_process(delta: float) -> void:
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
 		if is_on_floor():
-			if tag.animation == "boost" and direction != 0:
+			if is_attacking:
+				pass
+			elif tag.animation == "boost" and direction != 0:
 				tag.play("roll")
-			elif direction == 0 and tag.animation != "shoot":
+			elif direction == 0:
 				tag.play("idle")
-			elif tag.animation != "roll" and tag.animation != "shoot" and tag.animation != "walkshoot":
+			elif tag.animation != "roll":
 				tag.play("walk")
 		else:
-			if tag.animation == "newdj_1" or tag.animation == "newdj_2" or tag.animation == "boostshoot" or tag.animation == "boost" or tag.animation == "fall" or tag.animation == "doublejump" or tag.animation == "airshoot" or tag.animation == "djshoot":
+			if is_attacking:
+				pass
+			elif tag.animation == "boost" or tag.animation == "fall" or tag.animation == "doublejump":
 				pass
 			elif can_doublejump == false:
 				tag.play("doublejump")
@@ -162,53 +166,55 @@ func _physics_process(delta: float) -> void:
 				velocity.x = lerp(velocity.x, 0.0, 0.1)
 	move_and_slide()
 
+
+
 # Fires bullets from muzzle node
-func shoot():
-	if !can_shoot:
-		return
-	
-	if tag.animation != "newdj_1":
-		if get_tree().get_node_count_in_group("bullets") > 3:
-			pass
-		else:
-			can_shoot = false
-			
-			# Sets muzzle direction before bullet is created
-			if !tag.flip_h:
-				muzzle.rotation_degrees = 0
-				muzzle.position = Vector2(18, 1)
-			else:
-				muzzle.rotation_degrees = 180
-				muzzle.position = Vector2(-18, 1)
-			
-			$sfx.stream = shootsfx
-			$sfx.play()
-			
-			var b = bullet.instantiate()
-			b.transform = muzzle.global_transform
-			
-			# Sets bullet direction based on player direction
-			if tag.flip_h:
-				b.direction = Vector2.LEFT
-			else:
-				b.direction = Vector2.RIGHT
-			
-			owner.add_child(b)
-			
-			if tag.animation != "newdj_2":
-				if tag.animation == "jump" or tag.animation == "airshoot":
-					tag.play("airshoot")
-				elif tag.animation == "idle" or tag.animation == "shoot":
-					tag.play("shoot")
-				elif tag.animation == "doublejump" or tag.animation == "djshoot":
-					tag.play("djshoot")
-				elif tag.animation == "boost" or tag.animation == "boostshoot":
-					tag.play("boostshoot")
-				else:
-					tag.play("walkshoot")
-			
-			await get_tree().create_timer(shoot_cooldown).timeout
-			can_shoot = true
+#func shoot():
+	#if !can_shoot:
+		#return
+	#
+	#if tag.animation != "newdj_1":
+		#if get_tree().get_node_count_in_group("bullets") > 3:
+			#pass
+		#else:
+			#can_shoot = false
+			#
+			## Sets muzzle direction before bullet is created
+			#if !tag.flip_h:
+				#muzzle.rotation_degrees = 0
+				#muzzle.position = Vector2(18, 1)
+			#else:
+				#muzzle.rotation_degrees = 180
+				#muzzle.position = Vector2(-18, 1)
+			#
+			#$sfx.stream = shootsfx
+			#$sfx.play()
+			#
+			#var b = bullet.instantiate()
+			#b.transform = muzzle.global_transform
+			#
+			## Sets bullet direction based on player direction
+			#if tag.flip_h:
+				#b.direction = Vector2.LEFT
+			#else:
+				#b.direction = Vector2.RIGHT
+			#
+			#owner.add_child(b)
+			#
+			#if tag.animation != "newdj_2":
+				#if tag.animation == "jump" or tag.animation == "airshoot":
+					#tag.play("airshoot")
+				#elif tag.animation == "idle" or tag.animation == "shoot":
+					#tag.play("shoot")
+				#elif tag.animation == "doublejump" or tag.animation == "djshoot":
+					#tag.play("djshoot")
+				#elif tag.animation == "boost" or tag.animation == "boostshoot":
+					#tag.play("boostshoot")
+				#else:
+					#tag.play("walkshoot")
+			#
+			#await get_tree().create_timer(shoot_cooldown).timeout
+			#can_shoot = true
 	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -234,7 +240,15 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			tag.play("jump")
 		else:
 			tag.play("doublejump")
+	if tag.animation == "attack":
+		is_attacking = false
+		tag.play("idle")
 	pass
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "attack":
+		is_attacking = false
+		tag.play("idle")
 
 func take_damage(amount: int):
 	health -= amount
@@ -251,4 +265,14 @@ func die():
 	print("Player died")
 	position = Vector2(146, -16)
 	health = 100
+
+
+func _on_sword_body_entered(body: Node2D) -> void:
+	if is_attacking == true:
+		if body.has_method("take_damage"):
+			body.take_damage(10)
+	pass
 	
+func _unhandled_input(event: InputEvent) ->void:
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
