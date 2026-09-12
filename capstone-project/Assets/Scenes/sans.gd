@@ -56,10 +56,10 @@ func _physics_process(delta):
 			velocity.x = direction * move_speed
 			
 			if direction < 0:
-				sprite.flip_h = false
+				sprite.flip_h = true
 				attack_area.position.x = -abs(attack_area.position.x)
 			else:
-				sprite.flip_h = true
+				sprite.flip_h = false
 				attack_area.position.x = abs(attack_area.position.x)
 			
 			sprite.play("walk")
