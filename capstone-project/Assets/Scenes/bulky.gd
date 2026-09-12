@@ -17,7 +17,7 @@ var attacking: bool = false
 @onready var sprite: AnimatedSprite2D = $Node2D/AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_collision: CollisionShape2D = $AttackArea/CollisionShape2D
-
+@onready var ground_check: RayCast2D = $GroundCheck
 
 func _ready():
 	health = max_health
@@ -53,13 +53,23 @@ func _physics_process(delta):
 		var direction = sign(player.global_position.x - global_position.x)
 		
 		if direction != 0:
-			velocity.x = direction * move_speed
+			# Move ground check in front of enemy
+			ground_check.target_position.x = 25 * direction
+			
+			# Only follow if there is ground ahead
+			if ground_check.is_colliding():
+				velocity.x = direction * move_speed
+			else:
+				velocity.x = 0
+				sprite.play("idle")
+				move_and_slide()
+				return
 			
 			if direction < 0:
-				sprite.flip_h = true
+				sprite.flip_h = false
 				attack_area.position.x = -abs(attack_area.position.x)
 			else:
-				sprite.flip_h = false
+				sprite.flip_h = true
 				attack_area.position.x = abs(attack_area.position.x)
 			
 			sprite.play("walk")
