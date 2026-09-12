@@ -9,6 +9,10 @@ var can_doublejump = false
 var is_getup = false
 const SPEED = 350.0
 const JUMP_VELOCITY = -450.0
+@export var max_health: int = 100
+var health: int
+@export var shoot_cooldown: float = 0.4
+var can_shoot: bool = true
 
 var bullet = preload("res://Assets/Scenes/bullet.tscn")
 var shootsfx = preload("res://Assets/Sounds/shoot.mp3")
@@ -26,6 +30,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 func _ready() -> void:
 	$bgmusic.stream = bgmusic
 	$bgmusic.play()
+	health = max_health
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("ui_left", "ui_right")
@@ -56,11 +61,11 @@ func _physics_process(delta: float) -> void:
 				shoot()
 			else:
 				pass
-		while is_on_floor() and Input.is_action_pressed("run"):
-			if tag.flip_h:
-				velocity.x = SPEED * -1
-			else:
-				velocity.x = SPEED
+		#while is_on_floor() and Input.is_action_pressed("run"):
+			#if tag.flip_h:
+				#velocity.x = SPEED * -1
+			#else:
+				#velocity.x = SPEED
 				
 		# Aerial boost, refreshes upon landing
 		if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor():
@@ -159,22 +164,38 @@ func _physics_process(delta: float) -> void:
 
 # Fires bullets from muzzle node
 func shoot():
+	if !can_shoot:
+		return
+	
 	if tag.animation != "newdj_1":
 		if get_tree().get_node_count_in_group("bullets") > 3:
 			pass
 		else:
+			can_shoot = false
+			
+			# Sets muzzle direction before bullet is created
+			if !tag.flip_h:
+				muzzle.rotation_degrees = 0
+				muzzle.position = Vector2(18, 1)
+			else:
+				muzzle.rotation_degrees = 180
+				muzzle.position = Vector2(-18, 1)
+			
 			$sfx.stream = shootsfx
 			$sfx.play()
+			
 			var b = bullet.instantiate()
 			b.transform = muzzle.global_transform
+			
+			# Sets bullet direction based on player direction
+			if tag.flip_h:
+				b.direction = Vector2.LEFT
+			else:
+				b.direction = Vector2.RIGHT
+			
 			owner.add_child(b)
+			
 			if tag.animation != "newdj_2":
-				if !tag.flip_h:
-					muzzle.rotation_degrees = 0
-					muzzle.position = Vector2(18, 1)
-				else:
-					muzzle.rotation_degrees = 180
-					muzzle.position = Vector2(-18, 1)
 				if tag.animation == "jump" or tag.animation == "airshoot":
 					tag.play("airshoot")
 				elif tag.animation == "idle" or tag.animation == "shoot":
@@ -185,6 +206,10 @@ func shoot():
 					tag.play("boostshoot")
 				else:
 					tag.play("walkshoot")
+			
+			await get_tree().create_timer(shoot_cooldown).timeout
+			can_shoot = true
+	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if !is_processing_input():
@@ -210,3 +235,20 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		else:
 			tag.play("doublejump")
 	pass
+
+func take_damage(amount: int):
+	health -= amount
+	print("Player Health: ", health)
+	if health <= 0:
+		die()
+
+func heal(amount: int):
+	health += amount
+	health = min(health, max_health)
+	print("Player Health: ", health)
+
+func die():
+	print("Player died")
+	position = Vector2(146, -16)
+	health = 100
+	
