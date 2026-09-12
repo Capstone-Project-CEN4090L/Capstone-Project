@@ -129,14 +129,12 @@ text = "Use Arrow Keys to move!
 Press \"z\" to jump!
 Press \"z\" while in the air to double jump!
 Press \"x\" while in the air to boost!
-Press \"c\" to attack!
-Press \"r\" to reload the scene!"
+(Boosting near the ground initiates a roll! Jump during a roll to boost ahead!)
+Press \"c\" to shoot!"
 label_settings = SubResource("LabelSettings_8enyv")
 
 [node name="Player" parent="." unique_id=1257514843 groups=["player"] instance=ExtResource("2_n6e0r")]
 position = Vector2(62, -50)
-collision_layer = 5
-collision_mask = 1
 
 [node name="Layer1" type="TileMapLayer" parent="." unique_id=1941509571]
 y_sort_enabled = true
@@ -146,9 +144,7 @@ tile_set = SubResource("TileSet_nr86v")
 
 [node name="sans" parent="." unique_id=2130607118 instance=ExtResource("5_aap4o")]
 position = Vector2(370, -21)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("4_8enyv")
+script = ExtResource("4_aap4o")
 max_health = 50
 move_speed = 100.0
 detection_range = 300.0
@@ -160,7 +156,6 @@ vertical_detection_range = 80.0
 [node name="AttackArea" type="Area2D" parent="sans" unique_id=1987452253]
 position = Vector2(-40, 4)
 collision_layer = 0
-collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sans/AttackArea" unique_id=1077076787]
 position = Vector2(41, -5)
