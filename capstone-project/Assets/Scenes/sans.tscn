@@ -68,8 +68,8 @@ animations = [{
 }]
 
 [node name="sans" type="CharacterBody2D" unique_id=2133663499 groups=["enemies"]]
-collision_layer = 6
-collision_mask = 6
+collision_layer = 14
+collision_mask = 4
 script = ExtResource("1_631pb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=556822882 groups=["enemies"]]
