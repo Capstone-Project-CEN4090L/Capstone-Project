@@ -10,6 +10,12 @@ var health: int
 @export var attack_cooldown: float = 0.5
 @export var vertical_detection_range: float = 80.0
 @export var horizontal_dead_zone: float = 30.0
+#new
+@export var knockback_strength: float = 170.0
+@export var knockback_time: float = 0.2
+
+var being_knocked_back: bool = false
+
 
 @export var lunge_speed: float = 500.0
 @export var lunge_time: float = 0.12
@@ -38,6 +44,9 @@ func _physics_process(delta):
 	var horizontal_distance = abs(player.global_position.x - global_position.x)
 	var vertical_distance = abs(player.global_position.y - global_position.y)
 	
+	if being_knocked_back:
+		move_and_slide()
+		return
 	# Player is too far above or below enemy
 	if vertical_distance > vertical_detection_range:
 		velocity.x = 0
@@ -146,14 +155,34 @@ func attack():
 	attacking = false
 	can_attack = true
 
+func apply_knockback(hit_direction: Vector2, knockback_amount: float):
+	if being_knocked_back:
+		return
+	
+	being_knocked_back = true
+	
+	velocity.x = hit_direction.x * knockback_amount
+	
+	await get_tree().create_timer(knockback_time).timeout
+	
+	velocity.x = 0
+	being_knocked_back = false
 
-func take_damage(amount: int):
+func take_damage(
+	amount: int,
+	hit_direction: Vector2 = Vector2.ZERO,
+	knockback_amount: float = 150.0
+):
 	health -= amount
 	
 	print("Enemy Health: ", health)
 	
+	if hit_direction != Vector2.ZERO:
+		apply_knockback(hit_direction, knockback_amount)
+	
 	if health <= 0:
 		die()
+
 
 
 func die():

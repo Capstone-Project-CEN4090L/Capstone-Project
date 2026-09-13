@@ -160,6 +160,8 @@ attack_range = 60.0
 attack_damage = 20
 attack_cooldown = 1.0
 vertical_detection_range = 80.0
+knockback_strength = 170.0
+knockback_time = 0.2
 
 [node name="AttackArea" type="Area2D" parent="bulky" unique_id=1987452253]
 position = Vector2(-40, 4)
@@ -185,6 +187,8 @@ attack_damage = 15
 attack_cooldown = 0.5
 vertical_detection_range = 80.0
 horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
 

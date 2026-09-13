@@ -12,6 +12,13 @@ const JUMP_VELOCITY = -450.0
 @export var max_health: int = 100
 var health: int
 var is_attacking = false
+@export var normal_knockback: float = 150.0
+@export var upgraded_knockback: float = 300.0
+
+
+var knockback_upgrade_unlocked: bool = true
+var extra_knockback_enabled: bool = false
+
 #@export var shoot_cooldown: float = 0.4
 #var can_shoot: bool = true
 
@@ -36,6 +43,9 @@ func _ready() -> void:
 	health = max_health
 	
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("toggle_knockback"):
+		toggle_knockback_upgrade()
+	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 	# Add the gravity.
@@ -258,6 +268,19 @@ func take_damage(amount: int):
 	print("Player Health: ", health)
 	if health <= 0:
 		die()
+		
+func unlock_knockback_upgrade():
+	knockback_upgrade_unlocked = true
+	extra_knockback_enabled = true
+	
+func toggle_knockback_upgrade():
+	if knockback_upgrade_unlocked:
+		extra_knockback_enabled = !extra_knockback_enabled
+		
+		if extra_knockback_enabled:
+			print("Extra knockback ON")
+		else:
+			print("Extra knockback OFF")
 
 func heal(amount: int):
 	health += amount
@@ -269,13 +292,23 @@ func die():
 	position = Vector2(146, -16)
 	health = 100
 
-
 func _on_sword_body_entered(body: Node2D) -> void:
 	if is_attacking == true:
 		if body.has_method("take_damage"):
-			body.take_damage(10)
-	pass
+			var hit_direction = Vector2.RIGHT
+			
+			if tag.flip_h:
+				hit_direction = Vector2.LEFT
+			
+			var knockback_amount = normal_knockback
+			
+			if knockback_upgrade_unlocked and extra_knockback_enabled:
+				knockback_amount = upgraded_knockback
+			
+			body.take_damage(10, hit_direction, knockback_amount)
+
 	
+@warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
