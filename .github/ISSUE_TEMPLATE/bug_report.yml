@@ -1,0 +1,76 @@
+name: Bug Report
+description: Report unexpected behavior, a crash, or something not working as intended
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Bug summary
+      description: One-line description of the problem
+      placeholder: "e.g. Player clips through platform edge when dashing"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps someone else could follow to see the bug
+      placeholder: |
+        1. Load test level
+        2. Run toward platform edge
+        3. Dash at the edge
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area affected
+      options:
+        - Movement/Gameplay
+        - Systems (progression, save state)
+        - Combat/AI
+        - Art/Animation
+        - Design/Level/Docs
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low (cosmetic/minor)
+        - Medium (annoying but workaroundable)
+        - High (blocks progress or breaks a feature)
+        - Blocker (crashes or breaks the build)
+    validations:
+      required: true
+
+  - type: input
+    id: related-feature
+    attributes:
+      label: Related feature/requirement (optional)
+      description: If this bug is tied to a specific feature or RD requirement, note it here
+      placeholder: "e.g. Related to FR-3: dash ability"
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots, logs, or Godot error output (optional)
