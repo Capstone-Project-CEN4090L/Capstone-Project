@@ -1,0 +1,63 @@
+name: Feature Request
+description: Propose a new feature, ability, level element, or task
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Feature summary
+      description: One-line description of what this feature is
+      placeholder: "e.g. Add double-jump ability unlocked after Level 1 boss"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should this feature do? Include any relevant context or design intent.
+    validations:
+      required: true
+
+  - type: input
+    id: rd-requirement
+    attributes:
+      label: Related RD doc requirement
+      description: Section/ID of the functional or non-functional requirement this satisfies (e.g. "FR-4.2" or section name). Required per project rubric — unlinked features don't count.
+      placeholder: "e.g. FR-3: Player shall gain new traversal abilities from bosses"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Movement/Gameplay
+        - Systems (progression, save state)
+        - Combat/AI
+        - Art/Animation
+        - Design/Level/Docs
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: Checklist of what "done" looks like for this feature
+      placeholder: |
+        - [ ] Ability triggers on correct input
+        - [ ] Animation plays correctly
+        - [ ] Works in test level
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked existing issues to avoid duplicates
+          required: true
