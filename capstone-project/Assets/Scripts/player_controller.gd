@@ -36,11 +36,14 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
+@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
 	$bgmusic.stream = bgmusic
 	$bgmusic.play()
 	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = health
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_knockback"):
@@ -265,9 +268,16 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func take_damage(amount: int):
 	health -= amount
+	health = max(health, 0)
+	
+	health_bar.value = health
+	
 	print("Player Health: ", health)
+	
 	if health <= 0:
 		die()
+		
+
 		
 func unlock_knockback_upgrade():
 	knockback_upgrade_unlocked = true
@@ -285,6 +295,7 @@ func toggle_knockback_upgrade():
 func heal(amount: int):
 	health += amount
 	health = min(health, max_health)
+	health_bar.value = health
 	print("Player Health: ", health)
 
 func die():
