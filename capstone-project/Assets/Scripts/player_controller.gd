@@ -39,8 +39,6 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
-	$bgmusic.stream = bgmusic
-	$bgmusic.play()
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = health
@@ -168,8 +166,11 @@ func _physics_process(delta: float) -> void:
 					velocity.x = SPEED * -8
 			else:
 				velocity.y = JUMP_VELOCITY
+
 		# Double jump function
 		if Input.is_action_just_pressed("up") and can_doublejump and !is_on_floor():
+				$sfx.stream = dubjumpsfx
+				$sfx.play()
 				can_doublejump = false
 				tag.play("doublejump")
 				velocity.y = JUMP_VELOCITY * 0.8
