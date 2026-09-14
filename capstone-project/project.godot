@@ -19,6 +19,10 @@ run/main_scene="uid://fuc16vrvjj3o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UILayer="*uid://briglalxdwfyp"
+
 [input]
 
 up={

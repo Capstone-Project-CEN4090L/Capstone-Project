@@ -223,12 +223,3 @@ script = null
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1441186807]
 tile_map_data = PackedByteArray("AAApAAAAAAACAAAAAAAqAAAAAAACAAAAAAArAAAAAAACAAAAAAABAPj/AAABAAMAAAAAAPj/AAAAAAMAAAAaAPL/AAABAAAAAAAbAPL/AAABAAAAAAAcAPL/AAABAAAAAAAdAPL/AAABAAAAAAAeAPL/AAABAAAAAAAfAPL/AAABAAAAAAAgAPL/AAADAAAAAAAZAPL/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_1iifl")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=616066285]
-
-[node name="HealthBar" type="ProgressBar" parent="CanvasLayer" unique_id=1128529827]
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 63.0
-offset_bottom = 52.0
-value = 100.0

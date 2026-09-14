@@ -36,12 +36,14 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
-@onready var health_bar = get_node("../CanvasLayer/HealthBar")
+#@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
 	health = max_health
-	health_bar.max_value = max_health
-	health_bar.value = health
+	#health_bar.max_value = max_health
+	#health_bar.value = health
+	UILayer.set_health_max(max_health)
+	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_knockback"):
@@ -271,7 +273,8 @@ func take_damage(amount: int):
 	health -= amount
 	health = max(health, 0)
 	
-	health_bar.value = health
+	#health_bar.value = health
+	UILayer.update_health(health)
 	
 	print("Player Health: ", health)
 	
@@ -296,7 +299,8 @@ func toggle_knockback_upgrade():
 func heal(amount: int):
 	health += amount
 	health = min(health, max_health)
-	health_bar.value = health
+	#health_bar.value = health
+	UILayer.update_health(health)
 	print("Player Health: ", health)
 
 func die():
