@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnpj10xpkvye6"]
+[gd_scene format=3 uid="uid://cnpj10xpkvye6"]
 
 [ext_resource type="Script" uid="uid://c81f1uxn0qxyd" path="res://sans.gd" id="1_631pb"]
-[ext_resource type="Texture2D" uid="uid://7s6nkf1ebi2n" path="res://Assets/Sprites/sans_ow/overworld_base.png" id="2_nxrpn"]
+[ext_resource type="Texture2D" uid="uid://bmqyunbx0pgxo" path="res://Assets/Sprites/Skeleton/skeleton-1.png" id="2_ww4od"]
+[ext_resource type="Texture2D" uid="uid://tusm0gwdwsu7" path="res://Assets/Sprites/Skeleton/skeleton-2.png" id="3_biac6"]
 [ext_resource type="Texture2D" uid="uid://bqa445kqevuw1" path="res://Assets/Sprites/sans_ow/overworld_ded.png" id="3_hqoh5"]
+[ext_resource type="Texture2D" uid="uid://2qf5ivuf84pu" path="res://Assets/Sprites/Skeleton/skeleton-3.png" id="4_nn6a4"]
+[ext_resource type="Texture2D" uid="uid://b04lb1c8qugcs" path="res://Assets/Sprites/Skeleton/skeleton-4.png" id="5_boith"]
+[ext_resource type="Texture2D" uid="uid://wtr1mnvgsxei" path="res://Assets/Sprites/Skeleton/skeleton-5.png" id="6_vexr5"]
+[ext_resource type="Texture2D" uid="uid://brdqgta56rt5o" path="res://Assets/Sprites/Skeleton/skeleton-6.png" id="7_vxegj"]
+[ext_resource type="Texture2D" uid="uid://g8ljiesgyhb2" path="res://Assets/Sprites/Skeleton/skeleton-7.png" id="8_vyxp8"]
+[ext_resource type="Texture2D" uid="uid://54twbii8qj1r" path="res://Assets/Sprites/Skeleton/skeleton-8.png" id="9_ccmbi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vuckr"]
 radius = 12.0
@@ -12,9 +19,30 @@ height = 32.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_nxrpn")
+"texture": ExtResource("2_ww4od")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_biac6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nn6a4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_boith")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vexr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vxegj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vyxp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ccmbi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -34,34 +62,35 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_hqoh5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"dies",
 "speed": 5.0
 }]
 
-[node name="sans" type="CharacterBody2D" groups=["enemies"]]
-collision_layer = 6
-collision_mask = 6
+[node name="fast" type="CharacterBody2D" unique_id=2133663499 groups=["enemies"]]
+collision_layer = 14
+collision_mask = 4
 script = ExtResource("1_631pb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=556822882 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
 shape = SubResource("CapsuleShape2D_vuckr")
 
-[node name="Node2D" type="Area2D" parent="."]
+[node name="Node2D" type="Area2D" parent="." unique_id=2040864580]
 collision_layer = 6
 collision_mask = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D" unique_id=1601422633]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=344921836]
 light_mask = 6
 visibility_layer = 6
 sprite_frames = SubResource("SpriteFrames_p25hk")
 autoplay = "default"
+frame_progress = 0.40050992
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" groups=["enemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1724849185 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
 shape = SubResource("CapsuleShape2D_vuckr")
