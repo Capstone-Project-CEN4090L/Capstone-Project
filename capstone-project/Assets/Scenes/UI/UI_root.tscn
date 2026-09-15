@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cp18pr22s1ncn"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1975728676]
+process_mode = 1
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=285013450]
 offset_left = 25.0

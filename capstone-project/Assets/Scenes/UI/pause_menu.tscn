@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c8h7yg8thtlv"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1801952764]
+process_mode = 3
+
+[node name="Panel" type="Panel" parent="." unique_id=842148918]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -204.5
+offset_right = 85.0
+offset_bottom = 204.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1333982393]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=532887105]
+layout_mode = 2
+text = "Paused"
