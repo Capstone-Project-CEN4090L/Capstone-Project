@@ -557,6 +557,11 @@ position = Vector2(21.5, 1.125)
 shape = SubResource("RectangleShape2D_biyew")
 disabled = true
 
+[node name="CoyoteTime" type="Timer" parent="." unique_id=1369823112]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="animation_finished" from="AgentAnimator/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AgentAnimator/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AgentAnimator/AnimatedSprite2D/sword" to="." method="_on_sword_body_entered"]
+[connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]

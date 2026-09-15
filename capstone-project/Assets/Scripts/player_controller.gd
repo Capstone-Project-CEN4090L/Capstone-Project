@@ -5,6 +5,7 @@ var dashing = false
 var dash_wait = false
 var lerprate = 0.2
 var can_dash = true
+var can_jump = true
 var can_doublejump = false
 var is_getup = false
 const SPEED = 350.0
@@ -36,6 +37,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
+@onready var coyote_time: Timer = $CoyoteTime
 #@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
@@ -46,8 +48,12 @@ func _ready() -> void:
 	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
+	
 	if Input.is_action_just_pressed("toggle_knockback"):
 		toggle_knockback_upgrade()
+	
+	if (is_on_floor() == false) and can_jump and coyote_time.is_stopped():
+		coyote_time.start()
 	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
@@ -94,10 +100,11 @@ func _physics_process(delta: float) -> void:
 				velocity.x = dash_speed * dir
 				dashing = false
 				pass
-		# Refreshes double jump and dash upon touching the ground
+				
+		# Refreshes jump, double jump and dash upon touching the ground
 		if is_on_floor():
+			can_jump = true
 			can_doublejump = true
-		if is_on_floor() and !can_dash:
 			can_dash = true
 	
 	# Called when player falls off map, respawns at a set location
@@ -154,28 +161,24 @@ func _physics_process(delta: float) -> void:
 				tag.play("doublejump")
 			else:
 				tag.play("jump")
-	
-		# Handle jump.
-		if Input.is_action_just_pressed("up") and is_on_floor():
-			$sfx.stream = jumpsfx
-			$sfx.play()
-			can_doublejump = true
-			if tag.animation == "roll":
-				velocity.y = JUMP_VELOCITY
-				if velocity.x > 0:
-					velocity.x = move_toward(SPEED * 8, 0, delta)
-				else:
-					velocity.x = SPEED * -8
-			else:
-				velocity.y = JUMP_VELOCITY
 
 		# Double jump function
-		if Input.is_action_just_pressed("up") and can_doublejump and !is_on_floor():
+		# IMPORTANT: Order before jump so it doesn't trigger during the same jump input
+		if Input.is_action_just_pressed("up") and !can_jump and can_doublejump:
 				$sfx.stream = dubjumpsfx
 				$sfx.play()
 				can_doublejump = false
 				tag.play("doublejump")
 				velocity.y = JUMP_VELOCITY * 0.8
+
+		# Handle jump.
+		if Input.is_action_just_pressed("up") and can_jump:
+			can_jump = false
+			$sfx.stream = jumpsfx
+			$sfx.play()
+			can_doublejump = true
+			velocity.y = JUMP_VELOCITY
+
 		if dashing == false:
 			if Input.is_action_pressed("ui_left") and !dashing == true:
 				velocity.x = lerp(velocity.x, -walk_speed, lerprate)
@@ -328,3 +331,7 @@ func _on_sword_body_entered(body: Node2D) -> void:
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
+
+
+func _on_coyote_time_timeout():
+	can_jump = false
