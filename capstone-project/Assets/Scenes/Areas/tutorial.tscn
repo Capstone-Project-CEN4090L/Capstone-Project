@@ -138,7 +138,7 @@ Press \"r\" to reload the scene!"
 label_settings = SubResource("LabelSettings_8enyv")
 
 [node name="Player" parent="." unique_id=1257514843 groups=["player"] instance=ExtResource("1_ykx6l")]
-position = Vector2(55, -202)
+position = Vector2(-62, -17)
 collision_mask = 1
 
 [node name="TileMapLayerSOFT" type="TileMapLayer" parent="." unique_id=1941509571]
