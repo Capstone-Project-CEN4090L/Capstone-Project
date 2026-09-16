@@ -50,6 +50,57 @@ tracks/2/keys = {
 "update": 1,
 "values": [&"attack"]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AgentAnimator/AnimatedSprite2D/airsword/fronthitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AgentAnimator/AnimatedSprite2D/airsword/backhitbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_c3tg1"]
+resource_name = "air_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/AnimatedSprite2D/airsword/fronthitbox:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AgentAnimator/AnimatedSprite2D/airsword/backhitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_jp3cw"]
 resource_name = "attack"
@@ -94,6 +145,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ecf78"]
 _data = {
 &"RESET": SubResource("Animation_lerqx"),
+&"air_attack": SubResource("Animation_c3tg1"),
 &"attack": SubResource("Animation_jp3cw")
 }
 
@@ -512,6 +564,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
 size = Vector2(41, 16.25)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_te6hp"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7c84j"]
+size = Vector2(24, 24)
+
 [node name="Player" type="CharacterBody2D" unique_id=1833664872]
 collision_layer = 4
 collision_mask = 5
@@ -555,6 +613,18 @@ collision_mask = 8
 [node name="attack" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/sword" unique_id=445726107]
 position = Vector2(21.5, 1.125)
 shape = SubResource("RectangleShape2D_biyew")
+disabled = true
+
+[node name="airsword" type="Area2D" parent="AgentAnimator/AnimatedSprite2D" unique_id=1854983107]
+
+[node name="fronthitbox" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/airsword" unique_id=396275749]
+position = Vector2(12, 0)
+shape = SubResource("RectangleShape2D_te6hp")
+disabled = true
+
+[node name="backhitbox" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/airsword" unique_id=477179888]
+position = Vector2(-12, 0)
+shape = SubResource("RectangleShape2D_7c84j")
 disabled = true
 
 [node name="CoyoteTime" type="Timer" parent="." unique_id=1369823112]
