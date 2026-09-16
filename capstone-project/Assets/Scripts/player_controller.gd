@@ -5,7 +5,10 @@ var dashing = false
 var dash_wait = false
 var lerprate = 0.2
 var can_dash = true
+var can_jump = true
 var can_doublejump = false
+var can_airattack = false
+var is_airattacking = false
 var is_getup = false
 const SPEED = 350.0
 const JUMP_VELOCITY = -450.0
@@ -36,16 +39,24 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
-@onready var health_bar = get_node("../CanvasLayer/HealthBar")
+@onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
+@onready var coyote_time: Timer = $CoyoteTime
+#@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
 	health = max_health
-	health_bar.max_value = max_health
-	health_bar.value = health
+	#health_bar.max_value = max_health
+	#health_bar.value = health
+	UILayer.set_health_max(max_health)
+	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
+	
 	if Input.is_action_just_pressed("toggle_knockback"):
 		toggle_knockback_upgrade()
+	
+	if (is_on_floor() == false) and can_jump and coyote_time.is_stopped():
+		coyote_time.start()
 	
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
@@ -59,16 +70,16 @@ func _physics_process(delta: float) -> void:
 	elif tag.animation != "boost":
 		velocity.x = 0
 	
-	# Player loses control when "fall"ing, so movement functions are disabled.
-	# Functions such as gravity continue to work (below).
-	if tag.animation == "fall" or tag.animation == "getup":
-		return
-	else:
-		if Input.is_action_just_pressed("ui_left"):
-			muzzle.rotation_degrees = 180
-		elif Input.is_action_just_pressed("ui_right"):
-			muzzle.rotation_degrees = 0
-		if Input.is_action_just_pressed("attack") and is_attacking == false:
+	
+	# Attack
+	if Input.is_action_just_pressed("attack"):
+		if can_airattack and !is_airattacking:
+			can_airattack = false
+			is_airattacking = true
+			tag_sword.play("air_attack")
+			$sfx.stream = shootsfx
+			$sfx.play()
+		elif is_on_floor() and !is_airattacking and !is_attacking:
 			is_attacking = true
 			tag_sword.play("attack")
 			$sfx.stream = shootsfx
@@ -80,23 +91,27 @@ func _physics_process(delta: float) -> void:
 				#velocity.x = SPEED
 				
 		# Aerial boost, refreshes upon landing
-		if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor():
-			if tag.animation != "fall":
-				velocity.y = 0
-				var dir = -1 if tag.flip_h else 1
-				tag.play("boost")
-				$boost.stream = boostsfx
-				$boost.play()
-				can_dash = false
-				dashing = true
-				velocity.x = dash_speed * dir
-				dashing = false
-				pass
-		# Refreshes double jump and dash upon touching the ground
-		if is_on_floor():
-			can_doublejump = true
-		if is_on_floor() and !can_dash:
-			can_dash = true
+	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor():
+		if is_airattacking:
+			is_airattacking = false
+			tag_sword.stop()
+		velocity.y = 0
+		var dir = -1 if tag.flip_h else 1
+		tag.play("boost")
+		$boost.stream = boostsfx
+		$boost.play()
+		can_dash = false
+		dashing = true
+		velocity.x = dash_speed * dir
+		dashing = false
+		pass
+
+	# Refreshes jump, double jump and dash upon touching the ground
+	if is_on_floor():
+		can_jump = true
+		can_doublejump = true
+		can_dash = true
+		can_airattack = false
 	
 	# Called when player falls off map, respawns at a set location
 	if (position.y >= 512):
@@ -105,7 +120,7 @@ func _physics_process(delta: float) -> void:
 		#$fall.play()
 		#tag.play("fall")
 		#position = Vector2(200, -700)
-		position = Vector2(146, -16)
+		position = Vector2(-62, -16)
 
 		
 	# Player loses control when "fall"ing, so movement functions are disabled.
@@ -122,58 +137,51 @@ func _physics_process(delta: float) -> void:
 				is_getup = true
 			pass
 	else:
-		if tag.animation == "newdj_1" or tag.animation == "newdj_2":
-			pass
-		elif direction > 0:
+		if direction > 0:
 			tag.flip_h = false
 			muzzle.position.x = 18.0
 			muzzle.rotation_degrees = 0
 			sword.scale.x = 1
+			airsword.scale.x = 1
 		elif direction < 0:
 			tag.flip_h = true
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
 			sword.scale.x = -1
+			airsword.scale.x = -1
 		if is_on_floor():
 			if is_attacking:
 				pass
-			elif tag.animation == "boost" and direction != 0:
-				tag.play("roll")
 			elif direction == 0:
 				tag.play("idle")
-			elif tag.animation != "roll":
+			else:
 				tag.play("walk")
 		else:
-			if is_attacking:
-				pass
-			elif tag.animation == "boost" or tag.animation == "fall" or tag.animation == "doublejump":
+			if tag.animation == "boost" or tag.animation == "doublejump" or is_airattacking:
 				pass
 			elif can_doublejump == false:
 				tag.play("doublejump")
 			else:
 				tag.play("jump")
-	
-		# Handle jump.
-		if Input.is_action_just_pressed("up") and is_on_floor():
-			$sfx.stream = jumpsfx
-			$sfx.play()
-			can_doublejump = true
-			if tag.animation == "roll":
-				velocity.y = JUMP_VELOCITY
-				if velocity.x > 0:
-					velocity.x = move_toward(SPEED * 8, 0, delta)
-				else:
-					velocity.x = SPEED * -8
-			else:
-				velocity.y = JUMP_VELOCITY
 
 		# Double jump function
-		if Input.is_action_just_pressed("up") and can_doublejump and !is_on_floor():
+		# IMPORTANT: Order before jump so it doesn't trigger during the same jump input
+		if Input.is_action_just_pressed("up") and !can_jump and can_doublejump:
 				$sfx.stream = dubjumpsfx
 				$sfx.play()
 				can_doublejump = false
 				tag.play("doublejump")
 				velocity.y = JUMP_VELOCITY * 0.8
+
+		# Handle jump.
+		if Input.is_action_just_pressed("up") and can_jump:
+			can_airattack = true
+			can_jump = false
+			$sfx.stream = jumpsfx
+			$sfx.play()
+			can_doublejump = true
+			velocity.y = JUMP_VELOCITY
+
 		if dashing == false:
 			if Input.is_action_pressed("ui_left") and !dashing == true:
 				velocity.x = lerp(velocity.x, -walk_speed, lerprate)
@@ -257,21 +265,27 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			tag.play("jump")
 		else:
 			tag.play("doublejump")
-	if tag.animation == "attack":
-		is_attacking = false
-		tag.play("idle")
 	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "attack":
 		is_attacking = false
 		tag.play("idle")
+	if anim_name == "air_attack":
+		is_airattacking = false
+		if is_on_floor():
+			tag.play("idle")
+		elif can_doublejump:
+			tag.play("jump")
+		else:
+			tag.play("doublejump")
 
 func take_damage(amount: int):
 	health -= amount
 	health = max(health, 0)
 	
-	health_bar.value = health
+	#health_bar.value = health
+	UILayer.update_health(health)
 	
 	print("Player Health: ", health)
 	
@@ -296,12 +310,13 @@ func toggle_knockback_upgrade():
 func heal(amount: int):
 	health += amount
 	health = min(health, max_health)
-	health_bar.value = health
+	#health_bar.value = health
+	UILayer.update_health(health)
 	print("Player Health: ", health)
 
 func die():
 	print("Player died")
-	position = Vector2(146, -16)
+	position = Vector2(-62, -16)
 	health = 100
 
 func _on_sword_body_entered(body: Node2D) -> void:
@@ -319,8 +334,27 @@ func _on_sword_body_entered(body: Node2D) -> void:
 			
 			body.take_damage(10, hit_direction, knockback_amount)
 
-	
+func _on_airsword_body_entered(body: Node2D):
+	if is_airattacking == true:
+		if body.has_method("take_damage"):
+			var hit_direction = Vector2.RIGHT
+			
+			if tag.flip_h:
+				hit_direction = Vector2.LEFT
+			
+			var knockback_amount = normal_knockback
+			
+			if knockback_upgrade_unlocked and extra_knockback_enabled:
+				knockback_amount = upgraded_knockback
+			
+			body.take_damage(10, hit_direction, knockback_amount)
+
 @warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
+
+
+func _on_coyote_time_timeout():
+	can_jump = false
+	can_airattack = true
