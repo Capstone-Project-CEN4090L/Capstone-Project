@@ -337,6 +337,8 @@ func _on_sword_body_entered(body: Node2D) -> void:
 func _on_airsword_body_entered(body: Node2D):
 	if is_airattacking == true:
 		if body.has_method("take_damage"):
+			velocity.y = JUMP_VELOCITY
+			can_airattack = true
 			var hit_direction = Vector2.RIGHT
 			
 			if tag.flip_h:
