@@ -138,7 +138,7 @@ Press \"r\" to reload the scene!"
 label_settings = SubResource("LabelSettings_8enyv")
 
 [node name="Player" parent="." unique_id=1257514843 groups=["player"] instance=ExtResource("2_n6e0r")]
-position = Vector2(-62, -17)
+position = Vector2(-62, -78)
 collision_layer = 5
 collision_mask = 1
 
@@ -182,7 +182,6 @@ script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
 detection_range = 300.0
-attack_range = 40.0
 attack_damage = 15
 attack_cooldown = 0.5
 vertical_detection_range = 80.0

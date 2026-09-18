@@ -120,7 +120,7 @@ func _physics_process(delta: float) -> void:
 		#$fall.play()
 		#tag.play("fall")
 		#position = Vector2(200, -700)
-		position = Vector2(-62, -16)
+		position = Vector2(-62, -78)
 
 		
 	# Player loses control when "fall"ing, so movement functions are disabled.
