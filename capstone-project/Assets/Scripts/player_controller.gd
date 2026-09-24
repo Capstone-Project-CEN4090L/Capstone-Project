@@ -283,6 +283,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			tag.play("doublejump")
 
 func take_damage(amount: int):
+	var sprite = $/root/FirstZone/Player/AgentAnimator/AnimatedSprite2D as AnimatedSprite2D
 	health -= amount
 	health = max(health, 0)
 	
@@ -290,6 +291,11 @@ func take_damage(amount: int):
 	UILayer.update_health(health)
 	
 	print("Player Health: ", health)
+	
+	sprite.modulate = Color(1,0,0)
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
+	
 	
 	if health <= 0:
 		die()
