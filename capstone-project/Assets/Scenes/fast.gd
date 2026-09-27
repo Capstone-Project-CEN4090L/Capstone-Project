@@ -5,17 +5,15 @@ var health: int
 
 @export var move_speed: float = 180.0
 @export var detection_range: float = 300.0
-@export var attack_range: float = 40.0
 @export var attack_damage: int = 15
 @export var attack_cooldown: float = 0.5
 @export var vertical_detection_range: float = 80.0
 @export var horizontal_dead_zone: float = 30.0
-#new
+
 @export var knockback_strength: float = 170.0
 @export var knockback_time: float = 0.2
 
 var being_knocked_back: bool = false
-
 
 @export var lunge_speed: float = 500.0
 @export var lunge_time: float = 0.12
@@ -35,19 +33,18 @@ func _ready():
 
 
 func _physics_process(delta):
-	for body in attack_area.get_overlapping_bodies():
-		print("AttackArea currently sees: ", body.name)
-	
 	if player == null:
 		return
 	
 	var horizontal_distance = abs(player.global_position.x - global_position.x)
 	var vertical_distance = abs(player.global_position.y - global_position.y)
 	
+	# Knockback temporarily overrides normal movement
 	if being_knocked_back:
 		move_and_slide()
 		return
-	# Player is too far above or below enemy
+	
+	# Ignore player if they are too far above or below enemy
 	if vertical_distance > vertical_detection_range:
 		velocity.x = 0
 		
@@ -57,8 +54,8 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 	
-	# Enemy attacks when player is actually inside attack area
-	if player in attack_area.get_overlapping_bodies():
+	# Attack only when player is actually inside AttackArea
+	if player_is_in_attack_area():
 		velocity.x = 0
 		
 		if can_attack and !attacking:
@@ -106,23 +103,21 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+# Checks whether the player is physically inside the attack box
+func player_is_in_attack_area() -> bool:
+	if player == null:
+		return false
+	
+	return player in attack_area.get_overlapping_bodies()
+
+
 func attack():
 	attacking = true
 	can_attack = false
+	velocity.x = 0
 	
 	var x_difference = player.global_position.x - global_position.x
-	var direction = 0
-	
-	# Only update direction if player is clearly to one side
-	if abs(x_difference) > horizontal_dead_zone:
-		direction = sign(x_difference)
-	
-	# If player is nearly centered, use current facing direction instead
-	if direction == 0:
-		if sprite.flip_h:
-			direction = 1
-		else:
-			direction = -1
+	var direction = sign(x_difference)
 	
 	if direction < 0:
 		sprite.flip_h = false
@@ -133,18 +128,13 @@ func attack():
 	
 	sprite.play("attack")
 	
+	# Player was already confirmed inside the attack area
+	if player.has_method("take_damage"):
+		print("Fast enemy damaging player")
+		player.take_damage(attack_damage)
+	
+	# Lunge after damage
 	velocity.x = direction * lunge_speed
-	
-	# Short lunge
-	await get_tree().create_timer(0.05).timeout
-	
-	# Check everything currently inside the attack area
-	for body in attack_area.get_overlapping_bodies():
-		print("Fast enemy sees: ", body.name)
-		
-		if body.is_in_group("player") and body.has_method("take_damage"):
-			print("Fast enemy damaging player")
-			body.take_damage(attack_damage)
 	
 	await get_tree().create_timer(lunge_time).timeout
 	
@@ -154,6 +144,7 @@ func attack():
 	
 	attacking = false
 	can_attack = true
+
 
 func apply_knockback(hit_direction: Vector2, knockback_amount: float):
 	if being_knocked_back:
@@ -167,6 +158,7 @@ func apply_knockback(hit_direction: Vector2, knockback_amount: float):
 	
 	velocity.x = 0
 	being_knocked_back = false
+
 
 func take_damage(
 	amount: int,
@@ -182,7 +174,6 @@ func take_damage(
 	
 	if health <= 0:
 		die()
-
 
 
 func die():
