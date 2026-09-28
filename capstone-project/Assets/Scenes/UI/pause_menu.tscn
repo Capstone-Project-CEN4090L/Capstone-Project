@@ -1,22 +1,29 @@
 [gd_scene format=3 uid="uid://c8h7yg8thtlv"]
 
+[ext_resource type="Script" uid="uid://cbfviwristyvu" path="res://Assets/Scenes/UI/pause_menu.gd" id="1_0jt6v"]
+
 [node name="PauseMenu" type="CanvasLayer" unique_id=1801952764]
 process_mode = 3
+script = ExtResource("1_0jt6v")
 
-[node name="Panel" type="Panel" parent="." unique_id=842148918]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -204.5
-offset_right = 85.0
-offset_bottom = 204.5
+[node name="Root" type="Control" parent="." unique_id=1059980430]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1333982393]
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1953826208]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Center" type="CenterContainer" parent="Root" unique_id=2016233330]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +31,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=532887105]
+[node name="PanelContainer" type="PanelContainer" parent="Root/Center" unique_id=553399104]
+custom_minimum_size = Vector2(420, 320)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/Center/PanelContainer" unique_id=685217388]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="MainPage" type="VBoxContainer" parent="Root/Center/PanelContainer/Margin" unique_id=1595306950]
+layout_mode = 2
+theme_override_constants/separation = 42
+
+[node name="Title" type="Label" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=708692060]
 layout_mode = 2
 text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=77940027]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=605151293]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=828759112]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[node name="OptionsPage" type="VBoxContainer" parent="Root/Center/PanelContainer/Margin" unique_id=1268344096]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 65
+
+[node name="Title" type="Label" parent="Root/Center/PanelContainer/Margin/OptionsPage" unique_id=2050134251]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+
+[node name="VolumeLabel" type="Label" parent="Root/Center/PanelContainer/Margin/OptionsPage" unique_id=1016847624]
+layout_mode = 2
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="Root/Center/PanelContainer/Margin/OptionsPage" unique_id=1163032808]
+layout_mode = 2
+max_value = 1.5
+step = 0.05
+value = 1.5
+
+[node name="BackButton" type="Button" parent="Root/Center/PanelContainer/Margin/OptionsPage" unique_id=1383920772]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Back"
