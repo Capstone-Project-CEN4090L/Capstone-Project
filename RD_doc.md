@@ -11,6 +11,10 @@ ____
 
 2. Functional Requirements
 
+    1. One interconnected map that is short enough for the player to beat in one-sitting. As the player makes progress, they should be able to collect items that make the player stronger over the course of the playthrough. With enough/all items, they would be able to defeat a final boss. This requirement is high priority. 
+
+    2. Player movement that feels satisfying and natural for the player to control relative to Godot's given 2D physics engine, allowing for a fun and memorable experience for the player. This includes a jump, double jump, attack, air attack, and dash. Items that are collected throughout the game will make these properties stronger/faster, as well as give some new abilities (subject to change). This requirement is high priority. 
+
 ____
 
 3. Non-functional Requirements
