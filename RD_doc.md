@@ -29,16 +29,42 @@ ____
    
 ____
 
-5. Use Case Diagram
+4. Use Case Diagram
+```mermaid
+graph LR
+    subgraph System Boundary [Metroidvania]
+        UC1((Start Game))
+        UC2((Playing Game))
+        UC3((Saving Game))
+        UC4((Exiting Game))
+        UC5((Continuing Game))
+        UC6((Resetting Progress))
+        UC7((Upgrading Abilities))
+        UC8((Engaging in Combat))
+    end
+
+    %% Actors
+    Player[Player]
+
+    %% Relationships
+    Player --> UC1
+    Player --> UC2
+    UC2 --> UC7
+    UC2 --> UC8
+    Player --> UC3
+    Player --> UC4
+    Player --> UC5
+    Player --> UC6
+```
 
 ____
 
-7. Class Diagram and/or Sequence Diagrams
+5. Class Diagram and/or Sequence Diagrams
 
 ____
 
-9. Operating Environment
+6. Operating Environment
 
 ____
 
-10. Assumptions and Dependencies
+7. Assumptions and Dependencies
