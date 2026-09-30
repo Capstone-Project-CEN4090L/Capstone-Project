@@ -191,6 +191,22 @@ func _physics_process(delta: float) -> void:
 				velocity.x = lerp(velocity.x, walk_speed, lerprate)
 			elif !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
 				velocity.x = lerp(velocity.x, 0.0, 0.1)
+				
+		# FOR TESTING EXCLUSIVELY! Should not remain in final build!
+		if Input.is_action_just_pressed("debug_unlock_dash"):
+			if Globals.dash_unlocked:
+				Globals.dash_unlocked = false
+				print("Dash disabled")
+			else:
+				Globals.dash_unlocked = true
+				print("Dash enabled")
+		if Input.is_action_just_pressed("debug_unlock_air_attack"):
+			if Globals.air_attack_unlocked:
+				Globals.air_attack_unlocked = false
+				print("Air Attack disabled")
+			else:
+				Globals.air_attack_unlocked = true
+				print("Air Attack enabled")
 	move_and_slide()
 
 
