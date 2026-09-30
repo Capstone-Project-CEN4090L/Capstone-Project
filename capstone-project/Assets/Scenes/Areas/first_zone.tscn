@@ -138,7 +138,7 @@ Press \"r\" to reload the scene!"
 label_settings = SubResource("LabelSettings_8enyv")
 
 [node name="Player" parent="." unique_id=1257514843 groups=["player"] instance=ExtResource("2_n6e0r")]
-position = Vector2(-62, -78)
+position = Vector2(56, -269)
 collision_layer = 5
 collision_mask = 1
 
@@ -175,7 +175,8 @@ shape = SubResource("RectangleShape2D_1iifl")
 [node name="GroundCheck" type="RayCast2D" parent="bulky" unique_id=2100265567]
 
 [node name="fast" parent="." unique_id=379384923 instance=ExtResource("5_aap4o")]
-position = Vector2(-132, -26)
+position = Vector2(-213, -69)
+scale = Vector2(2.6489213, 2.6489213)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_ktmim")
@@ -222,3 +223,133 @@ script = null
 [node name="TileMapLayerFIRM" type="TileMapLayer" parent="." unique_id=1441186807]
 tile_map_data = PackedByteArray("AAApAAAAAAACAAAAAAAqAAAAAAACAAAAAAArAAAAAAACAAAAAAABAPj/AAABAAMAAAAAAPj/AAAAAAMAAAAaAPL/AAABAAAAAAAbAPL/AAABAAAAAAAcAPL/AAABAAAAAAAdAPL/AAABAAAAAAAeAPL/AAABAAAAAAAfAPL/AAABAAAAAAAgAPL/AAADAAAAAAAZAPL/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_1iifl")
+
+[node name="fast2" parent="." unique_id=2133663499 instance=ExtResource("5_aap4o")]
+position = Vector2(830, 65)
+scale = Vector2(4.043782, 4.043782)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_ktmim")
+max_health = 40
+move_speed = 180.0
+detection_range = 300.0
+attack_damage = 15
+attack_cooldown = 0.5
+vertical_detection_range = 80.0
+horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
+lunge_speed = 500.0
+lunge_time = 0.12
+
+[node name="AttackArea" type="Area2D" parent="fast2" unique_id=32982760]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fast2/AttackArea" unique_id=1103336328]
+shape = SubResource("RectangleShape2D_ypqo2")
+
+[node name="GroundCheck" type="RayCast2D" parent="fast2" unique_id=543671895]
+
+[node name="fast3" parent="." unique_id=637403615 instance=ExtResource("5_aap4o")]
+position = Vector2(1047, -97)
+scale = Vector2(3.4878879, 3.4878879)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_ktmim")
+max_health = 40
+move_speed = 180.0
+detection_range = 300.0
+attack_damage = 15
+attack_cooldown = 0.5
+vertical_detection_range = 80.0
+horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
+lunge_speed = 500.0
+lunge_time = 0.12
+
+[node name="AttackArea" type="Area2D" parent="fast3" unique_id=823614008]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fast3/AttackArea" unique_id=401300563]
+shape = SubResource("RectangleShape2D_ypqo2")
+
+[node name="GroundCheck" type="RayCast2D" parent="fast3" unique_id=826256745]
+
+[node name="fast4" parent="." unique_id=777496648 instance=ExtResource("5_aap4o")]
+position = Vector2(1201, -298)
+scale = Vector2(3.4878879, 3.4878879)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_ktmim")
+max_health = 40
+move_speed = 180.0
+detection_range = 300.0
+attack_damage = 15
+attack_cooldown = 0.5
+vertical_detection_range = 80.0
+horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
+lunge_speed = 500.0
+lunge_time = 0.12
+
+[node name="AttackArea" type="Area2D" parent="fast4" unique_id=1085588146]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fast4/AttackArea" unique_id=1520846197]
+shape = SubResource("RectangleShape2D_ypqo2")
+
+[node name="GroundCheck" type="RayCast2D" parent="fast4" unique_id=1566953519]
+
+[node name="fast5" parent="." unique_id=48468000 instance=ExtResource("5_aap4o")]
+position = Vector2(1330, -534)
+scale = Vector2(3.4878879, 3.4878879)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_ktmim")
+max_health = 40
+move_speed = 180.0
+detection_range = 300.0
+attack_damage = 15
+attack_cooldown = 0.5
+vertical_detection_range = 80.0
+horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
+lunge_speed = 500.0
+lunge_time = 0.12
+
+[node name="AttackArea" type="Area2D" parent="fast5" unique_id=1429551335]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fast5/AttackArea" unique_id=9121233]
+shape = SubResource("RectangleShape2D_ypqo2")
+
+[node name="GroundCheck" type="RayCast2D" parent="fast5" unique_id=295808937]
+
+[node name="fast6" parent="." unique_id=1235787590 instance=ExtResource("5_aap4o")]
+position = Vector2(1946.0001, -67)
+scale = Vector2(3.4878879, 3.4878879)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_ktmim")
+max_health = 40
+move_speed = 180.0
+detection_range = 300.0
+attack_damage = 15
+attack_cooldown = 0.5
+vertical_detection_range = 80.0
+horizontal_dead_zone = 30.0
+knockback_strength = 170.0
+knockback_time = 0.2
+lunge_speed = 500.0
+lunge_time = 0.12
+
+[node name="AttackArea" type="Area2D" parent="fast6" unique_id=1917113241]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fast6/AttackArea" unique_id=1307712221]
+shape = SubResource("RectangleShape2D_ypqo2")
+
+[node name="GroundCheck" type="RayCast2D" parent="fast6" unique_id=719964961]

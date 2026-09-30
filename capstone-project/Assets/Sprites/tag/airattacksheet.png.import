@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cahxkvmpbk7no"
-path="res://.godot/imported/skele_sheet.png-170a6d0b828b4c6dbd087d2072eb473f.ctex"
+uid="uid://uhsnfacaffrf"
+path="res://.godot/imported/airattacksheet.png-a4b485903cd7741e79ce6ae58b9ca4b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/tag/skele_sheet.png"
-dest_files=["res://.godot/imported/skele_sheet.png-170a6d0b828b4c6dbd087d2072eb473f.ctex"]
+source_file="res://Assets/Sprites/tag/airattacksheet.png"
+dest_files=["res://.godot/imported/airattacksheet.png-a4b485903cd7741e79ce6ae58b9ca4b3.ctex"]
 
 [params]
 

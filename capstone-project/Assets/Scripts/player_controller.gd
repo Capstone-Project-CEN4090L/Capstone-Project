@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var walk_speed = 300.0
+var walk_speed = 400.0
 var dash_speed = 1600.0
 var dashing = false
 var dash_wait = false
@@ -11,7 +11,7 @@ var can_airattack = false
 var is_airattacking = false
 var is_getup = false
 const SPEED = 350.0
-const JUMP_VELOCITY = -450.0
+const JUMP_VELOCITY = -490.0
 @export var max_health: int = 100
 var health: int
 var is_attacking = false
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Attack
 	if Input.is_action_just_pressed("attack"):
-		if can_airattack and !is_airattacking:
+		if can_airattack and !is_airattacking and Globals.air_attack_unlocked:
 			can_airattack = false
 			is_airattacking = true
 			tag_sword.play("air_attack")
@@ -91,7 +91,7 @@ func _physics_process(delta: float) -> void:
 				#velocity.x = SPEED
 				
 		# Aerial boost, refreshes upon landing
-	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor():
+	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and Globals.dash_unlocked:
 		if is_airattacking:
 			is_airattacking = false
 			tag_sword.stop()
@@ -151,6 +151,8 @@ func _physics_process(delta: float) -> void:
 			airsword.scale.x = -1
 		if is_on_floor():
 			if is_attacking:
+				#move character a little forward
+				
 				pass
 			elif direction == 0:
 				tag.play("idle")
@@ -171,7 +173,7 @@ func _physics_process(delta: float) -> void:
 				$sfx.play()
 				can_doublejump = false
 				tag.play("doublejump")
-				velocity.y = JUMP_VELOCITY * 0.8
+				velocity.y = JUMP_VELOCITY * 1.02
 
 		# Handle jump.
 		if Input.is_action_just_pressed("up") and can_jump:
@@ -281,6 +283,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			tag.play("doublejump")
 
 func take_damage(amount: int):
+	var sprite = $/root/JohnTestGround/Player/AgentAnimator/AnimatedSprite2D as AnimatedSprite2D
 	health -= amount
 	health = max(health, 0)
 	
@@ -288,6 +291,11 @@ func take_damage(amount: int):
 	UILayer.update_health(health)
 	
 	print("Player Health: ", health)
+	
+	sprite.modulate = Color(1,0,0)
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
+	
 	
 	if health <= 0:
 		die()
@@ -318,6 +326,10 @@ func die():
 	print("Player died")
 	position = Vector2(-62, -16)
 	health = 100
+	
+func get_pickup():
+	
+	pass
 
 func _on_sword_body_entered(body: Node2D) -> void:
 	if is_attacking == true:
@@ -339,6 +351,7 @@ func _on_airsword_body_entered(body: Node2D):
 		if body.has_method("take_damage"):
 			velocity.y = JUMP_VELOCITY
 			can_airattack = true
+			can_dash = true
 			var hit_direction = Vector2.RIGHT
 			
 			if tag.flip_h:
@@ -354,6 +367,8 @@ func _on_airsword_body_entered(body: Node2D):
 @warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
+		Globals.air_attack_unlocked = false
+		Globals.dash_unlocked = false
 		get_tree().reload_current_scene()
 
 

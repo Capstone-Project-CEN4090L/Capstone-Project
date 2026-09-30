@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cahxkvmpbk7no"
-path="res://.godot/imported/skele_sheet.png-170a6d0b828b4c6dbd087d2072eb473f.ctex"
+uid="uid://b6owwhvhr2pcw"
+path="res://.godot/imported/fallsprite.png-a45c419e2b087d0516bcb87ebf530e9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/tag/skele_sheet.png"
-dest_files=["res://.godot/imported/skele_sheet.png-170a6d0b828b4c6dbd087d2072eb473f.ctex"]
+source_file="res://Assets/Sprites/tag/fallsprite.png"
+dest_files=["res://.godot/imported/fallsprite.png-a45c419e2b087d0516bcb87ebf530e9d.ctex"]
 
 [params]
 
