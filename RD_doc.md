@@ -65,6 +65,24 @@ ____
 
 6. Operating Environment
 
+As of right now, the game is being built to target desktop and laptop computers with x86-64 processors or Apple Silicon. Because it is a relatively simple 2D game, it needs only modest hardware: a dual-core CPU, 4 GB of RAM, and an integrated GPU that supports OpenGL 3.3 or Vulkan. The primary input devices are a keyboard and, optionally, a controller if we have time to implement support for it. No network connection is required to play. The game will run on Windows 11 and macOS 27 operating systems (and possibly older versions, though we have yet to perform extensive testing for this). Players will receive a self-contained exported build, so they do not need to install the Godot engine. Our team has agreed to use Godot version 4.7.2 to build this project. The programming language we are using is GDScript, which is built into the engine; there are no external runtimes or libraries to install. The game is designed to run alongside other applications without interfering with them; it runs in a window or fullscreen as an ordinary user process so it needs no administrator privileges and installs no background services or drivers, save data is written only to the per-user application data folder and never to system or other applications' directories, it makes no network connections and collects no data so it won't conflict with firewalls or security software, and lastly it uses standard audio and graphics drivers shared with other applications without requiring exclusive access to either.
+
 ____
 
 7. Assumptions and Dependencies
+
+Assumptions:
+<ol type="i">
+    <li>Engine stability. The team will use a single Godot version for the whole project, and Godot's 2D physics will behave consistently enough across that version and across operating systems to deliver the movement feel described in NFR 1.</li>
+    <li>Scope fits the schedule. One interconnected map with the full set of upgrades and a final boss (FR 1) can be completed by the final December deadline with a team of five.</li>
+    <li>Team availability. All five members stay on the project and can contribute consistently each sprint.</li>
+    <li>Player hardware and input. Players run the game on a desktop or laptop that meets the minimum specifications in the Operating Environment section, with a keyboard that can handle the dash, double jump, and attack inputs within the responsiveness expectations of NFR 1.</li>
+    <li>Playtesting. The team and a few outside testers will be available to playtest, since "feels satisfying" and "readable level layout" (NFR 1 and 2) can only be verified by actual play.</li>
+</ol>
+
+Dependencies:
+<ol type="i">
+    <li>Godot Engine 4.7.2. Rendering, physics, input handling, and scene management all depend on it.</li>
+    <li>GitHub. Version control, the issue tracker, and team coordination depend on it. Its availability and the team's merge discipline affect NFR 4 (maintainability and merge conflicts)</li>
+    <li>Reused code and assets such as an existing enemy script that new enemies build on, or tutorial and boilerplate code.</li>
+</ol>
