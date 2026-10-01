@@ -41,6 +41,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
 @onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
 @onready var coyote_time: Timer = $CoyoteTime
+@onready var sprite: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
 #@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
@@ -299,7 +300,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			tag.play("doublejump")
 
 func take_damage(amount: int):
-	var sprite = $/root/JohnTestGround/Player/AgentAnimator/AnimatedSprite2D as AnimatedSprite2D
 	health -= amount
 	health = max(health, 0)
 	
@@ -368,6 +368,7 @@ func _on_airsword_body_entered(body: Node2D):
 			velocity.y = JUMP_VELOCITY
 			can_airattack = true
 			can_dash = true
+			can_doublejump = true
 			var hit_direction = Vector2.RIGHT
 			
 			if tag.flip_h:
