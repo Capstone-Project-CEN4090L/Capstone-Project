@@ -60,6 +60,7 @@ graph LR
 ____
 
 5. Class Diagram and/or Sequence Diagrams
+   ![Class diagram](inc1diagram.drawio.svg)
 
 ____
 
