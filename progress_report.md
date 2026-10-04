@@ -29,7 +29,8 @@ John Wibert: Responsible for writing the "Plans for the next increment" section 
 
 ---
 
-6. Plans for the next increment
+6. Plans for the Next Increment
+In the next increment, we plan to make major progress in a few main areas. The first and most important is the level design; we plan to have rough versions of each major zone the game is going to be split into completed by the end of this increment. Next is further improvements to UI elements and behind-the-scenes elements, such as better code and file structuring as well as beginning to develop systems for saving and continuing the game. Finally, we want to continue working on the enemies and general design of the challenges the player will face while also fine tuning the player's movement, hitboxes, etc.
 
 ---
 
