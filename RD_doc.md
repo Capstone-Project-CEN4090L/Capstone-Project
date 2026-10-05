@@ -1,3 +1,28 @@
+<div align="center">
+    
+**Software Requirements and Design Document**
+ 
+**For**
+ 
+**Group Metroidvania**
+ 
+Version 1.0
+ 
+**Authors**:
+ 
+Skyler Haas
+
+Raul Medrano
+ 
+Armani Ruiz
+ 
+Evan Treadwell
+ 
+John Wibert
+</div>
+
+---
+
 1. Overview
 
 This project will be a short "Metroidvania"-style video game in which
