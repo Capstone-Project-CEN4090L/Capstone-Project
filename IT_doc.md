@@ -1,3 +1,28 @@
+<div align="center">
+    
+**Software Implementation and Testing Document**
+ 
+**For**
+ 
+**Group Metroidvania**
+ 
+Version 1.0
+ 
+**Authors**:
+ 
+Skyler Haas
+
+Raul Medrano
+ 
+Armani Ruiz
+ 
+Evan Treadwell
+ 
+John Wibert
+</div>
+
+---
+
 1. Programming Languages
 
 Our project uses GDScript, which is heavily inspired by Python. GDScript is used to write all our scripts for our player character, enemy behavior, etc. GDScript is built into the game engine we chose to develop our project with.
