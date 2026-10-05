@@ -7,7 +7,7 @@ func _ready():
 	visible = false
 	main_page.get_node("ResumeButton").pressed.connect(close_menu)
 	main_page.get_node("OptionsButton").pressed.connect(show_page.bind(options_page))
-	main_page.get_node("QuitButton").pressed.connect(get_tree().quit)
+	main_page.get_node("QuitButton").pressed.connect(SceneManager.go_to.bind("res://Assets/Scenes/UI/main_menu.tscn"))
 	options_page.get_node("BackButton").pressed.connect(show_page.bind(main_page))
 	options_page.get_node("VolumeSlider").value_changed.connect(set_volume)
 

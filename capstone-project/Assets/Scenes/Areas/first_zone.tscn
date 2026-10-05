@@ -182,7 +182,6 @@ script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
 detection_range = 300.0
-attack_range = 40.0
 attack_damage = 15
 attack_cooldown = 0.5
 vertical_detection_range = 80.0
