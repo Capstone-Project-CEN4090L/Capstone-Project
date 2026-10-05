@@ -15,6 +15,10 @@ func _ready() -> void:
 	add_child(pause_menu)
 	pause_menu.visible = false
 
+func set_gameplay_ui(enabled):
+	UI_root.visible = enabled
+	pause_menu.can_pause = enabled
+
 func set_health_max(max: float) -> void:
 	UI_root.get_node("HealthBar").max_value = max
 
