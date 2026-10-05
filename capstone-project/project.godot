@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SceneManager="*uid://b8b6lyu66gytg"
 UILayer="*uid://briglalxdwfyp"
 Globals="*uid://dggp0gei55fm3"
 
