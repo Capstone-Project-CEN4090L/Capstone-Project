@@ -659,7 +659,6 @@ volume_db = -5.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1946299936]
 offset = Vector2(0, -10)
 position_smoothing_enabled = true
-position_smoothing_speed = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1939656876]
 position = Vector2(-1.0000005, 8.500004)
