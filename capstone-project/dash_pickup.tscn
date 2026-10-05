@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dtdatxw4qqmp1"]
+
+[ext_resource type="Script" uid="uid://8uch6nll4s52" path="res://dash_pickup.gd" id="1_on3x7"]
+[ext_resource type="Texture2D" uid="uid://dgh4ns25ve8ha" path="res://icon.svg" id="1_t20s2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
+size = Vector2(128, 127)
+
+[node name="DashPickup" type="Area2D" unique_id=349824792]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_on3x7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=181139592]
+texture = ExtResource("1_t20s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=252724052]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_biyew")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
