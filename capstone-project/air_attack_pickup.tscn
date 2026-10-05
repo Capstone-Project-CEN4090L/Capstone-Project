@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://4m4jvu72r70s"]
+
+[ext_resource type="Script" uid="uid://dsu6cq6dxe8v8" path="res://air_attack_pickup.gd" id="1_l1ftv"]
+[ext_resource type="Texture2D" uid="uid://dgh4ns25ve8ha" path="res://icon.svg" id="2_almbo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
+size = Vector2(128, 127)
+
+[node name="AirAttackPickup" type="Area2D" unique_id=349824792]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_l1ftv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=181139592]
+texture = ExtResource("2_almbo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=252724052]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_biyew")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
