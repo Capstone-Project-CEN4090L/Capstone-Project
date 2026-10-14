@@ -3,7 +3,7 @@ var walk_speed = 400.0
 var dash_speed = 1600.0
 var dashing = false
 var dash_wait = false
-var lerprate = 0.2
+var lerprate = 0.1
 var can_dash = true
 var can_jump = true
 var can_doublejump = false
@@ -184,6 +184,14 @@ func _physics_process(delta: float) -> void:
 			$sfx.play()
 			can_doublejump = true
 			velocity.y = JUMP_VELOCITY
+			
+		if dashing == false and !is_on_floor():
+			if Input.is_action_pressed("ui_left") and !dashing == true:
+				velocity.x = lerp(velocity.x, -walk_speed, lerprate)
+			if Input.is_action_pressed("ui_right") and !dashing == true:
+				velocity.x = lerp(velocity.x, walk_speed, lerprate)
+			elif !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+				velocity.x = lerp(velocity.x, 0.0, 0.1)
 				
 		# FOR TESTING EXCLUSIVELY! Should not remain in final build!
 		if Input.is_action_just_pressed("debug_unlock_dash"):

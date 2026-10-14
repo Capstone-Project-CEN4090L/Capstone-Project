@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bnaq6dfe8rk8m" path="res://Assets/Sprites/tag/spritesheet2.png" id="10_ecf78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85xmt"]
-size = Vector2(14.6789, 27.930685)
+size = Vector2(14.6789, 28.463331)
 
 [sub_resource type="Animation" id="Animation_lerqx"]
 length = 0.001
@@ -409,7 +409,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"boost",
-"speed": 6.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -661,7 +661,7 @@ offset = Vector2(0, -10)
 position_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1939656876]
-position = Vector2(-1.0000005, 8.500004)
+position = Vector2(-1.0000005, 9.758326)
 scale = Vector2(4.8656254, 4.724793)
 shape = SubResource("RectangleShape2D_85xmt")
 
