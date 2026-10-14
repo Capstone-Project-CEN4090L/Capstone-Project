@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Capstone Project v3"
+config/name="Capstone Project v3 develop"
 run/main_scene="uid://fuc16vrvjj3o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=60
