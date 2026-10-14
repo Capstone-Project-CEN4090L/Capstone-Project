@@ -184,14 +184,6 @@ func _physics_process(delta: float) -> void:
 			$sfx.play()
 			can_doublejump = true
 			velocity.y = JUMP_VELOCITY
-
-		if dashing == false:
-			if Input.is_action_pressed("ui_left") and !dashing == true:
-				velocity.x = lerp(velocity.x, -walk_speed, lerprate)
-			if Input.is_action_pressed("ui_right") and !dashing == true:
-				velocity.x = lerp(velocity.x, walk_speed, lerprate)
-			elif !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
-				velocity.x = lerp(velocity.x, 0.0, 0.1)
 				
 		# FOR TESTING EXCLUSIVELY! Should not remain in final build!
 		if Input.is_action_just_pressed("debug_unlock_dash"):
