@@ -74,7 +74,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Attack
 	if Input.is_action_just_pressed("attack"):
-		if can_airattack and !is_airattacking and Globals.air_attack_unlocked:
+		if not is_on_floor() and can_airattack and !is_airattacking and Globals.air_attack_unlocked:
+			is_attacking = false
 			can_airattack = false
 			is_airattacking = true
 			tag_sword.play("air_attack")
@@ -102,7 +103,6 @@ func _physics_process(delta: float) -> void:
 		$boost.stream = boostsfx
 		$boost.play()
 		can_dash = false
-		dashing = true
 		velocity.x = dash_speed * dir
 		dashing = false
 		pass
@@ -178,12 +178,17 @@ func _physics_process(delta: float) -> void:
 
 		# Handle jump.
 		if Input.is_action_just_pressed("up") and can_jump:
+			if is_attacking:
+				is_attacking = false
+				tag_sword.stop()
+
 			can_airattack = true
 			can_jump = false
 			$sfx.stream = jumpsfx
 			$sfx.play()
 			can_doublejump = true
 			velocity.y = JUMP_VELOCITY
+			tag.play("jump")
 			
 		if dashing == false and !is_on_floor():
 			if Input.is_action_pressed("ui_left") and !dashing == true:
