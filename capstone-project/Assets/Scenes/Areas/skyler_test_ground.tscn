@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c5flgqrn1wwc6" path="res://Assets/Sprites/tiles/maskssss2.png" id="12_a63fq"]
 [ext_resource type="Texture2D" uid="uid://bdoochyino6d0" path="res://Assets/Sprites/tiles/vignettev2.png" id="13_fvjxw"]
 [ext_resource type="Script" uid="uid://5yw6u8aqtaam" path="res://Assets/Scenes/flying.gd" id="14_pxhs8"]
+[ext_resource type="Texture2D" uid="uid://bg8jrlggk0bq1" path="res://Assets/Sprites/tiles/16-bit-spike-Sheet.png" id="15_uuf5m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8enyv"]
 font_size = 67
@@ -295,6 +296,24 @@ sources/0 = SubResource("TileSetAtlasSource_ky8bt")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uuf5m"]
 size = Vector2(50, 34)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yf5wx"]
+texture = ExtResource("15_uuf5m")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = 100
+1:0/0 = 0
+1:0/0/custom_data_0 = 100
+2:0/0 = 0
+2:0/0/custom_data_0 = 100
+3:0/0 = 0
+3:0/0/custom_data_0 = 100
+
+[sub_resource type="TileSet" id="TileSet_dtg11"]
+physics_layer_0/collision_layer = 16
+custom_data_layer_0/name = "damage"
+custom_data_layer_0/type = 2
+sources/0 = SubResource("TileSetAtlasSource_yf5wx")
+
 [node name="SkylerTestGround" type="Node2D" unique_id=1709526725]
 y_sort_enabled = true
 
@@ -326,9 +345,6 @@ label_settings = SubResource("LabelSettings_8enyv")
 position = Vector2(56, -269)
 collision_layer = 5
 collision_mask = 1
-max_health = null
-normal_knockback = null
-upgraded_knockback = null
 
 [node name="TileMapLayerSOFT" type="TileMapLayer" parent="." unique_id=1941509571]
 y_sort_enabled = true
@@ -614,5 +630,9 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlyingEnemy/AttackArea" unique_id=1090487854]
 shape = SubResource("RectangleShape2D_uuf5m")
+
+[node name="Spikes" type="TileMapLayer" parent="." unique_id=1840236546]
+tile_map_data = PackedByteArray("AAD2////AAAAAAAAAAD3////AAAAAAAAAAAIAP//AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_dtg11")
 
 [connection signal="body_entered" from="FlyingEnemy/AttackArea" to="FlyingEnemy" method="_on_attack_area_body_entered"]

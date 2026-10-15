@@ -42,6 +42,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
 @onready var coyote_time: Timer = $CoyoteTime
 @onready var sprite: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
+@onready var spikes: TileMapLayer = $"../Spikes"
 #@onready var health_bar = get_node("../CanvasLayer/HealthBar")
 
 func _ready() -> void:
@@ -214,7 +215,7 @@ func _physics_process(delta: float) -> void:
 				Globals.air_attack_unlocked = true
 				print("Air Attack enabled")
 	move_and_slide()
-
+	check_spike_damage()
 
 
 # Fires bullets from muzzle node
@@ -265,6 +266,24 @@ func _physics_process(delta: float) -> void:
 			#await get_tree().create_timer(shoot_cooldown).timeout
 			#can_shoot = true
 	
+
+func check_spike_damage():
+	var check_points = [
+		global_position + Vector2(-10, 70),
+		global_position + Vector2(0, 70),
+		global_position + Vector2(10, 70)
+	]
+	
+	for check_position in check_points:
+		var tile_position = spikes.local_to_map(spikes.to_local(check_position))
+		var tile_data = spikes.get_cell_tile_data(tile_position)
+		
+		if tile_data:
+			var damage = tile_data.get_custom_data("damage")
+			
+			if damage > 0:
+				die()
+				return
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if !is_processing_input():
