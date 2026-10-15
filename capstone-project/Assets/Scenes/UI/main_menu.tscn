@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cmluvvp6j8q8v"]
+
+[ext_resource type="Script" uid="uid://bfx17pmcmfv2k" path="res://Assets/Scenes/UI/main_menu.gd" id="1_lmbrl"]
+
+[node name="MainMenu" type="Control" unique_id=1975320954]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lmbrl")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2038220639]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13259804, 0.32795456, 0.32962897, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=506118430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center" unique_id=1242404543]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Center/PanelContainer" unique_id=561682020]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Center/PanelContainer/Margin" unique_id=999785659]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Center/PanelContainer/Margin/VBox" unique_id=1149473294]
+layout_mode = 2
+text = "Title Screen"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=1592878669]
+layout_mode = 2
+text = "Play"
