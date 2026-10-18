@@ -3,22 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://dtdatxw4qqmp1" path="res://Assets/Scenes/Powerups/dash_pickup.tscn" id="1_4ystg"]
 [ext_resource type="PackedScene" uid="uid://4m4jvu72r70s" path="res://Assets/Scenes/Powerups/air_attack_pickup.tscn" id="1_tsgqn"]
 [ext_resource type="PackedScene" uid="uid://70jcabwr0gh2" path="res://Assets/Scenes/Misc/player.tscn" id="2_tsgqn"]
-[ext_resource type="PackedScene" uid="uid://cnpj10xpkvye6" path="res://Assets/Scenes/Misc/sans.tscn" id="4_8x6cm"]
-[ext_resource type="Script" uid="uid://b87wa11xxqjma" path="res://Assets/Scripts/Enemies/bulky.gd" id="5_kkm6j"]
 [ext_resource type="Texture2D" uid="uid://c1el07d2cgovv" path="res://Assets/Sprites/tiles/tileblock.png" id="5_n0p4q"]
-[ext_resource type="Script" uid="uid://dsh43leat35c2" path="res://Assets/Scripts/Enemies/fast.gd" id="6_xfp3f"]
 [ext_resource type="Texture2D" uid="uid://dn014bt2bdakm" path="res://Assets/Sprites/tiles/backgroundv2.png" id="8_8x6cm"]
 [ext_resource type="Texture2D" uid="uid://csjrfv3kudcqw" path="res://Assets/Sprites/tiles/sdscdsss.png" id="9_kkm6j"]
 [ext_resource type="Texture2D" uid="uid://b0ytnld5ah6s4" path="res://Assets/Sprites/tiles/sdscd.png" id="10_xfp3f"]
 [ext_resource type="Texture2D" uid="uid://c5flgqrn1wwc6" path="res://Assets/Sprites/tiles/maskssss2.png" id="11_n0p4q"]
 [ext_resource type="Texture2D" uid="uid://bdoochyino6d0" path="res://Assets/Sprites/tiles/vignettev2.png" id="13_2yxjf"]
+[ext_resource type="PackedScene" uid="uid://cyjrr6lrailc1" path="res://Assets/Scenes/Obstacles/mushroom.tscn" id="13_lxij5"]
 [ext_resource type="PackedScene" uid="uid://hci46fbkh2mo" path="res://Assets/Scenes/Obstacles/spike.tscn" id="14_lxij5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iifl"]
-size = Vector2(116.5, 42.25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypqo2"]
-size = Vector2(50, 34)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_oumna"]
 scenes/1/scene = ExtResource("14_lxij5")
@@ -26,6 +18,13 @@ scenes/1/scene = ExtResource("14_lxij5")
 [sub_resource type="TileSet" id="TileSet_biyew"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetScenesCollectionSource_oumna")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7hfup"]
+scenes/1/scene = ExtResource("13_lxij5")
+
+[sub_resource type="TileSet" id="TileSet_kd4fp"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetScenesCollectionSource_7hfup")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_diuls"]
 
@@ -51,191 +50,10 @@ position = Vector2(-964, -160)
 position = Vector2(-654, -156)
 
 [node name="Player" parent="." unique_id=1257514843 groups=["player"] instance=ExtResource("2_tsgqn")]
+z_index = 3
 position = Vector2(56, -269)
 collision_layer = 5
 collision_mask = 1
-
-[node name="bulky" parent="." unique_id=2130607118 instance=ExtResource("4_8x6cm")]
-position = Vector2(369, -26)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("5_kkm6j")
-max_health = 50
-move_speed = 100.0
-detection_range = 300.0
-attack_range = 60.0
-attack_damage = 20
-attack_cooldown = 1.0
-vertical_detection_range = 80.0
-knockback_strength = 170.0
-knockback_time = 0.2
-
-[node name="AttackArea" type="Area2D" parent="bulky" unique_id=1987452253]
-position = Vector2(-40, 4)
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bulky/AttackArea" unique_id=1077076787]
-position = Vector2(40, -10)
-shape = SubResource("RectangleShape2D_1iifl")
-
-[node name="GroundCheck" type="RayCast2D" parent="bulky" unique_id=2100265567]
-
-[node name="fast" parent="." unique_id=379384923 instance=ExtResource("4_8x6cm")]
-position = Vector2(-213, -69)
-scale = Vector2(2.6489213, 2.6489213)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast" unique_id=884871281]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast/AttackArea" unique_id=1700101466]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast" unique_id=1910851667]
-
-[node name="fast2" parent="." unique_id=2133663499 instance=ExtResource("4_8x6cm")]
-position = Vector2(2522, 396)
-scale = Vector2(4.043782, 4.043782)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast2" unique_id=32982760]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast2/AttackArea" unique_id=1103336328]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast2" unique_id=543671895]
-
-[node name="fast3" parent="." unique_id=637403615 instance=ExtResource("4_8x6cm")]
-position = Vector2(1263, -107.000015)
-scale = Vector2(3.4878879, 3.4878879)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast3" unique_id=823614008]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast3/AttackArea" unique_id=401300563]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast3" unique_id=826256745]
-
-[node name="fast4" parent="." unique_id=777496648 instance=ExtResource("4_8x6cm")]
-position = Vector2(1476, -207.00002)
-scale = Vector2(3.4878879, 3.4878879)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast4" unique_id=1085588146]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast4/AttackArea" unique_id=1520846197]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast4" unique_id=1566953519]
-
-[node name="fast5" parent="." unique_id=48468000 instance=ExtResource("4_8x6cm")]
-position = Vector2(1339, -527)
-scale = Vector2(3.4878879, 3.4878879)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast5" unique_id=1429551335]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast5/AttackArea" unique_id=9121233]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast5" unique_id=295808937]
-
-[node name="fast6" parent="." unique_id=1235787590 instance=ExtResource("4_8x6cm")]
-position = Vector2(1965.0001, -67)
-scale = Vector2(3.4878879, 3.4878879)
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("6_xfp3f")
-max_health = 40
-move_speed = 180.0
-detection_range = 300.0
-attack_damage = 15
-attack_cooldown = 0.5
-vertical_detection_range = 80.0
-horizontal_dead_zone = 30.0
-knockback_strength = 170.0
-knockback_time = 0.2
-lunge_speed = 500.0
-lunge_time = 0.12
-
-[node name="AttackArea" type="Area2D" parent="fast6" unique_id=1917113241]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="fast6/AttackArea" unique_id=1307712221]
-shape = SubResource("RectangleShape2D_ypqo2")
-
-[node name="GroundCheck" type="RayCast2D" parent="fast6" unique_id=719964961]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=642535281]
 z_index = -4
@@ -276,7 +94,7 @@ repeat_size = Vector2(1920, 0)
 texture = ExtResource("11_n0p4q")
 
 [node name="Parallax2D5" type="Parallax2D" parent="." unique_id=1942109009]
-z_index = 1
+z_index = 2
 scale = Vector2(0.55097234, 0.55097234)
 scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(576, 320)
@@ -286,21 +104,47 @@ visible = false
 texture = ExtResource("13_2yxjf")
 
 [node name="Spikes" type="TileMapLayer" parent="." unique_id=1635141005]
-tile_map_data = PackedByteArray("AADz////AQAAAAAAAQD0////AQAAAAAAAQD1////AQAAAAAAAQD2////AQAAAAAAAQD3////AQAAAAAAAQD4////AQAAAAAAAQD5////AQAAAAAAAQD6////AQAAAAAAAQD7////AQAAAAAAAQDy////AQAAAAAAAQA=")
+z_index = 1
+tile_map_data = PackedByteArray("AADz////AQAAAAAAAQD0////AQAAAAAAAQD1////AQAAAAAAAQD2////AQAAAAAAAQD3////AQAAAAAAAQD4////AQAAAAAAAQD5////AQAAAAAAAQD6////AQAAAAAAAQDy////AQAAAAAAAQDx////AQAAAAAAAQDw////AQAAAAAAAQDv////AQAAAAAAAQDu////AQAAAAAAAQDt////AQAAAAAAAQDs////AQAAAAAAAQDr////AQAAAAAAAQDq////AQAAAAAAAQDp////AQAAAAAAAQDo////AQAAAAAAAQDn////AQAAAAAAAQDm////AQAAAAAAAQDl////AQAAAAAAAQDk////AQAAAAAAAQDj////AQAAAAAAAQDi////AQAAAAAAAQDh////AQAAAAAAAQDg////AQAAAAAAAQA=")
 tile_set = SubResource("TileSet_biyew")
+
+[node name="Mushrooms" type="TileMapLayer" parent="." unique_id=23407812]
+tile_map_data = PackedByteArray("AAADAP//AAAAAAAAAQD+////AAAAAAAAAQD5////AAAAAAAAAQD0////AAAAAAAAAQA=")
+tile_set = SubResource("TileSet_kd4fp")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1705892824]
 scale = Vector2(0.4, 0.4)
-tile_map_data = PackedByteArray("AAAIAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAD8/wQAAAAAAAAAAADw/wQAAAAAAAAAAADk/wQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD7/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD3/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAD//wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD4/wEAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAD//wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD8/wMAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAVAAEAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAVAAQAAAAAAAAAAAAVAAMAAAAAAAAAAAAVAAIAAAAAAAAAAAATAAEAAAAAAAAAAAASAAEAAAAAAAAAAAARAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAQAAIAAAAAAAAAAAARAAIAAAAAAAAAAAASAAIAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAASAAMAAAAAAAAAAAARAAMAAAAAAAAAAAAQAAMAAAAAAAAAAAAPAAMAAAAAAAAAAAAOAAMAAAAAAAAAAAANAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAARAAQAAAAAAAAAAAASAAQAAAAAAAAAAAATAAQAAAAAAAAAAAD2/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD0/wAAAAAAAAAAAADz/wAAAAAAAAAAAADy/wAAAAAAAAAAAADx/wAAAAAAAAAAAADw/wAAAAAAAAAAAADv/wAAAAAAAAAAAADu/wAAAAAAAAAAAADt/wAAAAAAAAAAAADs/wAAAAAAAAAAAADs/wEAAAAAAAAAAADs/wQAAAAAAAAAAADs/wMAAAAAAAAAAADs/wIAAAAAAAAAAADt/wEAAAAAAAAAAADu/wEAAAAAAAAAAADv/wEAAAAAAAAAAADw/wEAAAAAAAAAAADx/wEAAAAAAAAAAADy/wEAAAAAAAAAAADz/wEAAAAAAAAAAAD0/wEAAAAAAAAAAAD1/wEAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD1/wQAAAAAAAAAAAD0/wQAAAAAAAAAAADz/wQAAAAAAAAAAADy/wQAAAAAAAAAAADx/wQAAAAAAAAAAADv/wQAAAAAAAAAAADu/wQAAAAAAAAAAADt/wQAAAAAAAAAAADt/wMAAAAAAAAAAADt/wIAAAAAAAAAAADu/wIAAAAAAAAAAADv/wIAAAAAAAAAAADw/wIAAAAAAAAAAADw/wMAAAAAAAAAAADx/wMAAAAAAAAAAADy/wMAAAAAAAAAAADy/wIAAAAAAAAAAADz/wIAAAAAAAAAAAD0/wIAAAAAAAAAAAD1/wIAAAAAAAAAAADx/wIAAAAAAAAAAADv/wMAAAAAAAAAAADu/wMAAAAAAAAAAADz/wMAAAAAAAAAAAD0/wMAAAAAAAAAAAD1/wMAAAAAAAAAAAAOAP//AAAAAAAAAAAOAP7/AAAAAAAAAAANAP//AAAAAAAAAAANAP7/AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAIAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAD8/wQAAAAAAAAAAADw/wQAAAAAAAAAAADk/wQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD7/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD3/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAD//wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD4/wEAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAD//wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD8/wMAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAVAAEAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAVAAQAAAAAAAAAAAAVAAMAAAAAAAAAAAAVAAIAAAAAAAAAAAATAAEAAAAAAAAAAAASAAEAAAAAAAAAAAARAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAQAAIAAAAAAAAAAAARAAIAAAAAAAAAAAASAAIAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAASAAMAAAAAAAAAAAARAAMAAAAAAAAAAAAQAAMAAAAAAAAAAAAPAAMAAAAAAAAAAAAOAAMAAAAAAAAAAAANAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAARAAQAAAAAAAAAAAASAAQAAAAAAAAAAAATAAQAAAAAAAAAAAD2/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD0/wAAAAAAAAAAAADz/wAAAAAAAAAAAADy/wAAAAAAAAAAAADx/wAAAAAAAAAAAADw/wAAAAAAAAAAAADv/wAAAAAAAAAAAADu/wAAAAAAAAAAAADt/wAAAAAAAAAAAADs/wAAAAAAAAAAAADs/wEAAAAAAAAAAADs/wQAAAAAAAAAAADs/wMAAAAAAAAAAADs/wIAAAAAAAAAAADt/wEAAAAAAAAAAADu/wEAAAAAAAAAAADv/wEAAAAAAAAAAADw/wEAAAAAAAAAAADx/wEAAAAAAAAAAADy/wEAAAAAAAAAAADz/wEAAAAAAAAAAAD0/wEAAAAAAAAAAAD1/wEAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD1/wQAAAAAAAAAAAD0/wQAAAAAAAAAAADz/wQAAAAAAAAAAADy/wQAAAAAAAAAAADx/wQAAAAAAAAAAADv/wQAAAAAAAAAAADu/wQAAAAAAAAAAADt/wQAAAAAAAAAAADt/wMAAAAAAAAAAADt/wIAAAAAAAAAAADu/wIAAAAAAAAAAADv/wIAAAAAAAAAAADw/wIAAAAAAAAAAADw/wMAAAAAAAAAAADx/wMAAAAAAAAAAADy/wMAAAAAAAAAAADy/wIAAAAAAAAAAADz/wIAAAAAAAAAAAD0/wIAAAAAAAAAAAD1/wIAAAAAAAAAAADx/wIAAAAAAAAAAADv/wMAAAAAAAAAAADu/wMAAAAAAAAAAADz/wMAAAAAAAAAAAD0/wMAAAAAAAAAAAD1/wMAAAAAAAAAAAAOAP//AAAAAAAAAAAOAP7/AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAPAP//AAAAAAAAAAAPAP7/AAAAAAAAAAAQAP//AAAAAAAAAAAQAP7/AAAAAAAAAAARAP7/AAAAAAAAAAARAP//AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_mxepp")
 
-[connection signal="body_entered" from="Spikes/@Area2D@70090" to="Spikes/@Area2D@70090" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70091" to="Spikes/@Area2D@70091" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70092" to="Spikes/@Area2D@70092" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70093" to="Spikes/@Area2D@70093" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70094" to="Spikes/@Area2D@70094" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70095" to="Spikes/@Area2D@70095" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70096" to="Spikes/@Area2D@70096" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70097" to="Spikes/@Area2D@70097" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70098" to="Spikes/@Area2D@70098" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@70099" to="Spikes/@Area2D@70099" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/spike" to="Spikes/spike" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76704" to="Spikes/@Area2D@76704" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76705" to="Spikes/@Area2D@76705" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76706" to="Spikes/@Area2D@76706" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76707" to="Spikes/@Area2D@76707" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76708" to="Spikes/@Area2D@76708" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76709" to="Spikes/@Area2D@76709" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76710" to="Spikes/@Area2D@76710" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76711" to="Spikes/@Area2D@76711" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76712" to="Spikes/@Area2D@76712" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76713" to="Spikes/@Area2D@76713" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76714" to="Spikes/@Area2D@76714" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76715" to="Spikes/@Area2D@76715" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76716" to="Spikes/@Area2D@76716" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76717" to="Spikes/@Area2D@76717" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76718" to="Spikes/@Area2D@76718" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76719" to="Spikes/@Area2D@76719" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76720" to="Spikes/@Area2D@76720" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76721" to="Spikes/@Area2D@76721" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76722" to="Spikes/@Area2D@76722" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76723" to="Spikes/@Area2D@76723" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76724" to="Spikes/@Area2D@76724" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76725" to="Spikes/@Area2D@76725" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76726" to="Spikes/@Area2D@76726" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76727" to="Spikes/@Area2D@76727" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76728" to="Spikes/@Area2D@76728" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@76729" to="Spikes/@Area2D@76729" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@77157" to="Mushrooms/@Area2D@77157" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@77158" to="Mushrooms/@Area2D@77158" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@77159" to="Mushrooms/@Area2D@77159" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@77160" to="Mushrooms/@Area2D@77160" method="_on_body_entered"]

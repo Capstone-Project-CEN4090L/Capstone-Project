@@ -383,6 +383,13 @@ func _on_airsword_body_entered(body: Node2D):
 				knockback_amount = upgraded_knockback
 			
 			body.take_damage(10, hit_direction, knockback_amount)
+			
+func _on_airsword_area_entered(area: Node2D) -> void:
+	if is_airattacking and area.has_method("take_damage"):
+		velocity.y = JUMP_VELOCITY * 1.5
+		can_airattack = true
+		can_dash = true
+		can_doublejump = true
 
 @warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
