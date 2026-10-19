@@ -13,7 +13,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vuckr"]
 radius = 12.0
-height = 32.0
+height = 40.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p25hk"]
 animations = [{
@@ -71,13 +71,15 @@ animations = [{
 size = Vector2(62.25, 42.25)
 
 [node name="pouncer" type="CharacterBody2D" unique_id=2133663499 groups=["enemies"]]
-collision_layer = 15
-collision_mask = 13
+scale = Vector2(1.5, 1.5)
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_cj64d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=556822882 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_vuckr")
 
 [node name="Node2D" type="Area2D" parent="." unique_id=2040864580]
@@ -95,6 +97,7 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1724849185 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_vuckr")
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=458480315]
