@@ -8,25 +8,26 @@
 [ext_resource type="Texture2D" uid="uid://csjrfv3kudcqw" path="res://Assets/Sprites/tiles/sdscdsss.png" id="9_kkm6j"]
 [ext_resource type="Texture2D" uid="uid://b0ytnld5ah6s4" path="res://Assets/Sprites/tiles/sdscd.png" id="10_xfp3f"]
 [ext_resource type="Texture2D" uid="uid://c5flgqrn1wwc6" path="res://Assets/Sprites/tiles/maskssss2.png" id="11_n0p4q"]
+[ext_resource type="PackedScene" uid="uid://w4la0yn65g0p" path="res://Assets/Scenes/Enemies/pouncer.tscn" id="12_n0p4q"]
 [ext_resource type="Texture2D" uid="uid://bdoochyino6d0" path="res://Assets/Sprites/tiles/vignettev2.png" id="13_2yxjf"]
 [ext_resource type="PackedScene" uid="uid://cyjrr6lrailc1" path="res://Assets/Scenes/Obstacles/mushroom.tscn" id="13_lxij5"]
 [ext_resource type="PackedScene" uid="uid://hci46fbkh2mo" path="res://Assets/Scenes/Obstacles/spike.tscn" id="14_lxij5"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_xfp3f"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_oumna"]
 scenes/1/scene = ExtResource("14_lxij5")
 
 [sub_resource type="TileSet" id="TileSet_biyew"]
-tile_size = Vector2i(155, 155)
-sources/1 = SubResource("TileSetScenesCollectionSource_xfp3f")
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetScenesCollectionSource_oumna")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n0p4q"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7hfup"]
 scenes/1/scene = ExtResource("13_lxij5")
 
 [sub_resource type="TileSet" id="TileSet_kd4fp"]
-tile_size = Vector2i(155, 155)
-sources/0 = SubResource("TileSetScenesCollectionSource_n0p4q")
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetScenesCollectionSource_7hfup")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n0p4q"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_diuls"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2yxjf"]
 texture = ExtResource("5_n0p4q")
@@ -37,7 +38,7 @@ texture_region_size = Vector2i(155, 155)
 [sub_resource type="TileSet" id="TileSet_mxepp"]
 tile_size = Vector2i(155, 155)
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_n0p4q")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_diuls")
 sources/0 = SubResource("TileSetAtlasSource_2yxjf")
 
 [node name="JohnTestGround" type="Node2D" unique_id=1709526725]
@@ -55,65 +56,60 @@ position = Vector2(56, -269)
 collision_layer = 5
 collision_mask = 1
 
-[node name="Background" type="Node2D" parent="." unique_id=1598706641]
-
-[node name="Parallax2D" type="Parallax2D" parent="Background" unique_id=642535281]
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=642535281]
 z_index = -4
 scale = Vector2(0.94759524, 0.94759524)
 scroll_scale = Vector2(0.2, 0.2)
 scroll_offset = Vector2(-1268.0001, -744)
 repeat_size = Vector2(1920, 1080)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D" unique_id=1974716438]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1974716438]
 texture = ExtResource("8_8x6cm")
 
-[node name="Parallax2D2" type="Parallax2D" parent="Background" unique_id=1028019229]
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1028019229]
 z_index = -3
 scroll_scale = Vector2(0.3, 0.3)
 scroll_offset = Vector2(-1596, -231)
 repeat_size = Vector2(1920, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D2" unique_id=1435073509]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1435073509]
 texture = ExtResource("9_kkm6j")
 
-[node name="Parallax2D3" type="Parallax2D" parent="Background" unique_id=1783897233]
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1783897233]
 z_index = -2
 scroll_scale = Vector2(0.4, 0.4)
 scroll_offset = Vector2(-480, -245)
 repeat_size = Vector2(1920, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D3" unique_id=1747709777]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=1747709777]
 position = Vector2(421, 31)
 texture = ExtResource("10_xfp3f")
 
-[node name="Parallax2D4" type="Parallax2D" parent="Background" unique_id=152684332]
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=152684332]
 z_index = -1
 scroll_scale = Vector2(0.25, 0.25)
 scroll_offset = Vector2(433, 681)
 repeat_size = Vector2(1920, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D4" unique_id=1940781392]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D4" unique_id=1940781392]
 texture = ExtResource("11_n0p4q")
 
-[node name="Parallax2D5" type="Parallax2D" parent="Background" unique_id=1942109009]
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=1942109009]
 z_index = 2
 scale = Vector2(0.55097234, 0.55097234)
 scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(576, 320)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D5" unique_id=162626639]
-visible = false
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D5" unique_id=162626639]
 texture = ExtResource("13_2yxjf")
 
 [node name="Spikes" type="TileMapLayer" parent="." unique_id=1635141005]
 z_index = 1
-scale = Vector2(0.4, 0.4)
 tile_map_data = PackedByteArray("AADz////AQAAAAAAAQD0////AQAAAAAAAQD1////AQAAAAAAAQD2////AQAAAAAAAQD3////AQAAAAAAAQD4////AQAAAAAAAQD5////AQAAAAAAAQD6////AQAAAAAAAQDy////AQAAAAAAAQDx////AQAAAAAAAQDw////AQAAAAAAAQDv////AQAAAAAAAQDu////AQAAAAAAAQDt////AQAAAAAAAQDs////AQAAAAAAAQDr////AQAAAAAAAQDq////AQAAAAAAAQDp////AQAAAAAAAQDo////AQAAAAAAAQDn////AQAAAAAAAQDm////AQAAAAAAAQDl////AQAAAAAAAQDk////AQAAAAAAAQDj////AQAAAAAAAQDi////AQAAAAAAAQDh////AQAAAAAAAQDg////AQAAAAAAAQA=")
 tile_set = SubResource("TileSet_biyew")
 
 [node name="Mushrooms" type="TileMapLayer" parent="." unique_id=23407812]
-scale = Vector2(0.4, 0.4)
-tile_map_data = PackedByteArray("AAADAP//AAAAAAAAAQD+////AAAAAAAAAQD5////AAAAAAAAAQD0////AAAAAAAAAQAAAP//AAAAAAAAAQABAP//AAAAAAAAAQACAP//AAAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAADAP//AAAAAAAAAQD+////AAAAAAAAAQD5////AAAAAAAAAQD0////AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_kd4fp")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1705892824]
@@ -121,37 +117,37 @@ scale = Vector2(0.4, 0.4)
 tile_map_data = PackedByteArray("AAAIAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAD8/wQAAAAAAAAAAADw/wQAAAAAAAAAAADk/wQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD7/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD3/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAD//wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD4/wEAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAD//wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD8/wMAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAVAAEAAAAAAAAAAAAUAAEAAAAAAAAAAAAUAAIAAAAAAAAAAAAUAAMAAAAAAAAAAAAVAAQAAAAAAAAAAAAVAAMAAAAAAAAAAAAVAAIAAAAAAAAAAAATAAEAAAAAAAAAAAASAAEAAAAAAAAAAAARAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAQAAIAAAAAAAAAAAARAAIAAAAAAAAAAAASAAIAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAASAAMAAAAAAAAAAAARAAMAAAAAAAAAAAAQAAMAAAAAAAAAAAAPAAMAAAAAAAAAAAAOAAMAAAAAAAAAAAANAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAARAAQAAAAAAAAAAAASAAQAAAAAAAAAAAATAAQAAAAAAAAAAAD2/wAAAAAAAAAAAAD1/wAAAAAAAAAAAAD0/wAAAAAAAAAAAADz/wAAAAAAAAAAAADy/wAAAAAAAAAAAADx/wAAAAAAAAAAAADw/wAAAAAAAAAAAADv/wAAAAAAAAAAAADu/wAAAAAAAAAAAADt/wAAAAAAAAAAAADs/wAAAAAAAAAAAADs/wEAAAAAAAAAAADs/wQAAAAAAAAAAADs/wMAAAAAAAAAAADs/wIAAAAAAAAAAADt/wEAAAAAAAAAAADu/wEAAAAAAAAAAADv/wEAAAAAAAAAAADw/wEAAAAAAAAAAADx/wEAAAAAAAAAAADy/wEAAAAAAAAAAADz/wEAAAAAAAAAAAD0/wEAAAAAAAAAAAD1/wEAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD1/wQAAAAAAAAAAAD0/wQAAAAAAAAAAADz/wQAAAAAAAAAAADy/wQAAAAAAAAAAADx/wQAAAAAAAAAAADv/wQAAAAAAAAAAADu/wQAAAAAAAAAAADt/wQAAAAAAAAAAADt/wMAAAAAAAAAAADt/wIAAAAAAAAAAADu/wIAAAAAAAAAAADv/wIAAAAAAAAAAADw/wIAAAAAAAAAAADw/wMAAAAAAAAAAADx/wMAAAAAAAAAAADy/wMAAAAAAAAAAADy/wIAAAAAAAAAAADz/wIAAAAAAAAAAAD0/wIAAAAAAAAAAAD1/wIAAAAAAAAAAADx/wIAAAAAAAAAAADv/wMAAAAAAAAAAADu/wMAAAAAAAAAAADz/wMAAAAAAAAAAAD0/wMAAAAAAAAAAAD1/wMAAAAAAAAAAAAOAP//AAAAAAAAAAAOAP7/AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAPAP//AAAAAAAAAAAPAP7/AAAAAAAAAAAQAP//AAAAAAAAAAAQAP7/AAAAAAAAAAARAP7/AAAAAAAAAAARAP//AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_mxepp")
 
+[node name="pouncer" parent="." unique_id=2133663499 instance=ExtResource("12_n0p4q")]
+position = Vector2(492, -167)
+
 [connection signal="body_entered" from="Spikes/spike" to="Spikes/spike" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451590" to="Spikes/@Area2D@451590" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451591" to="Spikes/@Area2D@451591" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451592" to="Spikes/@Area2D@451592" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451593" to="Spikes/@Area2D@451593" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451594" to="Spikes/@Area2D@451594" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451595" to="Spikes/@Area2D@451595" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451596" to="Spikes/@Area2D@451596" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451597" to="Spikes/@Area2D@451597" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451598" to="Spikes/@Area2D@451598" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451599" to="Spikes/@Area2D@451599" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451600" to="Spikes/@Area2D@451600" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451601" to="Spikes/@Area2D@451601" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451602" to="Spikes/@Area2D@451602" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451603" to="Spikes/@Area2D@451603" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451604" to="Spikes/@Area2D@451604" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451605" to="Spikes/@Area2D@451605" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451606" to="Spikes/@Area2D@451606" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451607" to="Spikes/@Area2D@451607" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451608" to="Spikes/@Area2D@451608" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451609" to="Spikes/@Area2D@451609" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451610" to="Spikes/@Area2D@451610" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451611" to="Spikes/@Area2D@451611" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451612" to="Spikes/@Area2D@451612" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451613" to="Spikes/@Area2D@451613" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451614" to="Spikes/@Area2D@451614" method="_on_body_entered"]
-[connection signal="body_entered" from="Spikes/@Area2D@451615" to="Spikes/@Area2D@451615" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59948" to="Spikes/@Area2D@59948" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59949" to="Spikes/@Area2D@59949" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59950" to="Spikes/@Area2D@59950" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59951" to="Spikes/@Area2D@59951" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59952" to="Spikes/@Area2D@59952" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59953" to="Spikes/@Area2D@59953" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59954" to="Spikes/@Area2D@59954" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59955" to="Spikes/@Area2D@59955" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59956" to="Spikes/@Area2D@59956" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59957" to="Spikes/@Area2D@59957" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59958" to="Spikes/@Area2D@59958" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59959" to="Spikes/@Area2D@59959" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59960" to="Spikes/@Area2D@59960" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59961" to="Spikes/@Area2D@59961" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59962" to="Spikes/@Area2D@59962" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59963" to="Spikes/@Area2D@59963" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59964" to="Spikes/@Area2D@59964" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59965" to="Spikes/@Area2D@59965" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59966" to="Spikes/@Area2D@59966" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59967" to="Spikes/@Area2D@59967" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59968" to="Spikes/@Area2D@59968" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59969" to="Spikes/@Area2D@59969" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59970" to="Spikes/@Area2D@59970" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59971" to="Spikes/@Area2D@59971" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59972" to="Spikes/@Area2D@59972" method="_on_body_entered"]
+[connection signal="body_entered" from="Spikes/@Area2D@59973" to="Spikes/@Area2D@59973" method="_on_body_entered"]
 [connection signal="body_entered" from="Mushrooms/mushroom" to="Mushrooms/mushroom" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450856" to="Mushrooms/@Area2D@450856" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450857" to="Mushrooms/@Area2D@450857" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450858" to="Mushrooms/@Area2D@450858" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450859" to="Mushrooms/@Area2D@450859" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450860" to="Mushrooms/@Area2D@450860" method="_on_body_entered"]
-[connection signal="body_entered" from="Mushrooms/@Area2D@450861" to="Mushrooms/@Area2D@450861" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@59974" to="Mushrooms/@Area2D@59974" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@59975" to="Mushrooms/@Area2D@59975" method="_on_body_entered"]
+[connection signal="body_entered" from="Mushrooms/@Area2D@59976" to="Mushrooms/@Area2D@59976" method="_on_body_entered"]

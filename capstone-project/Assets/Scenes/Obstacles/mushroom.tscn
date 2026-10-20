@@ -59,6 +59,9 @@ script = ExtResource("1_ag3bv")
 position = Vector2(0, 78)
 scale = Vector2(1.7349395, 1.7349395)
 sprite_frames = SubResource("SpriteFrames_lquv3")
+animation = &"bounce"
+frame = 3
+frame_progress = 1.0
 offset = Vector2(0, -78)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=99997972]

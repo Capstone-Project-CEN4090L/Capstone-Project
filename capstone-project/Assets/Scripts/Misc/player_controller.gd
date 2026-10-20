@@ -213,6 +213,9 @@ func _physics_process(delta: float) -> void:
 				Globals.air_attack_unlocked = true
 				print("Air Attack enabled")
 	move_and_slide()
+	
+	if is_on_floor() and is_airattacking:
+		cancel_air_attack()
 
 
 # Fires bullets from muzzle node
@@ -263,6 +266,13 @@ func _physics_process(delta: float) -> void:
 			#await get_tree().create_timer(shoot_cooldown).timeout
 			#can_shoot = true
 
+func cancel_air_attack() -> void:
+	is_airattacking = false
+	
+	if tag_sword.current_animation == "air_attack":
+		tag_sword.stop()
+		
+	airsword.get_node("attack").set_deferred("disabled", true)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if !is_processing_input():
