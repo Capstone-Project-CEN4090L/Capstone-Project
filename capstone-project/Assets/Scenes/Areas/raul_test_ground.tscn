@@ -135,7 +135,7 @@ texture = ExtResource("7_shmgr")
 
 [node name="Parallax2D5" type="Parallax2D" parent="Background" unique_id=1516711253]
 z_index = 2
-scale = Vector2(0.55097234, 0.55097234)
+scale = Vector2(0.6423471, 0.6423471)
 scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(576, 320)
 
