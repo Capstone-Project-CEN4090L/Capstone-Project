@@ -1,10 +1,10 @@
 [gd_scene format=4 uid="uid://c6d3r5hdtypxa"]
 
-[ext_resource type="PackedScene" uid="uid://70jcabwr0gh2" path="res://Assets/Scenes/player.tscn" id="1_ykx6l"]
+[ext_resource type="PackedScene" uid="uid://70jcabwr0gh2" path="res://Assets/Scenes/Misc/player.tscn" id="1_ykx6l"]
 [ext_resource type="Texture2D" uid="uid://dbcd8lfcdug76" path="res://Assets/Sprites/tiles/tilemappurple.png" id="2_sdlgv"]
-[ext_resource type="PackedScene" uid="uid://cnpj10xpkvye6" path="res://Assets/Scenes/sans.tscn" id="3_gqc3y"]
-[ext_resource type="Script" uid="uid://b87wa11xxqjma" path="res://Assets/Scenes/bulky.gd" id="4_hkjyd"]
-[ext_resource type="Script" uid="uid://dsh43leat35c2" path="res://Assets/Scenes/fast.gd" id="5_673qh"]
+[ext_resource type="PackedScene" uid="uid://cnpj10xpkvye6" path="res://Assets/Scenes/Misc/sans.tscn" id="3_gqc3y"]
+[ext_resource type="Script" uid="uid://b87wa11xxqjma" path="res://Assets/Scripts/Enemies/bulky.gd" id="4_hkjyd"]
+[ext_resource type="Script" uid="uid://dsh43leat35c2" path="res://Assets/Scripts/Enemies/fast.gd" id="5_673qh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8enyv"]
 font_size = 67
