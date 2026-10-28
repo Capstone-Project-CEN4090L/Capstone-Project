@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://smkqub71176o"]
+
+[ext_resource type="Script" uid="uid://cr3a0n1o1re4g" path="res://low_gravity_pickup.gd" id="1_htugt"]
+[ext_resource type="Texture2D" uid="uid://dgh4ns25ve8ha" path="res://icon.svg" id="2_g2vdq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iifl"]
+
+[node name="LowGravityPickup" type="Area2D" unique_id=562978495]
+script = ExtResource("1_htugt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1371793742]
+position = Vector2(-9.536743e-07, 0)
+scale = Vector2(0.16796875, 0.16796875)
+texture = ExtResource("2_g2vdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1016732605]
+shape = SubResource("RectangleShape2D_1iifl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
