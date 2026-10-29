@@ -41,12 +41,10 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
 @onready var coyote_time: Timer = $CoyoteTime
 @onready var sprite: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
-#@onready var health_bar = get_node("../CanvasLayer/HealthBar")
+
 
 func _ready() -> void:
 	health = max_health
-	#health_bar.max_value = max_health
-	#health_bar.value = health
 	UILayer.set_health_max(max_health)
 	UILayer.update_health(health)
 	
@@ -73,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Attack
 	if Input.is_action_just_pressed("attack"):
-		if not is_on_floor() and can_airattack and !is_airattacking and Globals.air_attack_unlocked:
+		if not is_on_floor() and can_airattack and !is_airattacking and SaveManager.get_player_value("has_air_attack"):
 			is_attacking = false
 			can_airattack = false
 			is_airattacking = true
@@ -92,7 +90,7 @@ func _physics_process(delta: float) -> void:
 				#velocity.x = SPEED
 				
 		# Aerial boost, refreshes upon landing
-	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and Globals.dash_unlocked:
+	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and SaveManager.get_player_value("has_dash"):
 		if is_airattacking:
 			is_airattacking = false
 			tag_sword.stop()
@@ -199,18 +197,18 @@ func _physics_process(delta: float) -> void:
 				
 		# FOR TESTING EXCLUSIVELY! Should not remain in final build!
 		if Input.is_action_just_pressed("debug_unlock_dash"):
-			if Globals.dash_unlocked:
-				Globals.dash_unlocked = false
+			if SaveManager.get_player_value("has_dash"):
+				SaveManager.set_player_value("has_dash", false)
 				print("Dash disabled")
 			else:
-				Globals.dash_unlocked = true
+				SaveManager.set_player_value("has_dash", true)
 				print("Dash enabled")
 		if Input.is_action_just_pressed("debug_unlock_air_attack"):
-			if Globals.air_attack_unlocked:
-				Globals.air_attack_unlocked = false
+			if SaveManager.get_player_value("has_air_attack"):
+				SaveManager.set_player_value("has_air_attack", false)
 				print("Air Attack disabled")
 			else:
-				Globals.air_attack_unlocked = true
+				SaveManager.set_player_value("has_air_attack", true)
 				print("Air Attack enabled")
 	move_and_slide()
 	
@@ -316,7 +314,7 @@ func take_damage(amount: int):
 	health -= amount
 	health = max(health, 0)
 	
-	#health_bar.value = health
+
 	UILayer.update_health(health)
 	
 	print("Player Health: ", health)
@@ -347,7 +345,6 @@ func toggle_knockback_upgrade():
 func heal(amount: int):
 	health += amount
 	health = min(health, max_health)
-	#health_bar.value = health
 	UILayer.update_health(health)
 	print("Player Health: ", health)
 
@@ -404,8 +401,8 @@ func _on_airsword_area_entered(area: Node2D) -> void:
 @warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
-		Globals.air_attack_unlocked = false
-		Globals.dash_unlocked = false
+		SaveManager.set_player_value("has_air_attack", false)
+		SaveManager.set_player_value("has_dash", false)
 		get_tree().reload_current_scene()
 
 

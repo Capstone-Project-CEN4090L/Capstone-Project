@@ -8,9 +8,15 @@ func _ready():
 	visible = false
 	main_page.get_node("ResumeButton").pressed.connect(close_menu)
 	main_page.get_node("OptionsButton").pressed.connect(show_page.bind(options_page))
+	main_page.get_node("SaveButton").pressed.connect(save_gamestate)
 	main_page.get_node("QuitButton").pressed.connect(quit_to_menu.bind())
 	options_page.get_node("BackButton").pressed.connect(show_page.bind(main_page))
 	options_page.get_node("VolumeSlider").value_changed.connect(set_volume)
+
+func save_gamestate():
+	var scene_path := get_tree().current_scene.scene_file_path
+	SaveManager.set_checkpoint("debug_pause_save", scene_path)
+	SaveManager.save_game()
 
 func quit_to_menu():
 	close_menu()
