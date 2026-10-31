@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dyn0lqnxs2qe1" path="res://Assets/Sprites/tag/tag_getup.png" id="4_t1xgp"]
 [ext_resource type="Texture2D" uid="uid://bfnncasc2wvft" path="res://Assets/Sprites/tag/tag_roll.png" id="5_23lac"]
 [ext_resource type="Texture2D" uid="uid://cahxkvmpbk7no" path="res://Assets/Sprites/tag/skele_sheet.png" id="5_jp3cw"]
+[ext_resource type="Texture2D" uid="uid://dnj0t4v00ub77" path="res://Assets/Sprites/tag/skeledeath.png" id="6_8ccgk"]
 [ext_resource type="Texture2D" uid="uid://b6owwhvhr2pcw" path="res://Assets/Sprites/tag/fallsprite.png" id="6_vy5gb"]
 [ext_resource type="Texture2D" uid="uid://bnaq6dfe8rk8m" path="res://Assets/Sprites/tag/spritesheet2.png" id="10_ecf78"]
 
@@ -145,11 +146,17 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_8ccgk"]
+resource_name = "dead"
+length = 2.0
+loop_mode = 1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ecf78"]
 _data = {
 &"RESET": SubResource("Animation_lerqx"),
 &"air_attack": SubResource("Animation_c3tg1"),
-&"attack": SubResource("Animation_jp3cw")
+&"attack": SubResource("Animation_jp3cw"),
+&"dead": SubResource("Animation_8ccgk")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rgkdp"]
@@ -199,6 +206,10 @@ region = Rect2(0, 155, 155, 155)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xka8r"]
 atlas = ExtResource("2_38rej")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycqao"]
+atlas = ExtResource("6_8ccgk")
+region = Rect2(0, 0, 155, 155)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrbh7"]
 atlas = ExtResource("2_38rej")
@@ -392,6 +403,14 @@ animations = [{
 }],
 "loop": 0,
 "name": &"boostshoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycqao")
+}],
+"loop": 1,
+"name": &"dead",
 "speed": 5.0
 }, {
 "frames": [{

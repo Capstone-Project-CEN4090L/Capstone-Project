@@ -10,6 +10,7 @@ var can_doublejump = false
 var can_airattack = false
 var is_airattacking = false
 var is_getup = false
+var dead = false
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
 @export var max_health: int = 100
@@ -37,6 +38,7 @@ var fallsfx = preload("res://Assets/Sounds/fall.mp3")
 var bgmusic = preload("res://Assets/Sounds/stillalive.mp3")
 var boostsfx = preload("res://Assets/Sounds/boost.mp3")
 var getupsfx = preload("res://Assets/Sounds/getup.mp3")
+var deadsfx = preload("res://Assets/Sounds/fart.mp3")
 
 # Player character is temporarily named "tag"
 @onready var tag: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
@@ -71,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta * gravity_multiplier
 	
 	# Movement
-	if direction and tag.animation != "boost":
+	if !dead and direction and tag.animation != "boost":
 		velocity.x = direction * walk_speed
 	elif tag.animation != "boost":
 		velocity.x = 0
@@ -160,7 +162,7 @@ func _physics_process(delta: float) -> void:
 				#move character a little forward
 				
 				pass
-			elif direction == 0:
+			elif direction == 0 and dead == false:
 				tag.play("idle")
 			else:
 				tag.play("walk")
@@ -319,21 +321,22 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			tag.play("doublejump")
 
 func take_damage(amount: int):
-	health -= amount
-	health = max(health, 0)
-	
-	#health_bar.value = health
-	UILayer.update_health(health)
-	
-	print("Player Health: ", health)
-	
-	sprite.modulate = Color(1,0,0)
-	var tween = create_tween()
-	tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-	
-	
-	if health <= 0:
-		die()
+	if !dead:
+		health -= amount
+		health = max(health, 0)
+		
+		#health_bar.value = health
+		UILayer.update_health(health)
+		
+		print("Player Health: ", health)
+		
+		sprite.modulate = Color(1,0,0)
+		var tween = create_tween()
+		tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
+		
+		
+		if health <= 0:
+			die()
 		
 
 		
@@ -359,7 +362,19 @@ func heal(amount: int):
 
 func die():
 	print("Player died")
+	dead = true
+	$CollisionShape2D.disabled = true
+	set_physics_process(false)
+	velocity.x = 0
+	velocity.y = 0
+	tag.play("dead")
+	$sfx.stream = deadsfx
+	$sfx.play()
+	await get_tree().create_timer(2.0).timeout
 	position = Vector2(-62, -16)
+	dead = false
+	$CollisionShape2D.disabled = false
+	set_physics_process(true)
 	health = 100
 	
 func get_pickup():
