@@ -17,6 +17,11 @@ var health: int
 var is_attacking = false
 @export var normal_knockback: float = 150.0
 @export var upgraded_knockback: float = 300.0
+@export var normal_gravity_multiplier: float = 1.5
+@export var low_gravity_multiplier: float = 0.3
+
+var gravity_multiplier: float = 1.5
+var low_gravity_active: bool = false
 
 
 var knockback_upgrade_unlocked: bool = true
@@ -45,6 +50,7 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 
 func _ready() -> void:
 	health = max_health
+	gravity_multiplier = normal_gravity_multiplier
 	#health_bar.max_value = max_health
 	#health_bar.value = health
 	UILayer.set_health_max(max_health)
@@ -62,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor() and tag.animation != "boost":
-		velocity += get_gravity() * delta * 1.5
+		velocity += get_gravity() * delta * gravity_multiplier
 	
 	# Movement
 	if direction and tag.animation != "boost":
@@ -397,6 +403,7 @@ func _on_airsword_body_entered(body: Node2D):
 func _on_airsword_area_entered(area: Node2D) -> void:
 	if is_airattacking and area.has_method("take_damage"):
 		velocity.y = JUMP_VELOCITY * 1.5
+		area.bounce()
 		can_airattack = true
 		can_dash = true
 		can_doublejump = true
@@ -412,3 +419,19 @@ func _unhandled_input(event: InputEvent) ->void:
 func _on_coyote_time_timeout():
 	can_jump = false
 	can_airattack = true
+
+func activate_low_gravity(duration: float):
+	if low_gravity_active:
+		return
+	
+	low_gravity_active = true
+	gravity_multiplier = low_gravity_multiplier
+	
+	print("Low gravity activated")
+	
+	await get_tree().create_timer(duration).timeout
+	
+	gravity_multiplier = normal_gravity_multiplier
+	low_gravity_active = false
+	
+	print("Low gravity ended")

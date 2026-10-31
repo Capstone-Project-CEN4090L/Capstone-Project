@@ -1,22 +1,72 @@
 [gd_scene format=3 uid="uid://cyjrr6lrailc1"]
 
 [ext_resource type="Script" uid="uid://b8rhjmm1n0roi" path="res://Assets/Scripts/Obstacles/mushroom.gd" id="1_ag3bv"]
-[ext_resource type="Texture2D" uid="uid://cipkwca3ddrrt" path="res://Assets/Sprites/tiles/mushroom.png" id="2_wqelv"]
+[ext_resource type="Texture2D" uid="uid://dm3d8r0u3gh2b" path="res://Assets/Sprites/tiles/tileset_wip.png" id="2_ag3bv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqelv"]
+atlas = ExtResource("2_ag3bv")
+region = Rect2(155, 1085, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wv6n"]
+atlas = ExtResource("2_ag3bv")
+region = Rect2(310, 1085, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17io"]
+atlas = ExtResource("2_ag3bv")
+region = Rect2(465, 1085, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag3bv"]
+atlas = ExtResource("2_ag3bv")
+region = Rect2(0, 1085, 155, 155)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lquv3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqelv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wv6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17io")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag3bv")
+}],
+"loop": 0,
+"name": &"bounce",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag3bv")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
-size = Vector2(23, 28)
+size = Vector2(23, 18.5)
 
 [node name="mushroom" type="Area2D" unique_id=671433697]
-scale = Vector2(2, 2)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_ag3bv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=252604994]
-texture = ExtResource("2_wqelv")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1918601432]
+position = Vector2(0, 78)
+scale = Vector2(1.7349395, 1.7349395)
+sprite_frames = SubResource("SpriteFrames_lquv3")
+animation = &"bounce"
+frame = 3
+frame_progress = 1.0
+offset = Vector2(0, -78)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=99997972]
-position = Vector2(-0.5, 2)
+position = Vector2(0, -50)
+scale = Vector2(8.073737, 5.354754)
 shape = SubResource("RectangleShape2D_biyew")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
