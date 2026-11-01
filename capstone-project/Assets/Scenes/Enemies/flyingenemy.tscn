@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://5yw6u8aqtaam" path="res://Assets/Scripts/Enemies/flying.gd" id="2_lqenl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l82o2"]
-size = Vector2(50, 34)
+size = Vector2(19.25312, 17.74307)
 
 [node name="Node2D" type="Node2D" unique_id=905920087]
 
@@ -24,6 +24,7 @@ damage_cooldown = 0.75
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlyingEnemy/AttackArea" unique_id=1034750715]
+position = Vector2(-0.18876243, 1.698801)
 shape = SubResource("RectangleShape2D_l82o2")
 
 [connection signal="body_entered" from="FlyingEnemy/AttackArea" to="FlyingEnemy" method="_on_attack_area_body_entered"]

@@ -11,6 +11,9 @@ var can_airattack = false
 var is_airattacking = false
 var is_getup = false
 var dead = false
+var invincible = false
+var being_knocked_back = false
+var knockback_direction = 0
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
 @export var max_health: int = 100
@@ -72,10 +75,15 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and tag.animation != "boost":
 		velocity += get_gravity() * delta * gravity_multiplier
 	
+	if being_knocked_back:
+		velocity.x = 800 * knockback_direction
+		if !is_on_floor():
+			velocity.y = -400
+			
 	# Movement
-	if !dead and direction and tag.animation != "boost":
+	if !being_knocked_back and !dead and direction and tag.animation != "boost":
 		velocity.x = direction * walk_speed
-	elif tag.animation != "boost":
+	elif !being_knocked_back and tag.animation != "boost":
 		velocity.x = 0
 	
 	
@@ -150,13 +158,11 @@ func _physics_process(delta: float) -> void:
 			muzzle.position.x = 18.0
 			muzzle.rotation_degrees = 0
 			sword.scale.x = 1
-			airsword.scale.x = 1
 		elif direction < 0:
 			tag.flip_h = true
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
 			sword.scale.x = -1
-			airsword.scale.x = -1
 		if is_on_floor():
 			if is_attacking:
 				#move character a little forward
@@ -320,24 +326,29 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		else:
 			tag.play("doublejump")
 
-func take_damage(amount: int):
-	if !dead:
+func take_damage(amount: int, hitdirection: int = 0):
+	if !dead and !invincible:
+		invincible = true
 		health -= amount
 		health = max(health, 0)
-		
-		#health_bar.value = health
 		UILayer.update_health(health)
-		
 		print("Player Health: ", health)
-		
 		sprite.modulate = Color(1,0,0)
 		var tween = create_tween()
 		tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
 		
-		
 		if health <= 0:
 			die()
-		
+			invincible = false
+		else:
+			knockback_direction = hitdirection
+			being_knocked_back = true
+			await get_tree().create_timer(0.1).timeout
+			being_knocked_back = false
+			#health_bar.value = health
+			await get_tree().create_timer(1.0).timeout
+			invincible = false
+
 
 		
 func unlock_knockback_upgrade():

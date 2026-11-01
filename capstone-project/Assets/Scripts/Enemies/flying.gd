@@ -45,8 +45,10 @@ func damage_player(player):
 		return
 	
 	can_damage = false
-	
-	player.take_damage(contact_damage)
+	if animated_sprite.flip_h:
+		player.take_damage(contact_damage, 1)
+	else:
+		player.take_damage(contact_damage, -1)
 	
 	print("Flying enemy damaged player")
 	

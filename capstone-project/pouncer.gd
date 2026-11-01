@@ -133,7 +133,10 @@ func _on_attack_area_body_entered(body):
 	if state != State.POUNCE or has_hit:
 		return
 	if body.is_in_group("player") and body.has_method("take_damage"):
-		body.take_damage(attack_damage)
+		if sprite.flip_h:
+			body.take_damage(attack_damage, 1)
+		else:
+			body.take_damage(attack_damage, -1)
 		has_hit = true # one hit per pounce
 		
 func face_direction(direction: float):

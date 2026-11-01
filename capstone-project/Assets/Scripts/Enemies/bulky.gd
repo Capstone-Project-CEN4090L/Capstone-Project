@@ -110,7 +110,10 @@ func attack():
 		
 		if body.is_in_group("player") and body.has_method("take_damage"):
 			print("Damaging player")
-			body.take_damage(attack_damage)
+			if sprite.flip_h:
+				body.take_damage(attack_damage, 1)
+			else:
+				body.take_damage(attack_damage, -1)
 	
 	await get_tree().create_timer(attack_cooldown).timeout
 	

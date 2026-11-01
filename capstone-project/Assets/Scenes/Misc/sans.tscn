@@ -12,9 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://g8ljiesgyhb2" path="res://Assets/Sprites/Skeleton/skeleton-7.png" id="8_vyxp8"]
 [ext_resource type="Texture2D" uid="uid://54twbii8qj1r" path="res://Assets/Sprites/Skeleton/skeleton-8.png" id="9_ccmbi"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vuckr"]
-radius = 12.0
-height = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_dt7a2"]
+radius = 19.026299
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qno8g"]
 atlas = ExtResource("2_741xj")
@@ -94,6 +93,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uiecv"]
+radius = 19.0
+
 [node name="fast" type="CharacterBody2D" unique_id=2133663499 groups=["enemies"]]
 collision_layer = 14
 collision_mask = 4
@@ -102,7 +104,7 @@ script = ExtResource("1_631pb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=556822882 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
-shape = SubResource("CapsuleShape2D_vuckr")
+shape = SubResource("CircleShape2D_dt7a2")
 
 [node name="Node2D" type="Area2D" parent="." unique_id=2040864580]
 collision_layer = 6
@@ -122,6 +124,6 @@ frame_progress = 0.85313386
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1724849185 groups=["enemies"]]
 light_mask = 6
 visibility_layer = 6
-shape = SubResource("CapsuleShape2D_vuckr")
+shape = SubResource("CircleShape2D_uiecv")
 
 [connection signal="area_entered" from="Node2D" to="." method="_on_hitbox_area_entered"]

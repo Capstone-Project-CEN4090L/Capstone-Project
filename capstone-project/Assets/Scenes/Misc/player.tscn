@@ -642,7 +642,7 @@ animations = [{
 size = Vector2(117.47458, 15.693391)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te6hp"]
-size = Vector2(54.62404, 46.068466)
+size = Vector2(55.282158, 53.965916)
 
 [node name="Player" type="CharacterBody2D" unique_id=1833664872]
 collision_layer = 4
@@ -700,7 +700,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="attack" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/airsword" unique_id=396275749]
-position = Vector2(-4.2777863, -1.3162419)
+position = Vector2(-3.2906046, -1.3162422)
 shape = SubResource("RectangleShape2D_te6hp")
 disabled = true
 
