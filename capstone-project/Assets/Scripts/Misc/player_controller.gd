@@ -12,7 +12,7 @@ var is_airattacking = false
 var is_getup = false
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
-@export var max_health: int = 100
+@export var max_health: int
 var health: int
 var is_attacking = false
 @export var normal_knockback: float = 150.0
@@ -42,11 +42,14 @@ var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 @onready var coyote_time: Timer = $CoyoteTime
 @onready var sprite: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
 
+signal health_changed(current: int, maximum: int)
 
 func _ready() -> void:
-	health = max_health
-	UILayer.set_health_max(max_health)
-	UILayer.update_health(health)
+	health = int(SaveManager.get_player_value("health", 5))
+	max_health = int(SaveManager.get_player_value("max_health", 5))
+	health_changed.connect(UILayer.UI_root.update_health)
+	health_changed.emit(health, max_health)
+	
 	
 func _physics_process(delta: float) -> void:
 	
@@ -310,22 +313,39 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		else:
 			tag.play("doublejump")
 
-func take_damage(amount: int):
-	health -= amount
-	health = max(health, 0)
-	
+func set_health(value: int) -> void:
+	health = clamp(value, 0, max_health)
+	SaveManager.set_player_value("health", health)
+	health_changed.emit(health, max_health)
 
-	UILayer.update_health(health)
-	
+
+func take_damage(amount: int = 1) -> void:
+	set_health(health - amount)
 	print("Player Health: ", health)
-	
-	sprite.modulate = Color(1,0,0)
+
+	sprite.modulate = Color(1, 0, 0)
 	var tween = create_tween()
-	tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-	
-	
+	tween.tween_property(sprite, "modulate", Color(1, 1, 1), 0.2)
+
 	if health <= 0:
 		die()
+
+#func take_damage(amount: int):
+	#health -= amount
+	#health = max(health, 0)
+	#
+#
+	#UILayer.update_health(health)
+	#
+	#print("Player Health: ", health)
+	#
+	#sprite.modulate = Color(1,0,0)
+	#var tween = create_tween()
+	#tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
+	#
+	#
+	#if health <= 0:
+		#die()
 		
 
 		
@@ -342,16 +362,20 @@ func toggle_knockback_upgrade():
 		else:
 			print("Extra knockback OFF")
 
-func heal(amount: int):
-	health += amount
-	health = min(health, max_health)
-	UILayer.update_health(health)
+func heal(amount: int) -> void:
+	set_health(health + amount)
 	print("Player Health: ", health)
+
+#func heal(amount: int):
+	#health += amount
+	#health = min(health, max_health)
+	#UILayer.update_health(health)
+	#print("Player Health: ", health)
 
 func die():
 	print("Player died")
 	position = Vector2(-62, -16)
-	health = 100
+	set_health(max_health)
 	
 func get_pickup():
 	
