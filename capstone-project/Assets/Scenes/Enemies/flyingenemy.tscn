@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l82o2"]
 size = Vector2(50, 34)
 
-[node name="Node2D" type="Node2D" unique_id=905920087]
+[node name="FlyingEnemy" type="Node2D" unique_id=905920087]
 
 [node name="FlyingEnemy" parent="." unique_id=2133663499 instance=ExtResource("1_f3i7p")]
 position = Vector2(-8.999985, -81.99999)
@@ -21,7 +21,7 @@ contact_damage = 10
 damage_cooldown = 0.75
 
 [node name="AttackArea" type="Area2D" parent="FlyingEnemy" unique_id=840245305]
-collision_layer = 0
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlyingEnemy/AttackArea" unique_id=1034750715]
 shape = SubResource("RectangleShape2D_l82o2")

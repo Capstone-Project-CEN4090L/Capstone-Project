@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://ccvb7ggifdbq4"]
+
+[ext_resource type="Script" uid="uid://5yw6u8aqtaam" path="res://Assets/Scripts/Enemies/flying.gd" id="1_1jr7v"]
+[ext_resource type="Texture2D" uid="uid://b4wq28klgtsdp" path="res://Assets/Sprites/bat/bat.png" id="2_t31jo"]
+[ext_resource type="Texture2D" uid="uid://bmqyunbx0pgxo" path="res://Assets/Sprites/Skeleton/skeleton-1.png" id="3_35adb"]
+[ext_resource type="Texture2D" uid="uid://tusm0gwdwsu7" path="res://Assets/Sprites/Skeleton/skeleton-2.png" id="4_70ltx"]
+[ext_resource type="Texture2D" uid="uid://2qf5ivuf84pu" path="res://Assets/Sprites/Skeleton/skeleton-3.png" id="5_octgn"]
+[ext_resource type="Texture2D" uid="uid://b04lb1c8qugcs" path="res://Assets/Sprites/Skeleton/skeleton-4.png" id="6_ikxxs"]
+[ext_resource type="Texture2D" uid="uid://wtr1mnvgsxei" path="res://Assets/Sprites/Skeleton/skeleton-5.png" id="7_msna2"]
+[ext_resource type="Texture2D" uid="uid://brdqgta56rt5o" path="res://Assets/Sprites/Skeleton/skeleton-6.png" id="8_83fim"]
+[ext_resource type="Texture2D" uid="uid://g8ljiesgyhb2" path="res://Assets/Sprites/Skeleton/skeleton-7.png" id="9_vqt7n"]
+[ext_resource type="Texture2D" uid="uid://54twbii8qj1r" path="res://Assets/Sprites/Skeleton/skeleton-8.png" id="10_lxyp0"]
+[ext_resource type="Texture2D" uid="uid://bqa445kqevuw1" path="res://Assets/Sprites/sans_ow/overworld_ded.png" id="11_bu4w3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtg11"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qno8g"]
+atlas = ExtResource("2_t31jo")
+region = Rect2(0, 0, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bn70"]
+atlas = ExtResource("2_t31jo")
+region = Rect2(155, 0, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knqcj"]
+atlas = ExtResource("2_t31jo")
+region = Rect2(310, 0, 155, 155)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77t7f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qno8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bn70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knqcj")
+}],
+"loop": 1,
+"name": &"bat",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_35adb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_70ltx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_octgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ikxxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_msna2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_83fim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vqt7n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lxyp0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_bu4w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bu4w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bu4w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bu4w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bu4w3")
+}],
+"loop": 0,
+"name": &"dies",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtkh7"]
+size = Vector2(62.25, 42.25)
+
+[node name="FlyingEnemy" type="CharacterBody2D" unique_id=839433531]
+scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_1jr7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=274687086]
+shape = SubResource("CapsuleShape2D_dtg11")
+
+[node name="Node2D" type="Area2D" parent="." unique_id=1886779630]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D" unique_id=635811375]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=545604775]
+light_mask = 6
+visibility_layer = 6
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_77t7f")
+animation = &"bat"
+autoplay = "default"
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=81103139]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1605054320]
+shape = SubResource("RectangleShape2D_jtkh7")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
