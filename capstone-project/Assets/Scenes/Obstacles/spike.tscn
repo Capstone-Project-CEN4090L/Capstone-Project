@@ -1,22 +1,23 @@
 [gd_scene format=3 uid="uid://hci46fbkh2mo"]
 
 [ext_resource type="Script" uid="uid://de8l40snsha16" path="res://Assets/Scripts/Obstacles/spikes.gd" id="1_pw6vf"]
-[ext_resource type="Texture2D" uid="uid://bg8jrlggk0bq1" path="res://Assets/Sprites/tiles/16-bit-spike-Sheet.png" id="2_aj1iv"]
+[ext_resource type="Texture2D" uid="uid://dm3d8r0u3gh2b" path="res://Assets/Sprites/tiles/tileset_wip.png" id="2_pw6vf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kd4fp"]
-size = Vector2(8, 9)
+size = Vector2(18.937975, 9)
 
 [node name="spike" type="Area2D" unique_id=671433697]
-scale = Vector2(2, 2)
 script = ExtResource("1_pw6vf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=252604994]
-texture = ExtResource("2_aj1iv")
+texture = ExtResource("2_pw6vf")
 region_enabled = true
-region_rect = Rect2(0, 0, 15.985359, 16)
+region_rect = Rect2(310, 0, 155, 155)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157750620]
-position = Vector2(0, 3.5)
+position = Vector2(-0.5000038, 43.5)
+rotation = -3.1415925
+scale = Vector2(7.5509663, 7.5509663)
 shape = SubResource("RectangleShape2D_kd4fp")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

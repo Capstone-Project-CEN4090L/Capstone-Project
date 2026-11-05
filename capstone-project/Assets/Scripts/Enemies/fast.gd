@@ -131,7 +131,7 @@ func attack():
 	# Player was already confirmed inside the attack area
 	if player.has_method("take_damage"):
 		print("Fast enemy damaging player")
-		player.take_damage(attack_damage)
+		player.take_damage(attack_damage, direction)
 	
 	# Lunge after damage
 	velocity.x = direction * lunge_speed

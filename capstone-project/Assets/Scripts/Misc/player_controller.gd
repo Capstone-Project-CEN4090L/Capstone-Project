@@ -10,6 +10,10 @@ var can_doublejump = false
 var can_airattack = false
 var is_airattacking = false
 var is_getup = false
+var dead = false
+var invincible = false
+var being_knocked_back = false
+var knockback_direction = 0
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
 @export var max_health: int
@@ -17,6 +21,11 @@ var health: int
 var is_attacking = false
 @export var normal_knockback: float = 150.0
 @export var upgraded_knockback: float = 300.0
+@export var normal_gravity_multiplier: float = 1.5
+@export var low_gravity_multiplier: float = 0.3
+
+var gravity_multiplier: float = 1.5
+var low_gravity_active: bool = false
 
 
 var knockback_upgrade_unlocked: bool = true
@@ -32,6 +41,7 @@ var fallsfx = preload("res://Assets/Sounds/fall.mp3")
 var bgmusic = preload("res://Assets/Sounds/stillalive.mp3")
 var boostsfx = preload("res://Assets/Sounds/boost.mp3")
 var getupsfx = preload("res://Assets/Sounds/getup.mp3")
+var deadsfx = preload("res://Assets/Sounds/fart.mp3")
 
 # Player character is temporarily named "tag"
 @onready var tag: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
@@ -50,6 +60,12 @@ func _ready() -> void:
 	health_changed.connect(UILayer.UI_root.update_health)
 	health_changed.emit(health, max_health)
 	
+	health = max_health
+	gravity_multiplier = normal_gravity_multiplier
+	#health_bar.max_value = max_health
+	#health_bar.value = health
+	UILayer.set_health_max(max_health)
+	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
 	
@@ -63,12 +79,17 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor() and tag.animation != "boost":
-		velocity += get_gravity() * delta * 1.5
+		velocity += get_gravity() * delta * gravity_multiplier
 	
+	if being_knocked_back:
+		velocity.x = 800 * knockback_direction
+		if !is_on_floor():
+			velocity.y = -400
+			
 	# Movement
-	if direction and tag.animation != "boost":
+	if !being_knocked_back and !dead and direction and tag.animation != "boost":
 		velocity.x = direction * walk_speed
-	elif tag.animation != "boost":
+	elif !being_knocked_back and tag.animation != "boost":
 		velocity.x = 0
 	
 	
@@ -143,19 +164,17 @@ func _physics_process(delta: float) -> void:
 			muzzle.position.x = 18.0
 			muzzle.rotation_degrees = 0
 			sword.scale.x = 1
-			airsword.scale.x = 1
 		elif direction < 0:
 			tag.flip_h = true
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
 			sword.scale.x = -1
-			airsword.scale.x = -1
 		if is_on_floor():
 			if is_attacking:
 				#move character a little forward
 				
 				pass
-			elif direction == 0:
+			elif direction == 0 and dead == false:
 				tag.play("idle")
 			else:
 				tag.play("walk")
@@ -346,7 +365,29 @@ func take_damage(amount: int = 1) -> void:
 	#
 	#if health <= 0:
 		#die()
+func take_damage(amount: int, hitdirection: int = 0):
+	if !dead and !invincible:
+		invincible = true
+		health -= amount
+		health = max(health, 0)
+		UILayer.update_health(health)
+		print("Player Health: ", health)
+		sprite.modulate = Color(1,0,0)
+		var tween = create_tween()
+		tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
 		
+		if health <= 0:
+			die()
+			invincible = false
+		else:
+			knockback_direction = hitdirection
+			being_knocked_back = true
+			await get_tree().create_timer(0.1).timeout
+			being_knocked_back = false
+			#health_bar.value = health
+			await get_tree().create_timer(1.0).timeout
+			invincible = false
+
 
 		
 func unlock_knockback_upgrade():
@@ -374,8 +415,21 @@ func heal(amount: int) -> void:
 
 func die():
 	print("Player died")
+	dead = true
+	$CollisionShape2D.disabled = true
+	set_physics_process(false)
+	velocity.x = 0
+	velocity.y = 0
+	tag.play("dead")
+	$sfx.stream = deadsfx
+	$sfx.play()
+	await get_tree().create_timer(2.0).timeout
 	position = Vector2(-62, -16)
 	set_health(max_health)
+	dead = false
+	$CollisionShape2D.disabled = false
+	set_physics_process(true)
+	health = 100
 	
 func get_pickup():
 	
@@ -418,6 +472,7 @@ func _on_airsword_body_entered(body: Node2D):
 func _on_airsword_area_entered(area: Node2D) -> void:
 	if is_airattacking and area.has_method("take_damage"):
 		velocity.y = JUMP_VELOCITY * 1.5
+		area.bounce()
 		can_airattack = true
 		can_dash = true
 		can_doublejump = true
@@ -433,3 +488,19 @@ func _unhandled_input(event: InputEvent) ->void:
 func _on_coyote_time_timeout():
 	can_jump = false
 	can_airattack = true
+
+func activate_low_gravity(duration: float):
+	if low_gravity_active:
+		return
+	
+	low_gravity_active = true
+	gravity_multiplier = low_gravity_multiplier
+	
+	print("Low gravity activated")
+	
+	await get_tree().create_timer(duration).timeout
+	
+	gravity_multiplier = normal_gravity_multiplier
+	low_gravity_active = false
+	
+	print("Low gravity ended")
