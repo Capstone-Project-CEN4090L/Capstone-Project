@@ -8,7 +8,6 @@ extends CanvasLayer
 
 
 func update_health(current: int, maximum: int) -> void:
-	# Add icons if max health went up
 	while health_icons.get_child_count() < maximum:
 		health_icons.add_child(health_icons.get_child(0).duplicate())
 

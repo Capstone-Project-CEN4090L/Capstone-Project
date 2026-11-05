@@ -5,7 +5,7 @@ var health: int
 
 @export var move_speed: float = 180.0
 @export var detection_range: float = 300.0
-@export var attack_damage: int = 15
+@export var attack_damage: int = 1
 @export var attack_cooldown: float = 0.5
 @export var vertical_detection_range: float = 80.0
 @export var horizontal_dead_zone: float = 30.0

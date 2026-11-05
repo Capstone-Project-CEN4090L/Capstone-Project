@@ -1,5 +1,4 @@
 extends Node
-# SaveManager (autoload)
 # Holds the game state in memory and writes it to / reads it from disk.
 # World objects (bosses, doors, pickups) call set_flag() / get_flag()
 # the moment something happens, so state survives level swaps.
@@ -7,11 +6,10 @@ extends Node
 # The main menu "Continue" calls load_game(), then asks SceneManager
 # to load the level stored in game_state["last_checkpoint"].
 
-signal health_changed(current: int, maximum: int)
 
 const SAVE_PATH := "user://save.json"
 
-# Everything that needs to survive a level swap or a quit lives in here.
+#Everything that needs to survive a level swap or a quit lives in here
 var game_state: Dictionary = {}
 
 
@@ -19,19 +17,16 @@ func _init() -> void:
 	new_game()
 
 
-# ---------------------------------------------------------------------------
 # Game state setup
-# ---------------------------------------------------------------------------
 
-# The starting values for a brand new game.
-# Add new fields here as the team needs them.
+#The starting values for a brand new game
 func get_default_state() -> Dictionary:
 	return {
 		"last_checkpoint": "",      # ID of the save station last used
 		"last_scene": "",           # scene path for that checkpoint
 		"player": {
-			"health": 50,
-			"max_health": 50,
+			"health": 5,
+			"max_health": 5,
 			"has_double_jump": true,
 			"has_dash": false,
 			"has_air_attack": false
@@ -40,16 +35,14 @@ func get_default_state() -> Dictionary:
 	}
 
 
-# Resets in-memory state to a fresh game. Does NOT touch the save file.
+#Resets in-memory state to a fresh game. Does NOT touch the save file.
 func new_game() -> void:
 	game_state = get_default_state()
 
 
 
-
-# ---------------------------------------------------------------------------
 # Player values (stats and unlocks)
-# ---------------------------------------------------------------------------
+
 
 func set_player_value(key: String, value) -> void:
 	game_state["player"][key] = value
@@ -59,9 +52,8 @@ func get_player_value(key: String, default_value = null):
 	return game_state["player"].get(key, default_value)
 
 
-# ---------------------------------------------------------------------------
+
 # Flags (one-time world events: bosses, doors, items)
-# ---------------------------------------------------------------------------
 
 func set_flag(flag_name: String, value: bool = true) -> void:
 	game_state["flags"][flag_name] = value
@@ -72,9 +64,8 @@ func get_flag(flag_name: String) -> bool:
 	return game_state["flags"].get(flag_name, false)
 
 
-# ---------------------------------------------------------------------------
+
 # Checkpoints
-# ---------------------------------------------------------------------------
 
 # Called by a save station (later) before save_game().
 func set_checkpoint(checkpoint_id: String, scene_path: String) -> void:
@@ -82,9 +73,8 @@ func set_checkpoint(checkpoint_id: String, scene_path: String) -> void:
 	game_state["last_scene"] = scene_path
 
 
-# ---------------------------------------------------------------------------
+
 # Disk
-# ---------------------------------------------------------------------------
 
 func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
@@ -117,8 +107,8 @@ func load_game() -> bool:
 		push_error("SaveManager: save file is corrupted or unreadable")
 		return false
 
-	# Start from defaults and lay the saved data on top, so a save made
-	# before a new field was added still loads with that field present.
+	#Start from defaults and lay the saved data on top, so a save made
+	#before a new field was added still loads with that field present.
 	game_state = get_default_state()
 	for section in data:
 		if game_state.get(section) is Dictionary and data[section] is Dictionary:
