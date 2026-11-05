@@ -59,13 +59,7 @@ func _ready() -> void:
 	max_health = int(SaveManager.get_player_value("max_health", 5))
 	health_changed.connect(UILayer.UI_root.update_health)
 	health_changed.emit(health, max_health)
-	
-	health = max_health
 	gravity_multiplier = normal_gravity_multiplier
-	#health_bar.max_value = max_health
-	#health_bar.value = health
-	UILayer.set_health_max(max_health)
-	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
 	
@@ -337,8 +331,11 @@ func set_health(value: int) -> void:
 	SaveManager.set_player_value("health", health)
 	health_changed.emit(health, max_health)
 
+func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
+	if dead or invincible:
+		return
 
-func take_damage(amount: int = 1) -> void:
+	invincible = true
 	set_health(health - amount)
 	print("Player Health: ", health)
 
@@ -348,46 +345,14 @@ func take_damage(amount: int = 1) -> void:
 
 	if health <= 0:
 		die()
-
-#func take_damage(amount: int):
-	#health -= amount
-	#health = max(health, 0)
-	#
-#
-	#UILayer.update_health(health)
-	#
-	#print("Player Health: ", health)
-	#
-	#sprite.modulate = Color(1,0,0)
-	#var tween = create_tween()
-	#tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-	#
-	#
-	#if health <= 0:
-		#die()
-func take_damage(amount: int, hitdirection: int = 0):
-	if !dead and !invincible:
-		invincible = true
-		health -= amount
-		health = max(health, 0)
-		UILayer.update_health(health)
-		print("Player Health: ", health)
-		sprite.modulate = Color(1,0,0)
-		var tween = create_tween()
-		tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-		
-		if health <= 0:
-			die()
-			invincible = false
-		else:
-			knockback_direction = hitdirection
-			being_knocked_back = true
-			await get_tree().create_timer(0.1).timeout
-			being_knocked_back = false
-			#health_bar.value = health
-			await get_tree().create_timer(1.0).timeout
-			invincible = false
-
+		invincible = false
+	else:
+		knockback_direction = hitdirection
+		being_knocked_back = true
+		await get_tree().create_timer(0.1).timeout
+		being_knocked_back = false
+		await get_tree().create_timer(1.0).timeout
+		invincible = false
 
 		
 func unlock_knockback_upgrade():
@@ -407,12 +372,6 @@ func heal(amount: int) -> void:
 	set_health(health + amount)
 	print("Player Health: ", health)
 
-#func heal(amount: int):
-	#health += amount
-	#health = min(health, max_health)
-	#UILayer.update_health(health)
-	#print("Player Health: ", health)
-
 func die():
 	print("Player died")
 	dead = true
@@ -429,7 +388,6 @@ func die():
 	dead = false
 	$CollisionShape2D.disabled = false
 	set_physics_process(true)
-	health = 100
 	
 func get_pickup():
 	
