@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmluvvp6j8q8v"]
 
-[ext_resource type="Script" uid="uid://bfx17pmcmfv2k" path="res://Assets/Scenes/UI/main_menu.gd" id="1_lmbrl"]
+[ext_resource type="Script" uid="uid://bfx17pmcmfv2k" path="res://Assets/Scripts/UI/main_menu.gd" id="1_lmbrl"]
 
 [node name="MainMenu" type="Control" unique_id=1975320954]
 layout_mode = 3
@@ -48,6 +48,10 @@ layout_mode = 2
 text = "Title Screen"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=1592878669]
+[node name="NewGameButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=1592878669]
 layout_mode = 2
-text = "Play"
+text = "New Game"
+
+[node name="ResumeGameButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=85667610]
+layout_mode = 2
+text = "Resume Game"
