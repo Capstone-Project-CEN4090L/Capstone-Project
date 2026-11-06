@@ -48,6 +48,10 @@ layout_mode = 2
 text = "Title Screen"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=1592878669]
+[node name="NewGameButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=1592878669]
 layout_mode = 2
-text = "Play"
+text = "New Game"
+
+[node name="ResumeGameButton" type="Button" parent="Center/PanelContainer/Margin/VBox" unique_id=85667610]
+layout_mode = 2
+text = "Resume Game"

@@ -57,6 +57,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Resume"
 
+[node name="SaveButton" type="Button" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=507801393]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save"
+
 [node name="OptionsButton" type="Button" parent="Root/Center/PanelContainer/Margin/MainPage" unique_id=605151293]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2

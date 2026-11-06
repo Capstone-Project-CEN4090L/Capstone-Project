@@ -18,9 +18,3 @@ func _ready() -> void:
 func set_gameplay_ui(enabled):
 	UI_root.visible = enabled
 	pause_menu.can_pause = enabled
-
-func set_health_max(max: float) -> void:
-	UI_root.get_node("HealthBar").max_value = max
-
-func update_health(new: float) -> void:
-	UI_root.get_node("HealthBar").value = new
