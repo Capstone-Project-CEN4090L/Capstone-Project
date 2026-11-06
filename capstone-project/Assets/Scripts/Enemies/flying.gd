@@ -13,11 +13,13 @@ var direction: int = 1
 var can_damage: bool = true
 
 @onready var attack_area: Area2D = $AttackArea
-
+@onready var animated_sprite: AnimatedSprite2D = $Node2D/AnimatedSprite2D
 
 func _ready():
 	health = max_health
 	start_position = global_position
+	animated_sprite.play("bat")
+	animated_sprite.flip_h = true
 
 
 func _physics_process(delta):
@@ -30,11 +32,12 @@ func _physics_process(delta):
 	# Turn around at patrol boundaries
 	if global_position.x >= start_position.x + patrol_distance:
 		direction = -1
+		animated_sprite.flip_h = false
 		
 	
 	elif global_position.x <= start_position.x - patrol_distance:
 		direction = 1
-		
+		animated_sprite.flip_h = true
 
 
 func damage_player(player):

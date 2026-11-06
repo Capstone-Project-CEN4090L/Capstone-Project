@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnpj10xpkvye6"]
 
 [ext_resource type="Script" uid="uid://c81f1uxn0qxyd" path="res://Assets/Scripts/Misc/sans.gd" id="1_631pb"]
+[ext_resource type="Texture2D" uid="uid://b4wq28klgtsdp" path="res://Assets/Sprites/bat/bat.png" id="2_741xj"]
 [ext_resource type="Texture2D" uid="uid://bmqyunbx0pgxo" path="res://Assets/Sprites/Skeleton/skeleton-1.png" id="2_ww4od"]
 [ext_resource type="Texture2D" uid="uid://tusm0gwdwsu7" path="res://Assets/Sprites/Skeleton/skeleton-2.png" id="3_biac6"]
 [ext_resource type="Texture2D" uid="uid://bqa445kqevuw1" path="res://Assets/Sprites/sans_ow/overworld_ded.png" id="3_hqoh5"]
@@ -15,8 +16,34 @@
 radius = 12.0
 height = 32.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qno8g"]
+atlas = ExtResource("2_741xj")
+region = Rect2(0, 0, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bn70"]
+atlas = ExtResource("2_741xj")
+region = Rect2(155, 0, 155, 155)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knqcj"]
+atlas = ExtResource("2_741xj")
+region = Rect2(310, 0, 155, 155)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_p25hk"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qno8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bn70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knqcj")
+}],
+"loop": 1,
+"name": &"bat",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_ww4od")
@@ -86,9 +113,11 @@ collision_mask = 6
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=344921836]
 light_mask = 6
 visibility_layer = 6
+scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_p25hk")
+animation = &"bat"
 autoplay = "default"
-frame_progress = 0.40050992
+frame_progress = 0.85313386
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1724849185 groups=["enemies"]]
 light_mask = 6

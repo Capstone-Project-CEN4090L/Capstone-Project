@@ -667,7 +667,7 @@ scale = Vector2(1.194435, 1.194435)
 position = Vector2(11, 6)
 scale = Vector2(3.0389552, 3.0389552)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 10
 
 [node name="attack" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/sword" unique_id=445726107]
 position = Vector2(54.788567, -2.581728)
@@ -678,7 +678,7 @@ disabled = true
 position = Vector2(11, 6)
 scale = Vector2(3.0389552, 3.0389552)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 10
 
 [node name="attack" type="CollisionShape2D" parent="AgentAnimator/AnimatedSprite2D/airsword" unique_id=396275749]
 position = Vector2(-4.2777863, -1.3162419)

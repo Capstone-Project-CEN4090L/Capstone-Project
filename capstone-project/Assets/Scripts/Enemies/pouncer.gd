@@ -64,7 +64,7 @@ func _physics_process(delta):
 	
 func _idle_state():
 	velocity.x = 0
-	# sprite.play("idle")
+	sprite.play("pouncer")
 	if player == null:
 		return
 		
@@ -88,7 +88,7 @@ func start_windup():
 	face_direction(sign(pounce_target.x - global_position.x))
 	
 	# TO DO: change "idle" to "windup" once a crouch/windup animation exists
-	# sprite.play("idle")
+	sprite.play("pouncer_wind")
 	
 func _windup_state(delta):
 	velocity.x = 0
@@ -109,7 +109,7 @@ func launch_pounce():
 	attack_collision.set_deferred("disabled", false)
 	
 	# TO DO: change "idle" to "pounce" once a pouncing animation exists
-	# sprite.play("idle")
+	sprite.play("pouncer_lunge")
 	
 # after landing, move to recover state
 func _pounce_state():
@@ -123,7 +123,7 @@ func _pounce_state():
 # after recovery, move back to initial idle state
 func _recover_state(delta):
 	velocity.x = 0
-	# sprite.play("idle")
+	sprite.play("pouncer")
 	state_timer -= delta
 	if state_timer <= 0.0:
 		state = State.IDLE
