@@ -6,7 +6,7 @@
  
 **Group Metroidvania**
  
-Version 1.0
+Version 2.0
  
 **Authors**:
  
@@ -37,13 +37,13 @@ We are developing this project entirely within the Godot game engine. There are 
 
 3. Execution-based Functional Testing
 
-We have not begun testing for FR 1 yet as we haven't yet moved on to the level design phase of this project and only just recently began to finalize the upgrade path for the player. FR 2 is tested by running the project's main scene in Godot after any changes, tweaks, or additions are made to the player character's moveset. In the main scene we have a designated testing area in which we can freely move the player character around, jump between platforms, and interact with enemies to test any changes. Perfecting the character movement has been the biggest focus of this first increment.
+We have not begun proper testing for FR 1 yet as level design and full implementation of upgrades is not yet complete and therefore not really testable, although great care is being taken in designing our game's map to support interconnectivity and satisfying progression. FR 2 is tested by running the project's main scene in Godot after any changes, tweaks, or additions are made to the player character's moveset. In the main scene we have a designated testing area in which we can freely move the player character around, jump between platforms, and interact with enemies to test any changes.
 
 ---
 
 4. Execution-based Non-Functional Testing
 
-As mentioned in the previous section, we use Godot's built in "run scene" feature to test things like movement feel and controls frequently as changes are made. For maintainability and organization, each team member works on their own branch on GitHub, and we have gotten into the habit of making new scenes when building new elements or features (e.g. developing a new enemy) to test individually in Godot. This reduces chances of merge conflicts occurring and will allow us to easily incorporate the most important changes into the main scene later.
+As mentioned in the previous section, we use Godot's built in "run scene" feature to test things like movement feel and controls frequently as changes are made, as well as testing level playability and readability as levels/areas are being built. For maintainability and organization, each team member works on their own branch on GitHub, and we have gotten into the habit of making new scenes when building new elements or features (e.g. developing a new enemy) to test individually in Godot. This reduces chances of merge conflicts occurring and will allow us to easily incorporate the most important changes into the main scene later.
 
 ---
 
