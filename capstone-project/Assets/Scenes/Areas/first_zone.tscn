@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://70jcabwr0gh2" path="res://Assets/Scenes/Misc/player.tscn" id="2_n6e0r"]
 [ext_resource type="Script" uid="uid://b87wa11xxqjma" path="res://Assets/Scripts/Enemies/bulky.gd" id="4_8enyv"]
 [ext_resource type="PackedScene" uid="uid://cnpj10xpkvye6" path="res://Assets/Scenes/Misc/sans.tscn" id="5_aap4o"]
-[ext_resource type="Script" uid="uid://dsh43leat35c2" path="res://Assets/Scripts/Enemies/fast.gd" id="5_ktmim"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8enyv"]
 font_size = 67
@@ -155,13 +154,9 @@ collision_mask = 0
 script = ExtResource("4_8enyv")
 max_health = 50
 move_speed = 100.0
-detection_range = 300.0
 attack_range = 60.0
 attack_damage = 1
 attack_cooldown = 1.0
-vertical_detection_range = 80.0
-knockback_strength = 170.0
-knockback_time = 0.2
 
 [node name="AttackArea" type="Area2D" parent="bulky" unique_id=1987452253]
 position = Vector2(-40, 4)
@@ -179,6 +174,7 @@ position = Vector2(-213, -69)
 scale = Vector2(2.6489213, 2.6489213)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -191,6 +187,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast" unique_id=884871281]
 collision_layer = 0
@@ -229,6 +227,7 @@ position = Vector2(830, 65)
 scale = Vector2(4.043782, 4.043782)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -241,6 +240,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast2" unique_id=32982760]
 collision_layer = 0
@@ -255,6 +256,7 @@ position = Vector2(1047, -97)
 scale = Vector2(3.4878879, 3.4878879)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -267,6 +269,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast3" unique_id=823614008]
 collision_layer = 0
@@ -281,6 +285,7 @@ position = Vector2(1201, -298)
 scale = Vector2(3.4878879, 3.4878879)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -293,6 +298,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast4" unique_id=1085588146]
 collision_layer = 0
@@ -307,6 +314,7 @@ position = Vector2(1330, -534)
 scale = Vector2(3.4878879, 3.4878879)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -319,6 +327,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast5" unique_id=1429551335]
 collision_layer = 0
@@ -333,6 +343,7 @@ position = Vector2(1946.0001, -67)
 scale = Vector2(3.4878879, 3.4878879)
 collision_layer = 8
 collision_mask = 0
+<<<<<<< Updated upstream
 script = ExtResource("5_ktmim")
 max_health = 40
 move_speed = 180.0
@@ -345,6 +356,8 @@ knockback_strength = 170.0
 knockback_time = 0.2
 lunge_speed = 500.0
 lunge_time = 0.12
+=======
+>>>>>>> Stashed changes
 
 [node name="AttackArea" type="Area2D" parent="fast6" unique_id=1917113241]
 collision_layer = 0
