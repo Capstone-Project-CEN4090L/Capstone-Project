@@ -5,7 +5,7 @@ var health: int
 
 @export var move_speed: float = 120.0
 @export var patrol_distance: float = 200.0
-@export var contact_damage: int = 10
+@export var contact_damage: int = 1
 @export var damage_cooldown: float = 0.75
 
 var start_position: Vector2
