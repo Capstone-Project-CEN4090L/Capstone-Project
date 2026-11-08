@@ -170,11 +170,11 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_s0e6e")
 sources/1 = SubResource("TileSetAtlasSource_o2uft")
 sources/0 = SubResource("TileSetAtlasSource_7w074")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0nmim"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_faq0p"]
 scenes/1/scene = ExtResource("11_u7ok7")
 
-[sub_resource type="TileSet" id="TileSet_4yx0e"]
-sources/0 = SubResource("TileSetScenesCollectionSource_0nmim")
+[sub_resource type="TileSet" id="TileSet_p3skf"]
+sources/0 = SubResource("TileSetScenesCollectionSource_faq0p")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5jqy6"]
 scenes/1/scene = ExtResource("12_e61bt")
@@ -188,7 +188,11 @@ sources/0 = SubResource("TileSetScenesCollectionSource_5jqy6")
 
 [node name="DashPickup" parent="." unique_id=184186932 instance=ExtResource("2_p3skf")]
 
-[node name="Player" parent="." unique_id=1833664872 instance=ExtResource("3_21qyq")]
+[node name="Player" parent="." unique_id=1833664872 groups=["player"] instance=ExtResource("3_21qyq")]
+z_index = 3
+position = Vector2(-314.90845, -1811.8721)
+collision_layer = 5
+collision_mask = 1
 
 [node name="Background" type="Node2D" parent="." unique_id=1015913106]
 visible = false
@@ -252,9 +256,9 @@ position = Vector2(7.105426e-14, 1.4210852e-13)
 scale = Vector2(0.9999998, 0.9999998)
 tile_set = SubResource("TileSet_rmg0m")
 
-[node name="Spikes" type="TileMapLayer" parent="tile1_main" unique_id=1559817505]
+[node name="Spikes" type="TileMapLayer" parent="tile1_main" unique_id=1694066989]
 scale = Vector2(0.99999994, 0.99999994)
-tile_set = SubResource("TileSet_4yx0e")
+tile_set = SubResource("TileSet_p3skf")
 
 [node name="Mushrooms" type="TileMapLayer" parent="tile1_main" unique_id=52682380]
 tile_set = SubResource("TileSet_yhedt")

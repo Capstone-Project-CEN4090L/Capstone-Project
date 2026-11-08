@@ -173,11 +173,11 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_hdpfn")
 sources/1 = SubResource("TileSetAtlasSource_tur8w")
 sources/0 = SubResource("TileSetAtlasSource_65e5b")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_pg1wi"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_hdpfn"]
 scenes/1/scene = ExtResource("11_tur8w")
 
 [sub_resource type="TileSet" id="TileSet_bt8tb"]
-sources/0 = SubResource("TileSetScenesCollectionSource_pg1wi")
+sources/0 = SubResource("TileSetScenesCollectionSource_hdpfn")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_xng33"]
 scenes/1/scene = ExtResource("12_pg1wi")
@@ -266,7 +266,7 @@ tile_map_data = PackedByteArray("AAAAAAMAAAADAAAAAAABAAMAAAADAAAAAAACAAMAAAADAAA
 tile_set = SubResource("TileSet_qsryv")
 
 [node name="Spikes" type="TileMapLayer" parent="tile1_main" unique_id=1258249376]
-tile_map_data = PackedByteArray("AAA+AHP/AAAAAAAAAVDx/3P/AAAAAAAAAWA=")
+tile_map_data = PackedByteArray("AADx/3P/AAAAAAAAAWA+AHP/AAAAAAAAAVA=")
 tile_set = SubResource("TileSet_bt8tb")
 
 [node name="Mushrooms" type="TileMapLayer" parent="tile1_main" unique_id=1195483775]
@@ -295,8 +295,8 @@ collision_layer = 0
 shape = SubResource("RectangleShape2D_shmgr")
 
 [connection signal="body_entered" from="tile1_main/Spikes/spike" to="tile1_main/Spikes/spike" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@54363" to="tile1_main/Spikes/@Area2D@54363" method="_on_body_entered"]
+[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@164414" to="tile1_main/Spikes/@Area2D@164414" method="_on_body_entered"]
 [connection signal="body_entered" from="tile1_main/Mushrooms/mushroom" to="tile1_main/Mushrooms/mushroom" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Mushrooms/@Area2D@54364" to="tile1_main/Mushrooms/@Area2D@54364" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Mushrooms/@Area2D@54365" to="tile1_main/Mushrooms/@Area2D@54365" method="_on_body_entered"]
+[connection signal="body_entered" from="tile1_main/Mushrooms/@Area2D@163984" to="tile1_main/Mushrooms/@Area2D@163984" method="_on_body_entered"]
+[connection signal="body_entered" from="tile1_main/Mushrooms/@Area2D@163985" to="tile1_main/Mushrooms/@Area2D@163985" method="_on_body_entered"]
 [connection signal="body_entered" from="FlyingEnemy/AttackArea" to="FlyingEnemy" method="_on_attack_area_body_entered"]
