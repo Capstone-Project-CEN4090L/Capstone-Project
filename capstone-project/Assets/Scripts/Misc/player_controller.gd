@@ -16,7 +16,7 @@ var being_knocked_back = false
 var knockback_direction = 0
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
-@export var max_health: int = 100
+@export var max_health: int
 var health: int
 var is_attacking = false
 @export var normal_knockback: float = 150.0
@@ -51,15 +51,15 @@ var deadsfx = preload("res://Assets/Sounds/fart.mp3")
 @onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
 @onready var coyote_time: Timer = $CoyoteTime
 @onready var sprite: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
-#@onready var health_bar = get_node("../CanvasLayer/HealthBar")
+
+signal health_changed(current: int, maximum: int)
 
 func _ready() -> void:
-	health = max_health
+	health = int(SaveManager.get_player_value("health", 5))
+	max_health = int(SaveManager.get_player_value("max_health", 5))
+	health_changed.connect(UILayer.UI_root.update_health)
+	health_changed.emit(health, max_health)
 	gravity_multiplier = normal_gravity_multiplier
-	#health_bar.max_value = max_health
-	#health_bar.value = health
-	UILayer.set_health_max(max_health)
-	UILayer.update_health(health)
 	
 func _physics_process(delta: float) -> void:
 	
@@ -89,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Attack
 	if Input.is_action_just_pressed("attack"):
-		if not is_on_floor() and can_airattack and !is_airattacking and Globals.air_attack_unlocked:
+		if not is_on_floor() and can_airattack and !is_airattacking and SaveManager.get_player_value("has_air_attack"):
 			is_attacking = false
 			can_airattack = false
 			is_airattacking = true
@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 				#velocity.x = SPEED
 				
 		# Aerial boost, refreshes upon landing
-	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and Globals.dash_unlocked:
+	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and SaveManager.get_player_value("has_dash"):
 		if is_airattacking:
 			is_airattacking = false
 			tag_sword.stop()
@@ -213,18 +213,18 @@ func _physics_process(delta: float) -> void:
 				
 		# FOR TESTING EXCLUSIVELY! Should not remain in final build!
 		if Input.is_action_just_pressed("debug_unlock_dash"):
-			if Globals.dash_unlocked:
-				Globals.dash_unlocked = false
+			if SaveManager.get_player_value("has_dash"):
+				SaveManager.set_player_value("has_dash", false)
 				print("Dash disabled")
 			else:
-				Globals.dash_unlocked = true
+				SaveManager.set_player_value("has_dash", true)
 				print("Dash enabled")
 		if Input.is_action_just_pressed("debug_unlock_air_attack"):
-			if Globals.air_attack_unlocked:
-				Globals.air_attack_unlocked = false
+			if SaveManager.get_player_value("has_air_attack"):
+				SaveManager.set_player_value("has_air_attack", false)
 				print("Air Attack disabled")
 			else:
-				Globals.air_attack_unlocked = true
+				SaveManager.set_player_value("has_air_attack", true)
 				print("Air Attack enabled")
 	move_and_slide()
 	
@@ -326,29 +326,33 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		else:
 			tag.play("doublejump")
 
-func take_damage(amount: int, hitdirection: int = 0):
-	if !dead and !invincible:
-		invincible = true
-		health -= amount
-		health = max(health, 0)
-		UILayer.update_health(health)
-		print("Player Health: ", health)
-		sprite.modulate = Color(1,0,0)
-		var tween = create_tween()
-		tween.tween_property(sprite, "modulate", Color(1,1,1), 0.2)
-		
-		if health <= 0:
-			die()
-			invincible = false
-		else:
-			knockback_direction = hitdirection
-			being_knocked_back = true
-			await get_tree().create_timer(0.1).timeout
-			being_knocked_back = false
-			#health_bar.value = health
-			await get_tree().create_timer(1.0).timeout
-			invincible = false
+func set_health(value: int) -> void:
+	health = clamp(value, 0, max_health)
+	SaveManager.set_player_value("health", health)
+	health_changed.emit(health, max_health)
 
+func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
+	if dead or invincible:
+		return
+
+	invincible = true
+	set_health(health - amount)
+	print("Player Health: ", health)
+
+	sprite.modulate = Color(1, 0, 0)
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", Color(1, 1, 1), 0.2)
+
+	if health <= 0:
+		die()
+		invincible = false
+	else:
+		knockback_direction = hitdirection
+		being_knocked_back = true
+		await get_tree().create_timer(0.1).timeout
+		being_knocked_back = false
+		await get_tree().create_timer(1.0).timeout
+		invincible = false
 
 		
 func unlock_knockback_upgrade():
@@ -364,11 +368,8 @@ func toggle_knockback_upgrade():
 		else:
 			print("Extra knockback OFF")
 
-func heal(amount: int):
-	health += amount
-	health = min(health, max_health)
-	#health_bar.value = health
-	UILayer.update_health(health)
+func heal(amount: int) -> void:
+	set_health(health + amount)
 	print("Player Health: ", health)
 
 func die():
@@ -383,10 +384,10 @@ func die():
 	$sfx.play()
 	await get_tree().create_timer(2.0).timeout
 	position = Vector2(-62, -16)
+	set_health(max_health)
 	dead = false
 	$CollisionShape2D.disabled = false
 	set_physics_process(true)
-	health = 100
 	
 func get_pickup():
 	
@@ -437,8 +438,8 @@ func _on_airsword_area_entered(area: Node2D) -> void:
 @warning_ignore("unused_parameter")
 func _unhandled_input(event: InputEvent) ->void:
 	if Input.is_action_just_pressed("reset"):
-		Globals.air_attack_unlocked = false
-		Globals.dash_unlocked = false
+		SaveManager.set_player_value("has_air_attack", false)
+		SaveManager.set_player_value("has_dash", false)
 		get_tree().reload_current_scene()
 
 

@@ -198,7 +198,7 @@ position = Vector2(-60, 432)
 
 [node name="Player" parent="." unique_id=1833664872 groups=["player"] instance=ExtResource("3_kj6ey")]
 z_index = 3
-position = Vector2(-50, -18)
+position = Vector2(-294, -1081)
 collision_layer = 5
 collision_mask = 1
 
@@ -299,41 +299,4 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlyingEnemy/AttackArea" unique_id=485374207]
 shape = SubResource("RectangleShape2D_shmgr")
 
-[connection signal="body_entered" from="tile1_main/Spikes/spike" to="tile1_main/Spikes/spike" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57589" to="tile1_main/Spikes/@Area2D@57589" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57590" to="tile1_main/Spikes/@Area2D@57590" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57591" to="tile1_main/Spikes/@Area2D@57591" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57592" to="tile1_main/Spikes/@Area2D@57592" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57593" to="tile1_main/Spikes/@Area2D@57593" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57594" to="tile1_main/Spikes/@Area2D@57594" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57595" to="tile1_main/Spikes/@Area2D@57595" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57596" to="tile1_main/Spikes/@Area2D@57596" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57597" to="tile1_main/Spikes/@Area2D@57597" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57598" to="tile1_main/Spikes/@Area2D@57598" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57599" to="tile1_main/Spikes/@Area2D@57599" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57600" to="tile1_main/Spikes/@Area2D@57600" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57601" to="tile1_main/Spikes/@Area2D@57601" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57602" to="tile1_main/Spikes/@Area2D@57602" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57603" to="tile1_main/Spikes/@Area2D@57603" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57604" to="tile1_main/Spikes/@Area2D@57604" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57605" to="tile1_main/Spikes/@Area2D@57605" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57606" to="tile1_main/Spikes/@Area2D@57606" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57607" to="tile1_main/Spikes/@Area2D@57607" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57608" to="tile1_main/Spikes/@Area2D@57608" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57609" to="tile1_main/Spikes/@Area2D@57609" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57610" to="tile1_main/Spikes/@Area2D@57610" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57611" to="tile1_main/Spikes/@Area2D@57611" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57612" to="tile1_main/Spikes/@Area2D@57612" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57613" to="tile1_main/Spikes/@Area2D@57613" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57614" to="tile1_main/Spikes/@Area2D@57614" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57615" to="tile1_main/Spikes/@Area2D@57615" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57616" to="tile1_main/Spikes/@Area2D@57616" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57617" to="tile1_main/Spikes/@Area2D@57617" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57618" to="tile1_main/Spikes/@Area2D@57618" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57619" to="tile1_main/Spikes/@Area2D@57619" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57620" to="tile1_main/Spikes/@Area2D@57620" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57621" to="tile1_main/Spikes/@Area2D@57621" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57622" to="tile1_main/Spikes/@Area2D@57622" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57623" to="tile1_main/Spikes/@Area2D@57623" method="_on_body_entered"]
-[connection signal="body_entered" from="tile1_main/Spikes/@Area2D@57624" to="tile1_main/Spikes/@Area2D@57624" method="_on_body_entered"]
 [connection signal="body_entered" from="FlyingEnemy/AttackArea" to="FlyingEnemy" method="_on_attack_area_body_entered"]
