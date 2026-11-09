@@ -130,7 +130,7 @@ func _physics_process(delta: float) -> void:
 		can_airattack = false
 	
 	# Called when player falls off map, respawns at a set location
-	if (position.y >= 512):
+	if (position.y >= 1000):
 		#velocity = Vector2.ZERO
 		#$fall.stream = fallsfx
 		#$fall.play()
