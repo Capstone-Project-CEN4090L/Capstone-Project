@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://smkqub71176o"]
 
-[ext_resource type="Script" uid="uid://cr3a0n1o1re4g" path="res://low_gravity_pickup.gd" id="1_htugt"]
+[ext_resource type="Script" uid="uid://cr3a0n1o1re4g" path="res://Assets/Scripts/Powerups/low_gravity_pickup.gd" id="1_htugt"]
 [ext_resource type="Texture2D" uid="uid://dgh4ns25ve8ha" path="res://icon.svg" id="2_g2vdq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1iifl"]

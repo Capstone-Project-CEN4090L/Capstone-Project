@@ -182,7 +182,7 @@ func _physics_process(delta: float) -> void:
 
 		# Double jump function
 		# IMPORTANT: Order before jump so it doesn't trigger during the same jump input
-		if Input.is_action_just_pressed("up") and !can_jump and can_doublejump:
+		if Input.is_action_just_pressed("up") and !can_jump and SaveManager.get_player_value("has_double_jump") and can_doublejump:
 				$sfx.stream = dubjumpsfx
 				$sfx.play()
 				can_doublejump = false
@@ -226,6 +226,13 @@ func _physics_process(delta: float) -> void:
 			else:
 				SaveManager.set_player_value("has_air_attack", true)
 				print("Air Attack enabled")
+		if Input.is_action_just_pressed("debug_unlock_double_jump"):
+			if SaveManager.get_player_value("has_double_jump"):
+				SaveManager.set_player_value("has_double_jump", false)
+				print("Double Jump disabled")
+			else:
+				SaveManager.set_player_value("has_double_jump", true)
+				print("Double Jump enabled")
 	move_and_slide()
 	
 	if is_on_floor() and is_airattacking:
