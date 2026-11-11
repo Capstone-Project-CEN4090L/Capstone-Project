@@ -50,7 +50,7 @@ func damage_player(player):
 	else:
 		player.take_damage(contact_damage, -1)
 	
-	print("Flying enemy damaged player")
+	print("Boss damaged player")
 	
 	await get_tree().create_timer(damage_cooldown).timeout
 	

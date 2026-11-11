@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://8smeegy5uyit"]
 
-[ext_resource type="Script" uid="uid://crrtm5guecq3q" path="res://Assets/Scenes/Enemies/boss.gd" id="1_2f6fd"]
+[ext_resource type="Script" uid="uid://crrtm5guecq3q" path="res://Assets/Scripts/Enemies/boss.gd" id="1_2f6fd"]
 [ext_resource type="Texture2D" uid="uid://o4unxw8xh22k" path="res://Assets/Sprites/tag/placeholder_boss.png" id="1_6rgrk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_biyew"]
