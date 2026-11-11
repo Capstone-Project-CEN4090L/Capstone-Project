@@ -12,6 +12,7 @@ var dashing = false
 var dead = false
 var invincible = false
 var being_knocked_back = false
+var being_SUPER_knocked_back = false
 var knockback_direction = 0
 var invincibility_timer = 1.0
 var flash_timer = 0.05
@@ -79,11 +80,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 800 * knockback_direction
 		if !is_on_floor():
 			velocity.y = -400
+	
+	if being_SUPER_knocked_back:
+		velocity.x = 2000 * knockback_direction
+		velocity.y = -600
 			
 	# Movement
-	if !being_knocked_back and !dead and direction and skele.animation != "boost":
+	if !being_SUPER_knocked_back and !being_knocked_back and !dead and direction and skele.animation != "boost":
 		velocity.x = direction * walk_speed
-	elif !being_knocked_back and skele.animation != "boost":
+	elif !being_SUPER_knocked_back and !being_knocked_back and skele.animation != "boost":
 		velocity.x = 0
 	
 	# Attack
@@ -336,7 +341,7 @@ func set_health(value: int) -> void:
 	SaveManager.set_player_value("health", health)
 	health_changed.emit(health, max_health)
 
-func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
+func take_damage(amount: int = 1, hitdirection: int = 0, bosshit: bool = false) -> void:
 	if dead or invincible:
 		return
 
@@ -353,9 +358,16 @@ func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
 		invincible = false
 	else:
 		knockback_direction = hitdirection
-		being_knocked_back = true
-		await get_tree().create_timer(0.1).timeout
-		being_knocked_back = false
+		if bosshit:
+			being_SUPER_knocked_back = true
+			await get_tree().create_timer(0.3).timeout
+		else:
+			being_knocked_back = true
+			await get_tree().create_timer(0.1).timeout
+		if bosshit:
+			being_SUPER_knocked_back = false
+		else:
+			being_knocked_back = false
 		await flash()
 		invincible = false
 
@@ -378,6 +390,9 @@ func heal(amount: int) -> void:
 	print("Player Health: ", health)
 
 func die():
+	skele_sword.stop()
+	skele_hitbox.position = Vector2(-1, 9.758)
+	skele_hitbox.shape.size = Vector2(14.679, 28.463)
 	print("Player died")
 	dead = true
 	$CollisionShape2D.disabled = true

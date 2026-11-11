@@ -46,9 +46,9 @@ func damage_player(player):
 	
 	can_damage = false
 	if animated_sprite.flip_h:
-		player.take_damage(contact_damage, 1)
+		player.take_damage(contact_damage, 1, true)
 	else:
-		player.take_damage(contact_damage, -1)
+		player.take_damage(contact_damage, -1, true)
 	
 	print("Boss damaged player")
 	

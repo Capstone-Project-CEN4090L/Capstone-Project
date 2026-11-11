@@ -648,11 +648,6 @@ size = Vector2(55.282158, 53.965916)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_sgob1")
-max_health = null
-normal_knockback = null
-upgraded_knockback = null
-normal_gravity_multiplier = null
-low_gravity_multiplier = null
 
 [node name="bgmusic" type="AudioStreamPlayer2D" parent="." unique_id=130236485]
 volume_db = -5.0
