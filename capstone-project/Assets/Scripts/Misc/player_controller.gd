@@ -13,6 +13,8 @@ var dead = false
 var invincible = false
 var being_knocked_back = false
 var knockback_direction = 0
+var invincibility_timer = 1.0
+var flash_timer = 0.05
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
 @export var max_health: int
@@ -63,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("toggle_knockback"):
 		toggle_knockback_upgrade()
-	
+
 	if (is_on_floor() == false) and can_jump and coyote_time.is_stopped():
 		coyote_time.start()
 	
@@ -354,7 +356,7 @@ func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
 		being_knocked_back = true
 		await get_tree().create_timer(0.1).timeout
 		being_knocked_back = false
-		await get_tree().create_timer(1.0).timeout
+		await flash()
 		invincible = false
 
 		
@@ -392,6 +394,14 @@ func die():
 	$CollisionShape2D.disabled = false
 	set_physics_process(true)
 	
+func flash() -> void:
+	var timer = 0.0
+	while timer < invincibility_timer:
+		skele.visible = !skele.visible
+		await get_tree().create_timer(flash_timer).timeout
+		timer += flash_timer
+	skele.visible = true
+
 func get_pickup():
 	
 	pass
