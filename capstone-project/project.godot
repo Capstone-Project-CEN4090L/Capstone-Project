@@ -27,6 +27,11 @@ UILayer="*uid://briglalxdwfyp"
 Globals="*uid://dggp0gei55fm3"
 SaveManager="*uid://duxcfpkb6bu5s"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [input]
 
 up={
