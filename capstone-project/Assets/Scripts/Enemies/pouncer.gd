@@ -20,7 +20,7 @@ var health: int
 @export var recover_time: float = 1.0
 @export var pounce_jump_velocity: float = 350.0
 @export var max_pounce_speed: float = 400.0
-@export var attack_damage: int = 2
+@export var attack_damage: int = 20
 
 @export var knockback_strength: float = 170.0
 @export var knockback_time: float = 0.2

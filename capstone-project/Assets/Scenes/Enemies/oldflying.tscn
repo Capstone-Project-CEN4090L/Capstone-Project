@@ -17,7 +17,7 @@ script = ExtResource("2_lqenl")
 max_health = 30
 move_speed = 120.0
 patrol_distance = 200.0
-contact_damage = 1
+contact_damage = 10
 damage_cooldown = 0.75
 
 [node name="AttackArea" type="Area2D" parent="FlyingEnemy" unique_id=840245305]
