@@ -14,31 +14,38 @@ var right_point: float = 1110.0
 var direction: int = 1
 var can_damage: bool = true
 var grounded_dash_speed: float = 1400.0
-var roll = 1
+var roll = randi_range(1, 2)
+var attack_cooldown: float = 2.0
 var dashes_remaining: int = 0
+var jump_velocity: int = -400
+var dash_speed: int = 2000
+var dashing = false
 
 var jumpsfx = preload("res://Assets/Sounds/bossjump.mp3")
 var dashsfx = preload("res://Assets/Sounds/bossdash.mp3")
 
 @onready var attack_area: Area2D = $AttackArea
+@onready var dash_attack: CollisionShape2D = $AttackArea/dash_attack
+@onready var air_dash_attack: CollisionShape2D = $AttackArea/air_dash_attack
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	health = max_health
 	start_position = global_position
 	animated_sprite.play("default")
-	animated_sprite.flip_h = true
+	animated_sprite.flip_h = false
 
 
 func _physics_process(delta):
 	if roll == 1:
 		dash(randi_range(1, 4))
-		roll = roll + 1
+		roll = 0
 	elif roll == 2:
-		pass
+		jump()
+		roll = 0
 
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if not is_on_floor() and not dashing:
+		velocity += get_gravity() * delta * 0.7
 		
 	if dashes_remaining > 0:
 		velocity.x = direction * grounded_dash_speed
@@ -79,6 +86,7 @@ func take_damage(
 		die()
 
 func dash(dashcount: int):
+	dash_attack.disabled = false
 	dashes_remaining = dashcount
 	direction = -1
 	animated_sprite.flip_h = false
@@ -92,13 +100,35 @@ func update_dash_state() -> void:
 	dashes_remaining -= 1
 	
 	if dashes_remaining == 0:
+		dash_attack.disabled = true
 		velocity.x = 0.0
 		animated_sprite.flip_h = !animated_sprite.flip_h
-		print("All Done :D")
+		print("Done Dashing")
+		await get_tree().create_timer(attack_cooldown).timeout
+		roll = randi_range(1, 2)
 		return
 	
 	direction *= -1
 	animated_sprite.flip_h = direction > 0
+
+func jump() -> void:
+	velocity.y = jump_velocity
+	var target_x: float = left_point if direction < 0 else right_point
+	var dir = 1 if animated_sprite.flip_h else -1
+	await get_tree().create_timer(0.5).timeout
+	air_dash_attack.disabled = false
+	dashing = true
+	velocity.y = 0
+	velocity.x = dash_speed * dir
+	await get_tree().create_timer(0.85).timeout
+	air_dash_attack.disabled = true
+	animated_sprite.flip_h = !animated_sprite.flip_h
+	velocity.x = 0
+	dashing = false
+	await get_tree().create_timer(attack_cooldown).timeout
+	print("Done Air Attacking")
+	roll = randi_range(1, 2)
+	
 
 func die():
 	queue_free()
