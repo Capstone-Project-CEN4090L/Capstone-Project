@@ -13,7 +13,10 @@ var is_getup = false
 var dead = false
 var invincible = false
 var being_knocked_back = false
+var being_SUPER_knocked_back = false
 var knockback_direction = 0
+var invincibility_timer = 1.0
+var flash_timer = 0.05
 const SPEED = 350.0
 const JUMP_VELOCITY = -490.0
 @export var max_health: int
@@ -65,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("toggle_knockback"):
 		toggle_knockback_upgrade()
-	
+
 	if (is_on_floor() == false) and can_jump and coyote_time.is_stopped():
 		coyote_time.start()
 	
@@ -79,11 +82,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 800 * knockback_direction
 		if !is_on_floor():
 			velocity.y = -400
+	
+	if being_SUPER_knocked_back:
+		velocity.x = 2000 * knockback_direction
+		velocity.y = -600
 			
 	# Movement
-	if !being_knocked_back and !dead and direction and tag.animation != "boost":
+	if !being_SUPER_knocked_back and !being_knocked_back and !dead and direction and skele.animation != "boost":
 		velocity.x = direction * walk_speed
-	elif !being_knocked_back and tag.animation != "boost":
+	elif !being_SUPER_knocked_back and !being_knocked_back and skele.animation != "boost":
 		velocity.x = 0
 	
 	
@@ -331,7 +338,7 @@ func set_health(value: int) -> void:
 	SaveManager.set_player_value("health", health)
 	health_changed.emit(health, max_health)
 
-func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
+func take_damage(amount: int = 1, hitdirection: int = 0, bosshit: bool = false) -> void:
 	if dead or invincible:
 		return
 
@@ -348,10 +355,17 @@ func take_damage(amount: int = 1, hitdirection: int = 0) -> void:
 		invincible = false
 	else:
 		knockback_direction = hitdirection
-		being_knocked_back = true
-		await get_tree().create_timer(0.1).timeout
-		being_knocked_back = false
-		await get_tree().create_timer(1.0).timeout
+		if bosshit:
+			being_SUPER_knocked_back = true
+			await get_tree().create_timer(0.3).timeout
+		else:
+			being_knocked_back = true
+			await get_tree().create_timer(0.1).timeout
+		if bosshit:
+			being_SUPER_knocked_back = false
+		else:
+			being_knocked_back = false
+		await flash()
 		invincible = false
 
 		
@@ -373,6 +387,9 @@ func heal(amount: int) -> void:
 	print("Player Health: ", health)
 
 func die():
+	skele_sword.stop()
+	skele_hitbox.position = Vector2(-1, 9.758)
+	skele_hitbox.shape.size = Vector2(14.679, 28.463)
 	print("Player died")
 	dead = true
 	$CollisionShape2D.disabled = true
@@ -389,6 +406,14 @@ func die():
 	$CollisionShape2D.disabled = false
 	set_physics_process(true)
 	
+func flash() -> void:
+	var timer = 0.0
+	while timer < invincibility_timer:
+		skele.visible = !skele.visible
+		await get_tree().create_timer(flash_timer).timeout
+		timer += flash_timer
+	skele.visible = true
+
 func get_pickup():
 	
 	pass
