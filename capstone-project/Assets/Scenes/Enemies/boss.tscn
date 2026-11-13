@@ -54,4 +54,6 @@ scale = Vector2(0.9999995, 0.9999995)
 shape = SubResource("RectangleShape2D_kd4fp")
 disabled = true
 
+[node name="sfx" type="AudioStreamPlayer2D" parent="." unique_id=1669655400]
+
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

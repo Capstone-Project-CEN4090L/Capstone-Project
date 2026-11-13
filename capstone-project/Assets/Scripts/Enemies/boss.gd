@@ -86,6 +86,10 @@ func take_damage(
 		die()
 
 func dash(dashcount: int):
+	if animated_sprite.flip_h:
+		position.x = left_point
+	else:
+		position.x = right_point
 	dash_attack.disabled = false
 	dashes_remaining = dashcount
 	direction = -1
@@ -112,10 +116,14 @@ func update_dash_state() -> void:
 	animated_sprite.flip_h = direction > 0
 
 func jump() -> void:
+	$sfx.stream = jumpsfx
+	$sfx.play()
 	velocity.y = jump_velocity
 	var target_x: float = left_point if direction < 0 else right_point
 	var dir = 1 if animated_sprite.flip_h else -1
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.6).timeout
+	$sfx.stream = dashsfx
+	$sfx.play()
 	air_dash_attack.disabled = false
 	dashing = true
 	velocity.y = 0
@@ -125,8 +133,8 @@ func jump() -> void:
 	animated_sprite.flip_h = !animated_sprite.flip_h
 	velocity.x = 0
 	dashing = false
-	await get_tree().create_timer(attack_cooldown).timeout
 	print("Done Air Attacking")
+	await get_tree().create_timer(attack_cooldown).timeout
 	roll = randi_range(1, 2)
 	
 

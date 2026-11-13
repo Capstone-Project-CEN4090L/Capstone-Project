@@ -1,9 +1,10 @@
+TileMapLayer
+AudioStreamPlayer2D
 CollisionShape2D
 Area2D
 AnimatedSprite2D
 Sprite2D
 CharacterBody2D
-TileMapLayer
 Parallax2D
 TextureRect
 ParallaxBackground
@@ -11,4 +12,3 @@ Node2D
 Timer
 RayCast2D
 AnimationTree
-PanelContainer
