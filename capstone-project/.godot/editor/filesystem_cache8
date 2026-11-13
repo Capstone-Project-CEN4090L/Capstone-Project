@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1743037647
+icon.svg::CompressedTexture2D::4823006617694085648::1743030970::1743037648::1::::<><>::
+::res://Assets/::1743031085
+::res://Assets/Scenes/::1743037531
+player.tscn::PackedScene::2298202467359329913::1743037531::0::1::::<><>::res://Assets/Scripts/player_controller.gd<>uid://dgkxmr06dbvfn::::res://Assets/Sprites/player.png
+::res://Assets/Scenes/Areas/::1743037531
+first_zone.tscn::PackedScene::392401299363995234::1743037531::0::1::::<><>::uid://dbcd8lfcdug76::::res://Assets/Sprites/tilemap.png<>uid://70jcabwr0gh2::::res://Assets/Scenes/player.tscn
+::res://Assets/Scripts/::1743036246
+player_controller.gd::GDScript::-1::1743036246::0::1::::<>CharacterBody2D<>::
+::res://Assets/Sprites/::1743037528
+player.png::CompressedTexture2D::7602457743738216419::1743035968::1743037648::1::::<><>::
+tilemap.png::CompressedTexture2D::7233821317979163719::1743034823::1743037648::1::::<><>::

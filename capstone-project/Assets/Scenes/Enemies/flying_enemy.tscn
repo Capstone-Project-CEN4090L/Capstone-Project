@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://brdqgta56rt5o" path="res://Assets/Sprites/Skeleton/skeleton-6.png" id="8_83fim"]
 [ext_resource type="Texture2D" uid="uid://g8ljiesgyhb2" path="res://Assets/Sprites/Skeleton/skeleton-7.png" id="9_vqt7n"]
 [ext_resource type="Texture2D" uid="uid://54twbii8qj1r" path="res://Assets/Sprites/Skeleton/skeleton-8.png" id="10_lxyp0"]
-[ext_resource type="Texture2D" uid="uid://bqa445kqevuw1" path="res://Assets/Sprites/sans_ow/overworld_ded.png" id="11_bu4w3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtg11"]
 
@@ -69,26 +68,6 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_bu4w3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_bu4w3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_bu4w3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_bu4w3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_bu4w3")
-}],
-"loop": 0,
-"name": &"dies",
 "speed": 5.0
 }]
 

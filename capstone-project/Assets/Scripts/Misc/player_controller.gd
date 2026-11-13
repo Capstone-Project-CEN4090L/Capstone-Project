@@ -46,9 +46,10 @@ var boostsfx = preload("res://Assets/Sounds/boost.mp3")
 var getupsfx = preload("res://Assets/Sounds/getup.mp3")
 var deadsfx = preload("res://Assets/Sounds/fart.mp3")
 
-# Player character is temporarily named "tag"
-@onready var tag: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
-@onready var tag_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
+# Player character is temporarily named "skele"
+@onready var skele: AnimatedSprite2D = $AgentAnimator/AnimatedSprite2D
+@onready var skele_hitbox: CollisionShape2D = $CollisionShape2D
+@onready var skele_sword: AnimationPlayer = $AgentAnimator/AnimationPlayer
 @onready var muzzle: Marker2D = $AgentAnimator/AnimatedSprite2D/muzzle
 @onready var sword: Area2D = $AgentAnimator/AnimatedSprite2D/sword
 @onready var airsword: Area2D = $AgentAnimator/AnimatedSprite2D/airsword
@@ -75,7 +76,7 @@ func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 	# Add the gravity.
-	if not is_on_floor() and tag.animation != "boost":
+	if not is_on_floor() and skele.animation != "boost":
 		velocity += get_gravity() * delta * gravity_multiplier
 	
 	if being_knocked_back:
@@ -100,16 +101,16 @@ func _physics_process(delta: float) -> void:
 			is_attacking = false
 			can_airattack = false
 			is_airattacking = true
-			tag_sword.play("air_attack")
+			skele_sword.play("air_attack")
 			$sfx.stream = shootsfx
 			$sfx.play()
 		elif is_on_floor() and !is_airattacking and !is_attacking:
 			is_attacking = true
-			tag_sword.play("attack")
+			skele_sword.play("attack")
 			$sfx.stream = shootsfx
 			$sfx.play()
 		#while is_on_floor() and Input.is_action_pressed("run"):
-			#if tag.flip_h:
+			#if skele.flip_h:
 				#velocity.x = SPEED * -1
 			#else:
 				#velocity.x = SPEED
@@ -118,10 +119,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and dashing == false and can_dash and !is_on_floor() and SaveManager.get_player_value("has_dash"):
 		if is_airattacking:
 			is_airattacking = false
-			tag_sword.stop()
+			skele_sword.stop()
 		velocity.y = 0
-		var dir = -1 if tag.flip_h else 1
-		tag.play("boost")
+		var dir = -1 if skele.flip_h else 1
+		skele.play("boost")
 		$boost.stream = boostsfx
 		$boost.play()
 		can_dash = false
@@ -141,32 +142,32 @@ func _physics_process(delta: float) -> void:
 		#velocity = Vector2.ZERO
 		#$fall.stream = fallsfx
 		#$fall.play()
-		#tag.play("fall")
+		#skele.play("fall")
 		#position = Vector2(200, -700)
 		position = Vector2(-62, -78)
 
 		
 	# Player loses control when "fall"ing, so movement functions are disabled.
 	# Functions such as gravity continue to work (below).
-	if tag.animation == "fall" or tag.animation == "getup":
+	if skele.animation == "fall" or skele.animation == "getup":
 		if !is_on_floor():
 			pass
 		else:
-			if tag.animation == "fall":
+			if skele.animation == "fall":
 				set_process_input(false)
 				$sfx.stream = getupsfx
 				$sfx.play()
-				tag.play("getup")
+				skele.play("getup")
 				is_getup = true
 			pass
 	else:
 		if direction > 0:
-			tag.flip_h = false
+			skele.flip_h = false
 			muzzle.position.x = 18.0
 			muzzle.rotation_degrees = 0
 			sword.scale.x = 1
 		elif direction < 0:
-			tag.flip_h = true
+			skele.flip_h = true
 			muzzle.position.x = -18.0
 			muzzle.rotation_degrees = 180
 			sword.scale.x = -1
@@ -176,16 +177,16 @@ func _physics_process(delta: float) -> void:
 				
 				pass
 			elif direction == 0 and dead == false:
-				tag.play("idle")
+				skele.play("idle")
 			else:
-				tag.play("walk")
+				skele.play("walk")
 		else:
-			if tag.animation == "boost" or tag.animation == "doublejump" or is_airattacking:
+			if skele.animation == "boost" or skele.animation == "doublejump" or is_airattacking:
 				pass
 			elif can_doublejump == false:
-				tag.play("doublejump")
+				skele.play("doublejump")
 			else:
-				tag.play("jump")
+				skele.play("jump")
 
 		# Double jump function
 		# IMPORTANT: Order before jump so it doesn't trigger during the same jump input
@@ -193,14 +194,14 @@ func _physics_process(delta: float) -> void:
 				$sfx.stream = dubjumpsfx
 				$sfx.play()
 				can_doublejump = false
-				tag.play("doublejump")
+				skele.play("doublejump")
 				velocity.y = JUMP_VELOCITY * 1.02
 
 		# Handle jump.
 		if Input.is_action_just_pressed("up") and can_jump:
 			if is_attacking:
 				is_attacking = false
-				tag_sword.stop()
+				skele_sword.stop()
 
 			can_airattack = true
 			can_jump = false
@@ -208,7 +209,7 @@ func _physics_process(delta: float) -> void:
 			$sfx.play()
 			can_doublejump = true
 			velocity.y = JUMP_VELOCITY
-			tag.play("jump")
+			skele.play("jump")
 			
 		if dashing == false and !is_on_floor():
 			if Input.is_action_pressed("ui_left") and !dashing == true:
@@ -244,14 +245,14 @@ func _physics_process(delta: float) -> void:
 	#if !can_shoot:
 		#return
 	#
-	#if tag.animation != "newdj_1":
+	#if skele.animation != "newdj_1":
 		#if get_tree().get_node_count_in_group("bullets") > 3:
 			#pass
 		#else:
 			#can_shoot = false
 			#
 			## Sets muzzle direction before bullet is created
-			#if !tag.flip_h:
+			#if !skele.flip_h:
 				#muzzle.rotation_degrees = 0
 				#muzzle.position = Vector2(18, 1)
 			#else:
@@ -265,24 +266,24 @@ func _physics_process(delta: float) -> void:
 			#b.transform = muzzle.global_transform
 			#
 			## Sets bullet direction based on player direction
-			#if tag.flip_h:
+			#if skele.flip_h:
 				#b.direction = Vector2.LEFT
 			#else:
 				#b.direction = Vector2.RIGHT
 			#
 			#owner.add_child(b)
 			#
-			#if tag.animation != "newdj_2":
-				#if tag.animation == "jump" or tag.animation == "airshoot":
-					#tag.play("airshoot")
-				#elif tag.animation == "idle" or tag.animation == "shoot":
-					#tag.play("shoot")
-				#elif tag.animation == "doublejump" or tag.animation == "djshoot":
-					#tag.play("djshoot")
-				#elif tag.animation == "boost" or tag.animation == "boostshoot":
-					#tag.play("boostshoot")
+			#if skele.animation != "newdj_2":
+				#if skele.animation == "jump" or skele.animation == "airshoot":
+					#skele.play("airshoot")
+				#elif skele.animation == "idle" or skele.animation == "shoot":
+					#skele.play("shoot")
+				#elif skele.animation == "doublejump" or skele.animation == "djshoot":
+					#skele.play("djshoot")
+				#elif skele.animation == "boost" or skele.animation == "boostshoot":
+					#skele.play("boostshoot")
 				#else:
-					#tag.play("walkshoot")
+					#skele.play("walkshoot")
 			#
 			#await get_tree().create_timer(shoot_cooldown).timeout
 			#can_shoot = true
@@ -290,8 +291,8 @@ func _physics_process(delta: float) -> void:
 func cancel_air_attack() -> void:
 	is_airattacking = false
 	
-	if tag_sword.current_animation == "air_attack":
-		tag_sword.stop()
+	if skele_sword.current_animation == "air_attack":
+		skele_sword.stop()
 		
 	airsword.get_node("attack").set_deferred("disabled", true)
 
@@ -299,39 +300,39 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if !is_processing_input():
 		set_process_input(true)
 	if is_getup:
-		tag.play("idle")
+		skele.play("idle")
 		is_getup = false
-	if tag.animation == "shoot":
-		tag.play("idle")
-	if tag.animation == "roll":
-		tag.play("walk")
-	if tag.animation == "walkshoot":
-		tag.play("walk")
-	if tag.animation == "boostshoot":
-		tag.play("boost")
-	if tag.animation == "airshoot":
-		tag.play("jump")
-	if tag.animation == "djshoot":
-		tag.play("doublejump")
-	if tag.animation == "boost":
+	if skele.animation == "shoot":
+		skele.play("idle")
+	if skele.animation == "roll":
+		skele.play("walk")
+	if skele.animation == "walkshoot":
+		skele.play("walk")
+	if skele.animation == "boostshoot":
+		skele.play("boost")
+	if skele.animation == "airshoot":
+		skele.play("jump")
+	if skele.animation == "djshoot":
+		skele.play("doublejump")
+	if skele.animation == "boost":
 		if can_doublejump:
-			tag.play("jump")
+			skele.play("jump")
 		else:
-			tag.play("doublejump")
+			skele.play("doublejump")
 	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "attack":
 		is_attacking = false
-		tag.play("idle")
+		skele.play("idle")
 	if anim_name == "air_attack":
 		is_airattacking = false
 		if is_on_floor():
-			tag.play("idle")
+			skele.play("idle")
 		elif can_doublejump:
-			tag.play("jump")
+			skele.play("jump")
 		else:
-			tag.play("doublejump")
+			skele.play("doublejump")
 
 func set_health(value: int) -> void:
 	health = clamp(value, 0, max_health)
@@ -396,7 +397,7 @@ func die():
 	set_physics_process(false)
 	velocity.x = 0
 	velocity.y = 0
-	tag.play("dead")
+	skele.play("dead")
 	$sfx.stream = deadsfx
 	$sfx.play()
 	await get_tree().create_timer(2.0).timeout
@@ -423,7 +424,7 @@ func _on_sword_body_entered(body: Node2D) -> void:
 		if body.has_method("take_damage"):
 			var hit_direction = Vector2.RIGHT
 			
-			if tag.flip_h:
+			if skele.flip_h:
 				hit_direction = Vector2.LEFT
 			
 			var knockback_amount = normal_knockback
@@ -442,7 +443,7 @@ func _on_airsword_body_entered(body: Node2D):
 			can_doublejump = true
 			var hit_direction = Vector2.RIGHT
 			
-			if tag.flip_h:
+			if skele.flip_h:
 				hit_direction = Vector2.LEFT
 			
 			var knockback_amount = normal_knockback

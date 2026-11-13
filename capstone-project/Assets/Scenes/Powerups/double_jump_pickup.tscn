@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c66s285decul2"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Powerups/double_jump_pickup.gd" id="1_jupke"]
+[ext_resource type="Texture2D" uid="uid://dgh4ns25ve8ha" path="res://icon.svg" id="2_jd7ed"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
+size = Vector2(128, 128)
+
+[node name="DoubleJumpPickup" type="Area2D" unique_id=2034132801]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_jupke")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=582536560]
+texture = ExtResource("2_jd7ed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2111704003]
+shape = SubResource("RectangleShape2D_biyew")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

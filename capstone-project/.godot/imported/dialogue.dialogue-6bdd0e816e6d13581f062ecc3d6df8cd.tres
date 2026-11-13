@@ -1,0 +1,152 @@
+[gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://dbs4435dsf3ry" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_6q7e3"]
+
+[resource]
+script = ExtResource("1_6q7e3")
+using_states = PackedStringArray()
+titles = {
+"start": "1"
+}
+character_names = PackedStringArray("sans_default", "sans_amused", "sans_closed", "sans_pissed", "sans_wink", "sans_uncomfortable", "sans_horror", "sans_troubled")
+first_title = "0"
+lines = {
+"0": {
+&"id": "0",
+&"next_id": "1",
+&"type": "title"
+},
+"1": {
+&"character": "sans_default",
+&"id": "1",
+&"next_id": "2",
+&"text": "i got a question for ya.",
+&"type": "dialogue"
+},
+"10": {
+&"character": "sans_uncomfortable",
+&"id": "10",
+&"next_id": "11",
+&"text": "what's that expression for..?",
+&"type": "dialogue"
+},
+"11": {
+&"character": "sans_horror",
+&"id": "11",
+&"next_id": "12",
+&"text": "[speed=0.05]...",
+&"type": "dialogue"
+},
+"12": {
+&"character": "sans_pissed",
+&"id": "12",
+&"next_id": "15",
+&"text": "you really are a freak, aren't you?",
+&"type": "dialogue"
+},
+"13": {
+&"id": "13",
+&"next_id": "1",
+&"text": "Start again",
+&"type": "response"
+},
+"14": {
+&"id": "14",
+&"next_id": "end",
+&"text": "End the conversation",
+&"type": "response"
+},
+"15": {
+&"character": "sans_troubled",
+&"id": "15",
+&"next_id": "16",
+&"text": "see ya later, kid.",
+&"type": "dialogue"
+},
+"16": {
+&"id": "16",
+&"is_snippet": false,
+&"next_id": "end",
+&"next_id_after": "",
+&"type": "goto"
+},
+"17": {
+&"id": "17",
+&"is_snippet": false,
+&"next_id": "end",
+&"next_id_after": "",
+&"type": "goto"
+},
+"2": {
+&"character": "sans_amused",
+&"id": "2",
+&"next_id": "3",
+&"text": "do you think even the worst person can change?",
+&"type": "dialogue"
+},
+"3": {
+&"id": "3",
+&"next_id": "4",
+&"responses": PackedStringArray("3", "6", "9", "13", "14"),
+&"text": "yes",
+&"type": "response"
+},
+"4": {
+&"character": "sans_closed",
+&"id": "4",
+&"next_id": "5",
+&"text": "[speed=0.1]...",
+&"type": "dialogue"
+},
+"5": {
+&"character": "sans_pissed",
+&"id": "5",
+&"next_id": "15",
+&"text": "guess we'll find out. [wait=1] heh.",
+&"type": "dialogue"
+},
+"6": {
+&"id": "6",
+&"next_id": "7",
+&"text": "no",
+&"type": "response"
+},
+"7": {
+&"character": "sans_wink",
+&"id": "7",
+&"next_id": "8",
+&"text": "heh. no kiddin.",
+&"type": "dialogue"
+},
+"8": {
+&"character": "sans_pissed",
+&"id": "8",
+&"next_id": "15",
+&"text": "let's just get this over with.",
+&"type": "dialogue"
+},
+"9": {
+&"id": "9",
+&"next_id": "10",
+&"text": "...",
+&"type": "response"
+}
+}
+raw_text = "~ start
+sans_default: i got a question for ya.
+sans_amused: do you think even the worst person can change?
+- yes
+	sans_closed: [speed=0.1]...
+	sans_pissed: guess we'll find out. [wait=1] heh.
+- no
+	sans_wink: heh. no kiddin.
+	sans_pissed: let's just get this over with.
+- ...
+	sans_uncomfortable: what's that expression for..?
+	sans_horror: [speed=0.05]...
+	sans_pissed: you really are a freak, aren't you?
+- Start again => start
+- End the conversation => END
+sans_troubled: see ya later, kid.
+=> END"
+metadata/dialogue_manager_version = "3.6.1"
